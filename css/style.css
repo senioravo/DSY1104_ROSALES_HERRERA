@@ -12,10 +12,10 @@
 :root {
   --bg: #0e0f12;
   --surface: #151821;
-  --text: #e7e9ee;
+  --text: #2b2b2b;
   --muted: #a6adbb;
   --primary: #5cc8ff;
-  --accent: #ffba4a;
+  --accent: #4b2e79;
 
   --radius: 14px;
   --space-1: 0.5rem;
@@ -144,7 +144,7 @@ section { padding-block: var(--space-4); }
   background: var(--surface);
   padding: var(--space-3);
   border-radius: var(--radius);
-  box-shadow: 0 1px 0 rgba(0,0,0,0.25);
+  box-shadow: 0 1px 0 rgba(16, 255, 75, 0.25);
 }
 @media (max-width: 900px) {
   #destacados { grid-template-columns: 1fr 1fr; }
@@ -171,7 +171,7 @@ input[type="email"] {
   padding: 0.6rem 0.8rem;
   border-radius: 10px;
   border: 1px solid color-mix(in oklab, var(--muted) 50%, transparent);
-  background: #0f1218;
+  background: #ffffff;
   color: var(--text);
 }
 button[type="submit"] {
@@ -179,7 +179,7 @@ button[type="submit"] {
   border-radius: 9999px;
   border: none;
   background: var(--primary);
-  color: #081018;
+  color: #4752aa;
   font-weight: 600;
   cursor: pointer;
 }
