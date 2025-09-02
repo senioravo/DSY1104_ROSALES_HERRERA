@@ -1,0 +1,24 @@
+/*REQ PS_000*/
+
+:root {
+    /* Colors */
+    --bg: #FFF5E1;
+    --accent-pink: #FFC0CB;
+    --accent-choco: #8B4513;
+    --text: #5D4037;
+    --text-2: #B0BEC5;
+}
+
+
+/* Google Fonts import */
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap');
+
+/* Base styles */
+
+body {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg);
+}
