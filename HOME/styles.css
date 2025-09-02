@@ -105,3 +105,97 @@ img {
     max-width: 100%;
     height: auto;
 }
+
+
+/* NAVBAR */
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: .3rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--accent-choco);
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+nav {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.nav-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--accent-pink);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.nav-button:hover {
+    transform: scale(1.05);
+    background-color: var(--bg);
+}
+
+.nav-button:focus {
+    outline: 3px solid var(--accent-pink);
+    outline-offset: 2px;
+}
+
+.nav-link {
+    color: var(--bg);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    background-color: var(--accent-pink);
+    color: var(--text);
+}
+
+.cart-button {
+    background: var(--accent-pink);
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    position: relative;
+    font-size: 1.2rem;
+}
+
+.badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--text);
+    color: var(--bg);
+    border-radius: 50%;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+/* Ajusta el contenido principal para no quedar oculto bajo la navbar fija */
+
+main {
+    margin-top: 56px;
+    /* Ajusta este valor según la altura real de tu navbar */
+}
