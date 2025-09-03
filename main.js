@@ -138,3 +138,25 @@ PRODUCTS_PS.forEach(producto => {
     gridActual.appendChild(errorMsg);
   }
 });
+
+// Activar animaciones una vez que todos los productos están en el DOM
+activarAnimacionesScroll();
+
+
+function estaVisible(elemento) {
+  const rect = elemento.getBoundingClientRect();
+  return rect.top < window.innerHeight && rect.bottom > 0;
+}
+
+function activarAnimacionesScroll() {
+  const productos = document.querySelectorAll('.producto');
+  productos.forEach(producto => {
+    if (estaVisible(producto)) {
+      producto.classList.add('visible');
+    }
+  });
+}
+
+// Ejecutar al cargar y al hacer scroll
+window.addEventListener('scroll', activarAnimacionesScroll);
+window.addEventListener('load', activarAnimacionesScroll);

@@ -280,3 +280,19 @@ nav {
     text-align: center;
   }
 }
+
+/* ============================
+   Animacion scroll
+============================ */
+
+/* Estado inicial oculto */
+.producto {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.producto.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
