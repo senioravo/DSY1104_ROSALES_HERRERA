@@ -10,14 +10,14 @@
 
 Aplicación web que muestra productos de pastelería con estructura validada en JavaScript. Incluye renderizado dinámico, etiquetas visuales y control de stock.
 
-## ID PS20: Estructura de productos
+# ID PS20: Estructura de productos
 
 En este requerimiento se definio y se valido la estructura de datos para los productos de la pastelería, asegurando que se renderizen correctamente en la interfaz.
 
 
 # Implementación técnica
 
-Se creó el archivo productos_pasteleria.js con un array PRODUCTS_PS que contiene 20 productos distribuidos en distintas categorías (TC, TT, PI, PSA, PT, PG, PV, TE).
+Se creó el archivo productos_pasteleria.js con un array PRODUCTS_PS que contiene 16 productos distribuidos en distintas categorías (TC, TT, PI, PSA, PT, PG, PV, TE).
 
 Cada producto incluye los siguientes campos:
 
