@@ -21,27 +21,27 @@ Se creó el archivo productos_pasteleria.js con un array PRODUCTS_PS que contien
 
 Cada producto incluye los siguientes campos:
 
-code: identificador único
+- code: identificador único
 
-nombre: nombre del producto
+- nombre: nombre del producto
 
-categoriaId: categoría asignada
+- categoriaId: categoría asignada
 
-tipoForma: "cuadrada", "circular" o null
+- tipoForma: "cuadrada", "circular" o null
 
-tamanosDisponibles: array con tamaños válidos
+- tamanosDisponibles: array con tamaños válidos
 
-precioCLP: número entero ≥ 0
+- precioCLP: número entero ≥ 0
 
-stock: número entero ≥ 0
+- stock: número entero ≥ 0
 
-descripcion: texto descriptivo
+- descripcion: texto descriptivo
 
-personalizable: booleano
+- personalizable: booleano
 
-maxMsgChars: número entre 0 y 50
+- maxMsgChars: número entre 0 y 50
 
-imagen: ruta relativa a /assets/ejemplo.png
+- imagen: ruta relativa a /assets/ejemplo.png
 
 
 # Validaciones aplicadas
