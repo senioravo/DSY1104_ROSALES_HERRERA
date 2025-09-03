@@ -1,0 +1,260 @@
+// productos_pasteleria.js
+"use strict";
+
+// Estructura sugerida por el backlog detallado:
+// {
+//   code,               // p.ej. "TC001"
+//   nombre,             // p.ej. "Torta Cuadrada de Chocolate"
+//   categoriaId,        // "TC", "TT", "PI", "PSA", "PT", "PG", "PV", "TE"
+//   tipoForma,          // "cuadrada" | "circular" | null
+//   tamanosDisponibles, // ["S","M","L"] o ["unidad"] para individuales
+//   precioCLP,          // entero CLP (sin separadores)
+//   stock,              // entero >= 0
+//   personalizable,     // boolean (mensaje en torta)
+//   maxMsgChars,        // int (50 recomendado si personalizable=true)
+//   descripcion,        // string
+//   etiquetas,          // ["sin_azucar", "sin_gluten", "vegana", ...]
+//   imagen              // ruta sugerida en /assets/products/*.jpg
+// }
+
+export const PRODUCTS_PS = [
+  // TORTAS CUADRADAS (TC)
+  {
+    code: "TC001",
+    nombre: "Torta Cuadrada de Chocolate",
+    categoriaId: "TC",
+    tipoForma: "cuadrada",
+    tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)", "L (20 porciones)"],
+    precioCLP: 45000,
+    stock: 10,
+    personalizable: true,
+    maxMsgChars: 50, 
+    descripcion: "Deliciosa torta de chocolate con ganache y toque de avellanas. Ideal para personalizar con mensaje.",
+    etiquetas: ["Tradicional"],
+    imagen: "assets/chocolate cuadrada.png"
+  },
+  {
+    code: "TC002",
+    nombre: "Torta Cuadrada de Frutas",
+    categoriaId: "TC",
+    tipoForma: "cuadrada",
+    tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)", "L (20 porciones)"],
+    precioCLP: 50000,
+    stock: 8,
+    personalizable: true,
+    maxMsgChars: 50,
+    descripcion: "Bizcocho de vainilla con frutas frescas y crema chantilly.",
+    etiquetas: ["Tradicional", "Frutas"],
+    imagen: "assets/cuadrada de frutas.png"
+  },
+
+  // TORTAS CIRCULARES (TT)
+  {
+    code: "TT001",
+    nombre: "Torta Circular de Vainilla",
+    categoriaId: "TT",
+    tipoForma: "circular",
+    tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)", "L (20 porciones)"],
+    precioCLP: 40000,
+    stock: 12,
+    personalizable: true,
+    maxMsgChars: 50,
+    descripcion: "Vainilla clásica rellena con crema pastelera y glaseado dulce.",
+    etiquetas: ["Tradicional"],
+    imagen: "assets/circular.png"
+  },
+  {
+    code: "TT002",
+    nombre: "Torta Circular de Manjar",
+    categoriaId: "TT",
+    tipoForma: "circular",
+    tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)", "L (20 porciones)"],
+    precioCLP: 42000,
+    stock: 9,
+    personalizable: true,
+    maxMsgChars: 50,
+    descripcion: "Clásica torta chilena con manjar y nueces.",
+    etiquetas: ["Tradicional"],
+    imagen: "assets/circular manjar.png"
+  },
+
+  // POSTRES INDIVIDUALES (PI)
+  {
+    code: "PI001",
+    nombre: "Mousse de Chocolate",
+    categoriaId: "PI",
+    tipoForma: null,
+    tamanosDisponibles: ["unidad"],
+    precioCLP: 5000,
+    stock: 40,
+    personalizable: false,
+    maxMsgChars: 0,
+    descripcion: "Postre cremoso con chocolate de alta calidad.",
+    etiquetas: ["Chocolate"],
+    imagen: "assets/mousse de chocolate.png"
+  },
+  {
+    code: "PI002",
+    nombre: "Tiramisú Clásico",
+    categoriaId: "PI",
+    tipoForma: null,
+    tamanosDisponibles: ["unidad"],
+    precioCLP: 5500,
+    stock: 36,
+    personalizable: false,
+    maxMsgChars: 0,
+    descripcion: "Café, mascarpone y cacao en un equilibrio perfecto.",
+    etiquetas: ["Clásico"],
+    imagen: "assets/tiramisu.png"
+  },
+
+  // PRODUCTOS SIN AZÚCAR (PSA)
+  {
+    code: "PSA001",
+    nombre: "Torta Sin Azúcar de Naranja",
+    categoriaId: "PSA",
+    tipoForma: "circular",
+    tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)"],
+    precioCLP: 48000,
+    stock: 7,
+    personalizable: true,
+    maxMsgChars: 50,
+    descripcion: "Endulzada naturalmente para quienes buscan opciones más saludables.",
+    etiquetas: ["Sin azúcar"],
+    imagen: "assets/naranja sin azucar.png"
+  },
+  {
+    code: "PSA002",
+    nombre: "Cheesecake Sin Azúcar",
+    categoriaId: "PSA",
+    tipoForma: "circular",
+    tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)"],
+    precioCLP: 47000,
+    stock: 6,
+    personalizable: true,
+    maxMsgChars: 50,
+    descripcion: "Suave y cremoso, ideal para disfrutar sin culpa.",
+    etiquetas: ["Sin azúcar"],
+    imagen: "assets/chezzcake sin azucar.png"
+  },
+
+  // PASTELERÍA TRADICIONAL (PT)
+  {
+    code: "PT001",
+    nombre: "Empanada de Manzana",
+    categoriaId: "PT",
+    tipoForma: null,
+    tamanosDisponibles: ["unidad"],
+    precioCLP: 3000,
+    stock: 50,
+    personalizable: false,
+    maxMsgChars: 0,
+    descripcion: "Rellena de manzanas especiadas, perfecta para el desayuno o merienda.",
+    etiquetas: ["Tradicional"],
+    imagen: "assets/empanadas de manzana.png"
+  },
+  {
+    code: "PT002",
+    nombre: "Tarta de Santiago",
+    categoriaId: "PT",
+    tipoForma: "circular",
+    tamanosDisponibles: ["S (8 porciones)"],
+    precioCLP: 6000,
+    stock: 22,
+    personalizable: false,
+    maxMsgChars: 0,
+    descripcion: "Clásica tarta de almendras, azúcar y huevos.",
+    etiquetas: ["Tradicional"],
+    imagen: "assets/tarta santiago.png"
+  },
+
+  // PRODUCTOS SIN GLUTEN (PG)
+  {
+    code: "PG001",
+    nombre: "Brownie Sin Gluten",
+    categoriaId: "PG",
+    tipoForma: "cuadrada",
+    tamanosDisponibles: ["unidad"],
+    precioCLP: 4000,
+    stock: 35,
+    personalizable: false,
+    maxMsgChars: 0,
+    descripcion: "Denso y sabroso, libre de gluten.",
+    etiquetas: ["Sin gluten", "Chocolate"],
+    imagen: "assets/brown sin gluten.png"
+  },
+  {
+    code: "PG002",
+    nombre: "Pan Sin Gluten",
+    categoriaId: "PG",
+    tipoForma: null,
+    tamanosDisponibles: ["unidad"],
+    precioCLP: 3500,
+    stock: 28,
+    personalizable: false,
+    maxMsgChars: 0,
+    descripcion: "Suave y esponjoso, ideal para sándwiches.",
+    etiquetas: ["Sin gluten"],
+    imagen: "assets/pan sin gluten.png"
+  },
+
+  // PRODUCTOS VEGANA (PV)
+  {
+    code: "PV001",
+    nombre: "Torta Vegana de Chocolate",
+    categoriaId: "PV",
+    tipoForma: "circular",
+    tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)"],
+    precioCLP: 50000,
+    stock: 6,
+    personalizable: true,
+    maxMsgChars: 50,
+    descripcion: "Húmeda y deliciosa, sin ingredientes de origen animal.",
+    etiquetas: ["Vegana", "Chocolate"],
+    imagen: "assets/torta vegana choc.png"
+  },
+  {
+    code: "PV002",
+    nombre: "Galletas Veganas de Avena",
+    categoriaId: "PV",
+    tipoForma: null,
+    tamanosDisponibles: ["unidad"],
+    precioCLP: 4500,
+    stock: 40,
+    personalizable: false,
+    maxMsgChars: 0,
+    descripcion: "Crujientes y sabrosas, perfectas para colación.",
+    etiquetas: ["Vegana"],
+    imagen: "assets/galletas veg.png"
+  },
+
+  // TORTAS ESPECIALES (TE)
+  {
+    code: "TE001",
+    nombre: "Torta Especial de Cumpleaños",
+    categoriaId: "TE",
+    tipoForma: "circular",
+    tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)", "L (20 porciones)"],
+    precioCLP: 55000,
+    stock: 7,
+    personalizable: true,
+    maxMsgChars: 50,
+    descripcion: "Pensada para celebrar: admite decoraciones temáticas y mensaje.",
+    etiquetas: ["Especial", "Cumpleaños"],
+    imagen: "assets/cumple.png"
+  },
+  {
+    code: "TE002",
+    nombre: "Torta Especial de Boda",
+    categoriaId: "TE",
+    tipoForma: "circular",
+    tamanosDisponibles: ["M (12 porciones)", "L (20 porciones)"],
+    precioCLP: 60000,
+    stock: 4,
+    personalizable: true,
+    maxMsgChars: 50,
+    descripcion: "Elegante y memorable; lista para personalizar.",
+    etiquetas: ["Especial", "Boda"],
+    imagen: "assets/pastel de bodas.png"
+  }
+];

@@ -1,0 +1,45 @@
+<!DOCTYPE html> <!-- Indica que el documento usa HTML5 -->
+
+<html lang="es"> <!-- Comienza el HTML y define el idioma como español -->
+
+<head>
+  <!-- Configuración de caracteres para usar tildes, ñ, emojis, etc. -->
+  <meta charset="UTF-8">
+
+  <!-- Hace que el sitio se adapte a pantallas pequeñas (responsive) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Título que aparece en la pestaña del navegador -->
+  <title>Catálogo de Productos | Mil Sabores</title>
+
+  <!-- Conecta el archivo de estilos CSS para aplicar diseño visual -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Carga el archivo main.js como módulo (usa import/export) -->
+  <script type="module" src="main.js" defer></script>
+</head>
+
+<body>
+  <!--  Sección de navegación principal del sitio -->
+  <nav role="navigation"> <!-- Ayuda a la accesibilidad (lectores de pantalla) -->
+    <ul class="nav-list"> <!-- Lista de enlaces del menú -->
+      <li><a href="index.html" class="nav-link">HOME</a></li> <!-- Enlace a la página principal -->
+      <li><a href="productos.html" class="nav-link active">Productos</a></li> <!-- Página actual -->
+      <li><a href="#" class="nav-link">Personaliza tu torta</a></li> <!-- Enlace a sección futura -->
+      <li><a href="#" class="nav-link">Recetas/Blog</a></li> <!-- Enlace a blog -->
+      <li><a href="#" class="nav-link">Contacto</a></li> <!-- Enlace a contacto -->
+      <li>
+        <button class="cart-button"> <!-- Botón del carrito -->
+          🛒 <span class="badge">0</span> <!-- Ícono y contador de productos -->
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Contenido principal de la página -->
+  <main>
+    <h1 class="catalog-title">Catálogo de Productos</h1> <!-- Título principal -->
+    <div id="productos-container" class="productos-grid"></div> <!-- Aquí se insertan las tarjetas desde JS -->
+  </main>
+</body>
+</html>

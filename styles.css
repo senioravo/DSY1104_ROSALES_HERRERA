@@ -3,8 +3,8 @@
 ============================ */
 
 :root {
-  --bg: #FFF5E1;
-  --accent-pink: #FFC0CB;
+  --bg: #FFF8EC;
+  --accent-pink: #FFB6C1;
   --accent-choco: #8B4513;
   --text: #5D4037;
   --text-2: #B0BEC5;
@@ -17,44 +17,21 @@ body {
   background-color: var(--bg);
   margin: 0;
   padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
-
-/* ============================
-   BADGES
-============================ */
-
-.badge-tag {
-  display: inline-block;
-  padding: 0.25em 0.6em;
-  font-size: 0.75rem;
-  font-weight: bold;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: 0.25rem;
-  background-color: var(--accent-pink);
-  color: var(--text);
+* {
+  box-sizing: border-box;
 }
 
-.badge-tag.primary {
-  background-color: var(--accent-choco);
-  color: var(--bg);
-}
-
-.badge-tag.secondary {
-  background-color: var(--text-2);
-  color: var(--text);
-}
 
 /* ============================
    NAVEGACIÓN
 ============================ */
 
 nav {
-  padding: 0;
-  margin: 0;
   width: 100%;
 }
 
@@ -68,7 +45,6 @@ nav {
   background-color: var(--accent-choco);
   flex-wrap: wrap;
   gap: 1rem;
-  box-sizing: border-box;
 }
 
 .nav-link {
@@ -115,25 +91,63 @@ nav {
 
 
 /* ============================
-   CATÁLOGO DE PRODUCTOS
+   SECCIONES DE PRODUCTOS
 ============================ */
 
-.catalog-title {
+.categoria-seccion {
+  margin-bottom: 4rem;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 1rem;
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+.categoria-seccion::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-choco), transparent);
+}
+
+.seccion-titulo {
+  font-size: 2rem;
+  margin: 0 auto 2rem;
+  color: var(--accent-choco);
   text-align: center;
-  margin: 3rem 0 2rem;
-  font-size: 2.8rem;
-  color: var(--text);
   font-family: 'Pacifico', cursive;
+  padding: 0.5rem 2rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: fit-content;
 }
 
 .productos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  padding: 0 2rem 4rem;
+  gap: 2rem 2.5rem;
+  padding: 1rem;
+  width: 95%;
   max-width: 1200px;
   margin: 0 auto;
+  justify-items: center;
 }
+
+
+/* ============================
+   TARJETA DE PRODUCTO
+============================ */
 
 .producto {
   background-color: #fff;
@@ -143,6 +157,13 @@ nav {
   text-align: center;
   transition: transform 0.3s ease;
   border: 2px solid transparent;
+  width: 100%;
+  max-width: 280px;
+  min-height: 520px; /* ✅ Altura uniforme */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* ✅ Distribuye contenido verticalmente */
+  align-items: center;
 }
 
 .producto:hover {
@@ -155,42 +176,46 @@ nav {
   height: 200px;
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .producto h2 {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: var(--text);
-  margin: 0.5rem 0;
+  margin: 0;
+  min-height: 2.6em; /* ✅ Espacio reservado para 2 líneas */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: center;
 }
 
 .producto p {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text);
   margin: 0.3rem 0;
+  line-height: 1.4;
+}
+
+.catalog-title {
+  font-size: 2.4rem;
+  margin: 2.5rem auto 2rem;
+  color: var(--accent-choco);
+  text-align: center;
+  font-family: 'Lato', sans-serif; /* ✅ Más legible que cursiva */
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--accent-choco);
+  padding-bottom: 0.5rem;
+  max-width: 800px;
 }
 
 
 /* ============================
-   RESPONSIVE
+   ETIQUETAS Y BADGES
 ============================ */
 
-@media screen and (max-width: 768px) {
-  .catalog-title {
-    font-size: 2rem;
-  }
-
-  .producto img {
-    height: 160px;
-  }
-
-  .productos-grid {
-    padding: 0 1rem 3rem;
-  }
-}
-
-/*Este estilo sirve para mostrar las etiquetas como pequeños “badges” visuales, 
-ideales para destacar atributos como vegana, sin gluten, especial, etc. */
 .badge-etiqueta {
   display: inline-block;
   background-color: var(--accent-pink);
@@ -203,12 +228,55 @@ ideales para destacar atributos como vegana, sin gluten, especial, etc. */
 }
 
 
-/* Controla el tamaño de las imagenes */
-.producto img {
-  width: 100%;
-  height: auto;
-  object-fit: contain; /* o "cover" si quieres que se recorte pero mantenga proporción */
-  max-height: 200px; /* ajusta según tu diseño */
-  display: block;
-  margin: 0 auto;
+/* ============================
+   RESPONSIVE
+============================ */
+
+@media screen and (max-width: 768px) {
+  .producto {
+    min-height: auto;
+    padding: 1rem;
+  }
+
+  .producto img {
+    height: 180px;
+  }
+
+  .seccion-titulo {
+    font-size: 1.6rem;
+    margin: 1rem auto 1.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .nav-list {
+    padding: .3rem 1rem;
+  }
+
+  .categoria-seccion {
+    padding: 1.5rem 0;
+    margin-bottom: 2.5rem;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .productos-grid {
+    width: 100%;
+    padding: 0.5rem;
+    gap: 1rem;
+  }
+
+  .producto img {
+    height: 160px;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    padding: .3rem;
+  }
+
+  .nav-link {
+    width: 100%;
+    text-align: center;
+  }
 }
