@@ -1,0 +1,214 @@
+/* ============================
+   VARIABLES Y FUENTES
+============================ */
+
+:root {
+  --bg: #FFF5E1;
+  --accent-pink: #FFC0CB;
+  --accent-choco: #8B4513;
+  --text: #5D4037;
+  --text-2: #B0BEC5;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap');
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--bg);
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ============================
+   BADGES
+============================ */
+
+.badge-tag {
+  display: inline-block;
+  padding: 0.25em 0.6em;
+  font-size: 0.75rem;
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  background-color: var(--accent-pink);
+  color: var(--text);
+}
+
+.badge-tag.primary {
+  background-color: var(--accent-choco);
+  color: var(--bg);
+}
+
+.badge-tag.secondary {
+  background-color: var(--text-2);
+  color: var(--text);
+}
+
+/* ============================
+   NAVEGACIÓN
+============================ */
+
+nav {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: .3rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--accent-choco);
+  flex-wrap: wrap;
+  gap: 1rem;
+  box-sizing: border-box;
+}
+
+.nav-link {
+  color: var(--bg);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  background-color: var(--accent-pink);
+  color: var(--text);
+}
+
+.nav-link.active {
+  background-color: var(--accent-pink);
+  color: var(--text);
+  border-bottom: 2px solid var(--accent-choco);
+}
+
+.cart-button {
+  background: var(--accent-pink);
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  position: relative;
+  font-size: 1.2rem;
+}
+
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--text);
+  color: var(--bg);
+  border-radius: 50%;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+
+/* ============================
+   CATÁLOGO DE PRODUCTOS
+============================ */
+
+.catalog-title {
+  text-align: center;
+  margin: 3rem 0 2rem;
+  font-size: 2.8rem;
+  color: var(--text);
+  font-family: 'Pacifico', cursive;
+}
+
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 0 2rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.producto {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.producto:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent-choco);
+}
+
+.producto img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.producto h2 {
+  font-size: 1.5rem;
+  color: var(--text);
+  margin: 0.5rem 0;
+}
+
+.producto p {
+  font-size: 1rem;
+  color: var(--text);
+  margin: 0.3rem 0;
+}
+
+
+/* ============================
+   RESPONSIVE
+============================ */
+
+@media screen and (max-width: 768px) {
+  .catalog-title {
+    font-size: 2rem;
+  }
+
+  .producto img {
+    height: 160px;
+  }
+
+  .productos-grid {
+    padding: 0 1rem 3rem;
+  }
+}
+
+/*Este estilo sirve para mostrar las etiquetas como pequeños “badges” visuales, 
+ideales para destacar atributos como vegana, sin gluten, especial, etc. */
+.badge-etiqueta {
+  display: inline-block;
+  background-color: var(--accent-pink);
+  color: var(--text);
+  padding: 0.2rem 0.6rem;
+  margin: 0.2rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+
+/* Controla el tamaño de las imagenes */
+.producto img {
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* o "cover" si quieres que se recorte pero mantenga proporción */
+  max-height: 200px; /* ajusta según tu diseño */
+  display: block;
+  margin: 0 auto;
+}
