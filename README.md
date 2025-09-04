@@ -83,7 +83,7 @@ Las tarjetas se insertan dinámicamente en el contenedor #productos-container.
 
 - productos.html → estructura visual.
 
-- main.js → validación, renderizado y lógica.
+- mainProductos.js → validación, renderizado y lógica.
 
 - styles.css → diseño visual y responsividad.
 
@@ -91,6 +91,59 @@ Las tarjetas se insertan dinámicamente en el contenedor #productos-container.
 
 - productos_pasteleria → indice con los productos de la pasteleria
 
+# ID PS20: Estructura de productos
+
+Funcionalidades implementadas
+Filtros visuales con <select>: Se agregaron campos desplegables para filtrar por categoría (filtro-categoria), forma (filtro-forma) y etiqueta (filtro-etiqueta), según preferencias definidas.
+
+# Req ID PS21: Filtros combinables y sincronización con URL
+
+En este requerimiento se implementó el sistema de filtrado para el catálogo de productos, permitiendo al usuario aplicar múltiples criterios simultáneamente (categoría, forma y etiqueta), con persistencia en la URL y retroalimentación visual en la interfaz.
+
+# Implementación técnica
+
+- Se agregaron tres campos <select> en el HTML para filtrar por:
+
+- categoría (filtro-categoria)
+
+- forma (filtro-forma)
+
+- etiqueta (filtro-etiqueta)
+
+- Se creó la función aplicarFiltros(productos, filtros) en main.js para evaluar cada producto según los filtros activos. Se permite aplicar uno, varios o todos los filtros al mismo tiempo.
+
+- Se implementó actualizarURL(filtros) para reflejar los filtros activos en la barra de navegación sin recargar la página, y obtenerFiltrosDesdeURL() para aplicar automáticamente los filtros al cargar la vista.
+
+# Validaciones aplicadas
+
+- La lógica de combinación se basa en condiciones tipo AND, evaluando que cada producto cumpla con todos los filtros activos. Ejemplo: Tortas Cuadradas + Forma Circular + Etiqueta Vegano.
+
+- Se integró la lectura y escritura de filtros en la URL mediante URLSearchParams, permitiendo compartir enlaces filtrados y mantener el estado al recargar.
+
+- Se agregó un botón “Limpiar filtros” que restablece todos los campos y limpia la URL con window.location.pathname.
 
 
+# Renderizado en interfaz
+Los productos filtrados se agrupan por categoría y se renderizan en secciones con títulos (<h2>) y grillas (.productos-grid).
 
+Si no hay coincidencias, se muestra un mensaje visual (#mensaje-sin-resultados) indicando que no se encontraron productos.
+
+# Estilos aplicados
+
+- Se mantuvo el layout con CSS Grid para mostrar los productos en formato responsive.
+
+- Se definieron estilos para .filtros, .categoria-seccion, .productos-grid y el mensaje de “sin resultados”.
+
+- Se ocultó el bloque de filtros por defecto y se mostró solo al hacer clic en el botón “Filtrar productos”.
+
+# Archivos involucrados
+
+- productos.html → estructura visual y campos de filtro.
+
+- mainProductos.js → lógica de filtrado, renderizado y sincronización con URL.
+
+- styles.css → diseño visual de filtros, grillas y mensajes.
+
+- productos_pasteleria.js → fuente de datos del catálogo.
+
+- assets → imágenes de los productos.

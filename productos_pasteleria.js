@@ -91,7 +91,7 @@ export const PRODUCTS_PS = [
     maxMsgChars: 0,
     descripcion: "Postre cremoso con chocolate de alta calidad.",
     etiquetas: ["Chocolate"],
-    imagen: "assets/mousse de chocolate.png"
+    imagen: "assets/mouse.png"
   },
   {
     code: "PI002",
