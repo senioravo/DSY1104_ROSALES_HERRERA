@@ -124,9 +124,9 @@ En este requerimiento se implementó el sistema de filtrado para el catálogo de
 
 
 # Renderizado en interfaz
-Los productos filtrados se agrupan por categoría y se renderizan en secciones con títulos (<h2>) y grillas (.productos-grid).
 
-Si no hay coincidencias, se muestra un mensaje visual (#mensaje-sin-resultados) indicando que no se encontraron productos.
+Los productos filtrados se agrupan por categoría y se renderizan en secciones con títulos (<h2>) y grillas 
+(.productos-grid). Si no hay coincidencias, se muestra un mensaje visual (#mensaje-sin-resultados) indicando que no se encontraron productos.
 
 # Estilos aplicados
 
