@@ -91,7 +91,7 @@ Las tarjetas se insertan dinámicamente en el contenedor #productos-container.
 
 - productos_pasteleria → indice con los productos de la pasteleria
 
-# ID PS20: Estructura de productos
+# ID PS21: Filtros combinables y sincronización con URL
 
 Funcionalidades implementadas
 Filtros visuales con <select>: Se agregaron campos desplegables para filtrar por categoría (filtro-categoria), forma (filtro-forma) y etiqueta (filtro-etiqueta), según preferencias definidas.
@@ -102,11 +102,11 @@ En este requerimiento se implementó el sistema de filtrado para el catálogo de
 
 # Implementación técnica
 
-- Se agregaron tres campos <select> en el HTML para filtrar por:
+ Se agregaron tres campos <select> en el HTML para filtrar por:
 
-- categoría (filtro-categoria)
+ categoría (filtro-categoria)
 
-- forma (filtro-forma)
+ forma (filtro-forma)
 
 - etiqueta (filtro-etiqueta)
 
