@@ -1,23 +1,14 @@
-// Importamos los productos desde el módulo
 import { PRODUCTS_PS } from "./productos_pasteleria.js";
 
 /**
  * Convierte un número en formato de moneda chilena (CLP).
- * Ejemplo: 12990 → "$12.990"
- * 
- * @param {number} valor - El precio en número entero.
- * @returns {string} - El precio formateado como string con símbolo $ y separadores de miles.
  */
 function formatoCLP(valor) {
   return `$${valor.toLocaleString("es-CL")}`;
 }
 
 /**
- * Valida que un objeto producto cumpla con todos los campos requeridos
- * y que cada campo tenga el tipo y valor correcto según las reglas del proyecto.
- * 
- * @param {object} p - El producto a validar.
- * @returns {boolean} - true si el producto es válido, false si tiene errores.
+ * Valida que un objeto producto cumpla con todos los campos requeridos.
  */
 function validarProducto(p) {
   const campos = [
@@ -45,11 +36,7 @@ function validarProducto(p) {
 }
 
 /**
- * Crea una tarjeta visual para el producto y la devuelve.
- * No la inserta directamente en el DOM.
- * 
- * @param {object} producto - El producto a mostrar.
- * @returns {HTMLElement} - La tarjeta lista para insertar.
+ * Crea una tarjeta visual para el producto.
  */
 function renderCard(producto) {
   const card = document.createElement("div");
@@ -78,7 +65,7 @@ function renderCard(producto) {
 }
 
 /**
- * Diccionario que traduce los códigos de categoría a nombres visibles
+ * Diccionario de nombres de categoría.
  */
 const nombresCategoria = {
   TC: "Tortas Cuadradas",
@@ -92,57 +79,8 @@ const nombresCategoria = {
 };
 
 /**
- * Recorre todos los productos y los agrupa por categoría.
- * Cada grupo se muestra con su título y sus tarjetas.
+ * Animaciones al hacer scroll.
  */
-let categoriaActual = null;
-let seccionContainer = null;
-let gridActual = null;
-
-PRODUCTS_PS.forEach(producto => {
-  // Si la categoría cambió, creamos una nueva sección
-  if (producto.categoriaId !== categoriaActual) {
-    categoriaActual = producto.categoriaId;
-
-    const container = document.getElementById("productos-container");
-
-    // Crear contenedor de sección
-    seccionContainer = document.createElement("section");
-    seccionContainer.className = "categoria-seccion";
-
-    // Crear título
-    const titulo = document.createElement("h2");
-    titulo.textContent = nombresCategoria[categoriaActual] || categoriaActual;
-    titulo.className = "seccion-titulo";
-    seccionContainer.appendChild(titulo);
-
-    // Crear grid para productos
-    gridActual = document.createElement("div");
-    gridActual.className = "productos-grid";
-    seccionContainer.appendChild(gridActual);
-
-    // Insertar sección en el contenedor principal
-    container.appendChild(seccionContainer);
-  }
-
-  // Validamos el producto
-  if (validarProducto(producto)) {
-    const card = renderCard(producto); // Creamos la tarjeta
-    gridActual.appendChild(card);      // La insertamos en el grid actual
-  } else {
-    console.warn("Producto inválido:", producto.code);
-
-    const errorMsg = document.createElement("p");
-    errorMsg.textContent = `⚠️ Error al cargar el producto ${producto.code}`;
-    errorMsg.className = "error-producto";
-    gridActual.appendChild(errorMsg);
-  }
-});
-
-// Activar animaciones una vez que todos los productos están en el DOM
-activarAnimacionesScroll();
-
-
 function estaVisible(elemento) {
   const rect = elemento.getBoundingClientRect();
   return rect.top < window.innerHeight && rect.bottom > 0;
@@ -157,6 +95,117 @@ function activarAnimacionesScroll() {
   });
 }
 
-// Ejecutar al cargar y al hacer scroll
 window.addEventListener('scroll', activarAnimacionesScroll);
 window.addEventListener('load', activarAnimacionesScroll);
+
+/**
+ * Filtros y renderizado
+ */
+const selectCategoria = document.getElementById("filtro-categoria");
+const selectForma = document.getElementById("filtro-forma");
+const selectEtiqueta = document.getElementById("filtro-etiqueta");
+const btnLimpiar = document.getElementById("btn-limpiar");
+
+function renderizarProductosFiltrados() {
+  const filtros = {
+    categoria: selectCategoria.value,
+    forma: selectForma.value,
+    etiqueta: selectEtiqueta.value
+  };
+  actualizarURL(filtros);
+
+  const filtrados = aplicarFiltros(PRODUCTS_PS, filtros);
+  const container = document.getElementById("productos-container");
+  const mensaje = document.getElementById("mensaje-sin-resultados");
+
+  container.innerHTML = "";
+
+  if (filtrados.length === 0) {
+    mensaje.style.display = "block";
+    return;
+  } else {
+    mensaje.style.display = "none";
+  }
+
+  let categoriaActual = null;
+  let gridActual = null;
+
+  filtrados.forEach(producto => {
+    if (producto.categoriaId !== categoriaActual) {
+      categoriaActual = producto.categoriaId;
+      const seccion = document.createElement("section");
+      seccion.className = "categoria-seccion";
+
+      const titulo = document.createElement("h2");
+      titulo.textContent = nombresCategoria[categoriaActual] || categoriaActual;
+      titulo.className = "seccion-titulo";
+      seccion.appendChild(titulo);
+
+      gridActual = document.createElement("div");
+      gridActual.className = "productos-grid";
+      seccion.appendChild(gridActual);
+
+      container.appendChild(seccion);
+    }
+
+    if (validarProducto(producto)) {
+      const card = renderCard(producto);
+      gridActual.appendChild(card);
+    }
+  });
+
+  activarAnimacionesScroll();
+}
+
+selectCategoria.addEventListener("change", renderizarProductosFiltrados);
+selectForma.addEventListener("change", renderizarProductosFiltrados);
+selectEtiqueta.addEventListener("change", renderizarProductosFiltrados);
+
+btnLimpiar.addEventListener("click", () => {
+  selectCategoria.value = "";
+  selectForma.value = "";
+  selectEtiqueta.value = "";
+  renderizarProductosFiltrados();
+});
+
+function actualizarURL(filtros) {
+  const params = new URLSearchParams();
+  if (filtros.categoria) params.set("categoria", filtros.categoria);
+  if (filtros.forma) params.set("forma", filtros.forma);
+  if (filtros.etiqueta) params.set("etiqueta", filtros.etiqueta);
+  history.replaceState(null, "", `?${params.toString()}`);
+}
+
+function obtenerFiltrosDesdeURL() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    categoria: params.get("categoria") || "",
+    forma: params.get("forma") || "",
+    etiqueta: params.get("etiqueta") || ""
+  };
+}
+
+function aplicarFiltros(productos, filtros) {
+  return productos.filter(p => {
+    const cumpleCategoria = !filtros.categoria || p.categoriaId === filtros.categoria;
+    const cumpleForma = !filtros.forma || p.tipoForma === filtros.forma;
+    const cumpleEtiqueta = !filtros.etiqueta || p.etiquetas?.includes(filtros.etiqueta);
+    return cumpleCategoria && cumpleForma && cumpleEtiqueta;
+  });
+}
+
+document.getElementById("btn-toggle-filtros").addEventListener("click", () => {
+  const filtrosDiv = document.getElementById("filtros-opciones");
+  filtrosDiv.style.display = filtrosDiv.style.display === "none" ? "block" : "none";
+});
+
+window.addEventListener("load", () => {
+  const filtros = obtenerFiltrosDesdeURL();
+  selectCategoria.value = filtros.categoria;
+  selectForma.value = filtros.forma;
+  selectEtiqueta.value = filtros.etiqueta;
+  renderizarProductosFiltrados();
+});
+
+
+
