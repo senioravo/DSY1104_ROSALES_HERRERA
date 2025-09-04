@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&family=Montserrat:wght@400;600;700&family=Orbitron:wght@600&family=Lato:wght@400;700&display=swap');
+
 /*REQ PS_000*/
 
 :root {
@@ -7,6 +9,8 @@
     --accent-choco: #8B4513;
     --text: #5D4037;
     --text-2: #B0BEC5;
+    --font-head: "Pacifico", cursive;
+    --font-ui: "Lato", sans-serif;
     max-width: 100%;
     overflow-x: hidden;
 }
@@ -14,15 +18,26 @@
 
 /* Google Fonts import */
 
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap');
 
 /* REQ PS_001 */
 
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: var(--font-ui);
     margin: 0;
     padding: 0;
     background-color: var(--bg);
+}
+
+
+/* Apply Pacifico font to all headings */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-head);
 }
 
 
@@ -139,7 +154,7 @@ nav {
     border-radius: 4px;
     background-color: var(--accent-pink);
     color: var(--text);
-    font-family: 'Lato', sans-serif;
+    font-family: var(--font-ui);
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.2s ease;
@@ -198,4 +213,173 @@ nav {
 main {
     margin-top: 56px;
     /* Ajusta este valor según la altura real de tu navbar */
+}
+
+.hero {
+    min-height: 50vh;
+    background-color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .2rem;
+    padding-top: 4rem;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4rem;
+    max-width: 1200px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.hero h1 {
+    color: var(--text);
+    font-size: 60px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    text-align: center;
+}
+
+.hero-image-container {
+    flex: 1;
+    max-width: 400px;
+    order: 1;
+    /* Asegura que esté a la izquierda */
+}
+
+.hero-image {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    will-change: transform, opacity;
+    transition: transform .4s ease, opacity 1s ease;
+    /* Removemos la transición para que sea instantáneo */
+}
+
+.hero-image.scroll-effect {
+    opacity: 0;
+    transform: scale(1.5);
+}
+
+.hero-image:hover {
+    transform: scale(1.15);
+    /*box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);*/
+}
+
+.hero-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Cambiado a center para alinear todos los elementos */
+    gap: 2rem;
+    order: 2;
+    /* Asegura que esté a la derecha */
+}
+
+.hero-text h1 {
+    margin: 0;
+    color: var(--text);
+    font-size: 3.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    /* Asegura que el texto interno esté centrado */
+}
+
+.hero-text h2 {
+    margin: 0;
+    color: var(--text);
+    font-size: 2rem;
+    text-align: center;
+    /* Asegura que el texto interno esté centrado */
+    width: 100%;
+    /* Asegura que tome todo el ancho disponible */
+}
+
+.hero-subtitle {
+    color: var(--text);
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 0.5rem 0 0.1rem 0;
+    /* Reduced bottom margin */
+}
+
+.hero-promo {
+    color: var(--accent-choco);
+    background-color: var(--accent-pink);
+    font-size: 1.8rem;
+    text-align: center;
+    opacity: 1;
+    font-weight: bold;
+    margin: 0.1rem 0 1rem 0;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.catalog-button {
+    width: 100%;
+    max-width: 300px;
+    padding: 1rem 2rem;
+    background-color: var(--accent-choco);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+}
+
+.catalog-button:hover {
+    background-color: var(--accent-pink);
+    color: var(--text);
+    transform: translateY(-2px);
+}
+
+.catalog-button:focus {
+    outline: 3px solid var(--accent-pink);
+    outline-offset: 2px;
+}
+
+@media screen and (max-width: 768px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+    .hero-image-container {
+        order: 1;
+        max-width: 250px;
+    }
+    .hero-text {
+        order: 2;
+        align-items: center;
+    }
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+    .hero-text h2 {
+        font-size: 1.8rem;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .hero-content {
+        gap: 2rem;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+    }
 }
