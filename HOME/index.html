@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <!-- Primero carga el módulo de carrito -->
+    <script src="/CARRITO/carrito.js"></script>
+    <!-- Después carga el script principal -->
     <script src="script.js" defer></script>
     <title>Mil Sabores</title>
 </head>
@@ -11,15 +14,15 @@
 <body>
     <nav role="navigation">
         <ul class="nav-list">
-            <li><a href="#" class="nav-link">HOME</a></li>
+            <li><a href="index.html" class="nav-link">HOME</a></li>
             <li><a href="productos.html" class="nav-link">Productos</a></li>
             <li><a href="#" class="nav-link">Personaliza tu torta</a></li>
             <li><a href="#" class="nav-link">Recetas/Blog</a></li>
             <li><a href="#" class="nav-link">Contacto</a></li>
             <li>
-                <button class="cart-button">
-                    🛒 <span class="badge">0</span>
-                </button>
+                <a href="carrito.html" class="cart-button">
+                    🛒 <span id="cart-badge">0</span>
+                </a>
             </li>
         </ul>
     </nav>
@@ -41,7 +44,6 @@
     </section>
 
     <!-- Categories Section -->
-
     <section class="categories-section">
         <div class="categories-container">
             <h2 class="categories-title">Categorías</h2>
@@ -78,6 +80,54 @@
                     <img src="imgs/especial.png" alt="Tortas Especiales" class="tile-image">
                     <span class="tile-text">Especiales</span>
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section class="highlights-section">
+        <div class="highlights-container">
+            <h2 class="highlights-title">Destacados</h2>
+            <div class="highlights-grid">
+                <!-- Card 1: Torta Cuadrada de Chocolate -->
+                <div class="highlight-card" data-code="TC001" data-name="Torta Cuadrada de Chocolate" data-price="12000" data-categoria="TC" data-forma="cuadrada">
+                    <img src="imgs/chocolate cuadrada.png" alt="Torta Cuadrada de Chocolate" class="highlight-img">
+                    <h3 class="highlight-name">Torta Cuadrada de Chocolate</h3>
+                    <p class="highlight-cat">Tortas Cuadradas</p>
+                    <p class="highlight-price">$12.000</p>
+                    <div class="highlight-controls">
+                        <button class="qty-btn" data-action="decrement">-</button>
+                        <span class="highlight-qty">1</span>
+                        <button class="qty-btn" data-action="increment">+</button>
+                    </div>
+                    <button class="add-cart-btn">Agregar al carrito 🛒</button>
+                </div>
+                <!-- Card 2: Torta Circular de Frambuesa -->
+                <div class="highlight-card" data-code="TT002" data-name="Torta Circular de Frambuesa" data-price="13500" data-categoria="TT" data-forma="circular">
+                    <img src="imgs/torta_circular_frambuesa.png" alt="Torta Circular de Frambuesa" class="highlight-img">
+                    <h3 class="highlight-name">Torta Circular de Frambuesa</h3>
+                    <p class="highlight-cat">Tortas Circulares</p>
+                    <p class="highlight-price">$13.500</p>
+                    <div class="highlight-controls">
+                        <button class="qty-btn" data-action="decrement">-</button>
+                        <span class="highlight-qty">1</span>
+                        <button class="qty-btn" data-action="increment">+</button>
+                    </div>
+                    <button class="add-cart-btn">Agregar al carrito 🛒</button>
+                </div>
+                <!-- Card 3: Postre Individual de Limón -->
+                <div class="highlight-card" data-code="PI003" data-name="Postre Individual de Limón" data-price="2500" data-categoria="PI" data-forma="individual">
+                    <img src="imgs/postre_individual_limon.png" alt="Postre Individual de Limón" class="highlight-img">
+                    <h3 class="highlight-name">Postre Individual de Limón</h3>
+                    <p class="highlight-cat">Postres Individuales</p>
+                    <p class="highlight-price">$2.500</p>
+                    <div class="highlight-controls">
+                        <button class="qty-btn" data-action="decrement">-</button>
+                        <span class="highlight-qty">1</span>
+                        <button class="qty-btn" data-action="increment">+</button>
+                    </div>
+                    <button class="add-cart-btn">Agregar al carrito 🛒</button>
+                </div>
             </div>
         </div>
     </section>
