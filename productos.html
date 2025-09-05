@@ -1,91 +1,93 @@
-<!DOCTYPE html> <!-- Indica que el documento usa HTML5 -->
-
-<html lang="es"> <!-- Comienza el HTML y define el idioma como español -->
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <!-- Configuración de caracteres para usar tildes, ñ, emojis, etc. -->
   <meta charset="UTF-8">
-
-  <!-- Hace que el sitio se adapte a pantallas pequeñas (responsive) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Título que aparece en la pestaña del navegador -->
   <title>Catálogo de Productos | Mil Sabores</title>
-
-  <!-- Conecta el archivo de estilos CSS para aplicar diseño visual -->
   <link rel="stylesheet" href="styles.css">
-
-  <!-- Carga el archivo mainProductos.js como módulo (usa import/export) -->
   <script type="module" src="mainProductos.js" defer></script>
 </head>
 
 <body>
-  <!--  Sección de navegación principal del sitio -->
-  <nav role="navigation"> <!-- Ayuda a la accesibilidad (lectores de pantalla) -->
-    <ul class="nav-list"> <!-- Lista de enlaces del menú -->
-      <li><a href="index.html" class="nav-link">HOME</a></li> <!-- Enlace a la página principal -->
-      <li><a href="productos.html" class="nav-link active">Productos</a></li> <!-- Página actual -->
-      <li><a href="#" class="nav-link">Personaliza tu torta</a></li> <!-- Enlace a sección futura -->
-      <li><a href="#" class="nav-link">Recetas/Blog</a></li> <!-- Enlace a blog -->
-      <li><a href="#" class="nav-link">Contacto</a></li> <!-- Enlace a contacto -->
+  <nav role="navigation">
+    <ul class="nav-list">
+      <li><a href="index.html" class="nav-link">HOME</a></li>
+      <li><a href="productos.html" class="nav-link active">Productos</a></li>
+      <li><a href="#" class="nav-link">Personaliza tu torta</a></li>
+      <li><a href="#" class="nav-link">Recetas/Blog</a></li>
+      <li><a href="#" class="nav-link">Contacto</a></li>
       <li>
-        <button class="cart-button"> <!-- Botón del carrito -->
-          🛒 <span class="badge">0</span> <!-- Ícono y contador de productos -->
+        <button class="cart-button">
+          🛒 <span class="badge">0</span>
         </button>
       </li>
     </ul>
   </nav>
 
-  <!-- Contenido principal de la página -->
   <main>
-    <h1 class="catalog-title">Catálogo de Productos</h1> <!-- Título principal -->
+    <h1 class="catalog-title">Catálogo de Productos</h1>
 
-  <section class="filtros">
-  <button id="btn-toggle-filtros">Filtrar productos</button>
+    <!-- 🔍 Sección de búsqueda, filtros y orden -->
+    <section class="barra-interactiva">
+      <!-- Grupo de búsqueda -->
+      <div class="busqueda-grupo">
+        <input type="text" id="busqueda" placeholder="Nombre o código">
+      </div>
 
-  <div id="filtros-opciones" style="display: none; margin-top: 1rem;">
-    <div class="filtro-grupo">
-      <label for="filtro-categoria">Categoría:</label>
-      <select id="filtro-categoria">
-        <option value="">Todas</option>
-        <option value="TC">Tortas Cuadradas</option>
-        <option value="TT">Tortas Circulares</option>
-        <option value="PI">Postres Individuales</option>
-      </select>
-    </div>
+      <!-- Grupo de filtros -->
+      <div class="filtro-grupo">
+        <button id="btn-toggle-filtros">Filtrar productos</button>
 
-    <div class="filtro-grupo">
-      <label for="filtro-forma">Forma:</label>
-      <select id="filtro-forma">
-        <option value="">Todas</option>
-        <option value="cuadrada">Cuadrada</option>
-        <option value="circular">Circular</option>
-      </select>
-    </div>
+        <div id="filtros-opciones" style="display: none; margin-top: 1rem;">
+          <div class="filtro-grupo">
+            <label for="filtro-categoria">Categoría:</label>
+            <select id="filtro-categoria">
+              <option value="">Todas</option>
+              <option value="TC">Tortas Cuadradas</option>
+              <option value="TT">Tortas Circulares</option>
+              <option value="PI">Postres Individuales</option>
+            </select>
+          </div>
 
-    <div class="filtro-grupo">
-      <label for="filtro-etiqueta">Etiqueta:</label>
-      <select id="filtro-etiqueta">
-        <option value="">Todas</option>
-        <option value="Sin azúcar">Sin azúcar</option>
-        <option value="Sin gluten">Sin gluten</option>
-        <option value="Vegana">Vegana</option>
-        <option value="Tradicional">Tradicional</option>
-        <option value="Especial">Especial</option>
-      </select>
-    </div>
+          <div class="filtro-grupo">
+            <label for="filtro-forma">Forma:</label>
+            <select id="filtro-forma">
+              <option value="">Todas</option>
+              <option value="cuadrada">Cuadrada</option>
+              <option value="circular">Circular</option>
+            </select>
+          </div>
 
-    <button id="btn-limpiar">Limpiar filtros</button>
-  </div>
-</section>
+          <div class="filtro-grupo">
+            <label for="filtro-etiqueta">Etiqueta:</label>
+            <select id="filtro-etiqueta">
+              <option value="">Todas</option>
+              <option value="Sin azúcar">Sin azúcar</option>
+              <option value="Sin gluten">Sin gluten</option>
+              <option value="Vegana">Vegana</option>
+              <option value="Tradicional">Tradicional</option>
+              <option value="Especial">Especial</option>
+            </select>
+          </div>
 
+          <!-- 🔽 Orden por precio dentro del panel -->
+          <div class="filtro-grupo" id="orden-precio-container">
+            <label for="orden-precio">Ordenar por precio:</label>
+            <button id="orden-precio" data-direccion="asc">⬆️ Ascendente</button>
+          </div>
 
+          <button id="btn-limpiar">Limpiar filtros</button>
+        </div>
+      </div>
+    </section> <!-- ✅ cierre correcto de barra-interactiva -->
 
+    <!--  Contenedor de productos -->
+    <div id="productos-container"></div>
 
-    <div id="productos-container" class="productos-grid"></div> <!-- Aquí se insertan las tarjetas desde JS -->
+    <!-- Mensaje si no hay resultados -->
     <p id="mensaje-sin-resultados" style="display: none; text-align: center; margin-top: 2rem; font-weight: bold; color: #a94442;">
-  No se encontraron productos que coincidan con tu búsqueda 😢
-</p>
+      No se encontraron productos que coincidan con tu búsqueda 😢
+    </p>
   </main>
 </body>
 </html>

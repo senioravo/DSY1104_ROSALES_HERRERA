@@ -147,3 +147,60 @@ Los productos filtrados se agrupan por categoría y se renderizan en secciones c
 - productos_pasteleria.js → fuente de datos del catálogo.
 
 - assets → imágenes de los productos.
+
+
+
+# Req ID PS22: Búsqueda y orden con normalización y debounce
+
+Este requerimiento implementa la funcionalidad de búsqueda por nombre o código de producto, junto con ordenamiento ascendente/descendente por precio. Se aplican buenas prácticas como normalización de texto y debounce para mejorar la experiencia del usuario y el rendimiento de la interfaz.
+
+# Implementación técnica
+
+Se agregó un campo <input> en el HTML para realizar búsquedas por nombre o código (inputBusqueda).
+
+Se creó la función normalizarTexto(texto) en main.js para eliminar acentos, convertir a minúsculas y recortar espacios, permitiendo búsquedas más tolerantes.
+
+Se implementó debounce(fn, delay) con un delay de 250ms para evitar renderizados excesivos al escribir en el campo de búsqueda.
+
+Se agregó un botón de orden (btnOrdenPrecio) con tres estados: sin orden, ascendente (asc) y descendente (desc). El estado se gestiona con dataset.direccion y se actualiza dinámicamente.
+
+La función aplicarFiltros(productos, filtros, direccionOrden) evalúa los filtros activos y aplica el orden por precio si corresponde.
+
+
+
+# Validaciones aplicadas
+
+- La búsqueda se realiza sobre los campos nombre y code, aplicando normalizarTexto() para garantizar coincidencias sin importar acentos, mayúsculas o espacios.
+
+- El debounce de 250ms evita múltiples renderizados durante la escritura, mejorando el rendimiento.
+
+- El orden por precio se aplica de forma estable, manteniendo la agrupación por categoría y sin alterar el resultado del filtro.
+
+- Se conserva el estado de búsqueda y orden al interactuar con los controles, sin perder los filtros activos.
+
+# Renderizado en interfaz
+
+- Los productos filtrados se agrupan por categoría y se renderizan en secciones con títulos (<h2>) y grillas (.productos-grid).
+
+- El botón de orden cambia su texto dinámicamente para reflejar el estado actual (⬆ Ascendente, ⬇ Descendente, Ordenar por precio).
+
+- Si no hay coincidencias, se muestra un mensaje visual (#mensaje-sin-resultados) indicando que no se encontraron productos.
+
+# Estilos aplicados
+
+- Se mantuvo el layout con CSS Grid para mostrar los productos en formato responsive.
+
+- Se definieron estilos para .producto, .productos-grid, .seccion-titulo y el mensaje de “sin resultados”.
+
+- Se aplicaron animaciones al hacer scroll para mostrar los productos con efecto de entrada (.visible).
+
+# Archivos involucrados
+- productos.html → estructura visual y campo de búsqueda + botón de orden.
+
+- mainProductos.js → lógica de búsqueda, orden, debounce, renderizado y normalización.
+
+- styles.css → diseño visual de tarjetas, grillas y mensajes.
+
+- productos_pasteleria.js → fuente de datos del catálogo.
+
+- assets → imágenes de los productos.
