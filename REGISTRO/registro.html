@@ -1,0 +1,68 @@
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="/REGISTRO/styles.css">
+    <script src="validaciones.js" defer></script>
+</head>
+
+<body>
+    <nav role="navigation">
+        <ul class="nav-list">
+            <li><a href="/HOME/index.html" class="nav-link">HOME</a></li>
+            <li><a href="productos.html" class="nav-link">Productos</a></li>
+            <li><a href="#" class="nav-link">Personaliza tu torta</a></li>
+            <li><a href="#" class="nav-link">Recetas/Blog</a></li>
+            <li><a href="#" class="nav-link">Contacto</a></li>
+            <li>
+                <a href="/CARRITO/carrito.html" class="cart-button">
+                    🛒 <span id="cart-badge">0</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="registro-section">
+            <h2>Formulario de Registro con Beneficios</h2>
+            <form id="registroForm" autocomplete="off">
+                <label>
+                    Nombre:
+                    <input type="text" id="nombre" name="nombre" required maxlength="50" placeholder="Ej: Camila">
+                    <span class="error" id="error-nombre"></span>
+                </label>
+                <label>
+                    Apellidos:
+                    <input type="text" id="apellidos" name="apellidos" required maxlength="50" placeholder="Ej: González Soto">
+                    <span class="error" id="error-apellidos"></span>
+                </label>
+                <label>
+                    Email:
+                    <input type="email" id="email" name="email" required maxlength="100" placeholder="Ej: usuario@duoc.cl">
+                    <span class="error" id="error-email"></span>
+                </label>
+                <label>
+                    Fecha de nacimiento:
+                    <input type="date" id="fechaNacimiento" name="fechaNacimiento" required placeholder="dd-mm-aaaa">
+                    <span class="error" id="error-fechaNacimiento"></span>
+                </label>
+                <label>
+                    Contraseña:
+                    <input type="password" id="password" name="password" required minlength="4" maxlength="10" placeholder="4 a 10 caracteres">
+                    <span class="error" id="error-password"></span>
+                </label>
+                <label>
+                    Código promocional (opcional):
+                    <input type="text" id="codigoPromo" name="codigoPromo" maxlength="20" placeholder="Si tienes uno, ingrésalo aquí">
+                    <span class="error" id="error-codigoPromo"></span>
+                </label>
+                <button type="submit">Registrarse</button>
+                <div id="registro-exito" style="color:green;margin-top:1em;"></div>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>
