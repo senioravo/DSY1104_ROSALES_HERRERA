@@ -1,0 +1,149 @@
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mil Sabores</title>
+    <link rel="stylesheet" href="../BLOG/styles.css">
+    <script src="../CARRITO/carrito.js"></script>
+    <script src="../BLOG/script.js" defer></script>
+</head>
+
+<body>
+    <nav role="navigation">
+        <ul class="nav-list">
+            <li><a href="../HOME/index.html" class="nav-link">HOME</a></li>
+            <li><a href="../HOME/productos.html" class="nav-link">Productos</a></li>
+            <li><a href="#" class="nav-link">Personaliza tu torta</a></li>
+            <li><a href="#" class="nav-link">Recetas/Blog</a></li>
+            <li><a href="#" class="nav-link">Contacto</a></li>
+            <li>
+                <a href="../HOME/carrito.html" class="cart-button">
+                    🛒 <span id="cart-badge">0</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="blog-section">
+            <h1 style="margin-top:2.5rem; text-align:center; font-family: var(--font-head); color: var(--accent-choco);">RECETAS/BLOG</h1>
+            <div class="blog-controls" style="display:flex;justify-content:center;gap:1rem;margin-bottom:2rem;">
+                <select id="filter-category" aria-label="Filtrar por categoría">
+                    <option value="all">Todas las categorías</option>
+                    <option value="receta">Recetas</option>
+                    <option value="tips">Tips</option>
+                    <option value="historia">Historia</option>
+                    <option value="decoracion">Decoración</option>
+                    <option value="saludable">Saludable</option>
+                </select>
+                <select id="sort-date" aria-label="Ordenar por fecha">
+                    <option value="desc">Más recientes</option>
+                    <option value="asc">Más antiguos</option>
+                </select>
+            </div>
+            <div class="blog-grid" id="blog-grid">
+                <!-- Artículos generados por JS -->
+            </div>
+        </section>
+    </main>
+    <script>
+        // Artículos mock
+        const articles = [{
+            id: 1,
+            title: "Torta Tres Leches Perfecta",
+            snippet: "Aprende a preparar una torta tres leches esponjosa y deliciosa con este paso a paso fácil.",
+            category: "receta",
+            date: "2025-09-01",
+            img: "imgs/tres-leches.jpg"
+        }, {
+            id: 2,
+            title: "Decoración con Frutas Frescas",
+            snippet: "Ideas y consejos para decorar tus pasteles usando frutas de temporada y lograr un acabado profesional.",
+            category: "decoracion",
+            date: "2025-08-28",
+            img: "imgs/frutas-decoracion.avif"
+        }, {
+            id: 3,
+            title: "Historia del Queque Marmoleado",
+            snippet: "Descubre el origen y curiosidades de este clásico de la pastelería casera.",
+            category: "historia",
+            date: "2025-08-15",
+            img: "imgs/queque-marmoleado.jpg"
+        }, {
+            id: 4,
+            title: "Tips para un Bizcocho Saludable",
+            snippet: "¿Cómo lograr un bizcocho esponjoso y bajo en azúcar? Aquí te lo contamos.",
+            category: "saludable",
+            date: "2025-09-05",
+            img: "imgs/bizcocho-saludable.jpg"
+        }, {
+            id: 5,
+            title: "Receta: Pie de Limón Clásico",
+            snippet: "El paso a paso definitivo para un pie de limón con merengue firme y base crocante.",
+            category: "receta",
+            date: "2025-08-22",
+            img: "imgs/pie-limon.avif"
+        }, {
+            id: 6,
+            title: "Cómo Usar Manga Pastelera",
+            snippet: "Domina la manga pastelera y sorprende con decoraciones creativas y fáciles.",
+            category: "tips",
+            date: "2025-09-03",
+            img: "imgs/manga-pastelera.avif"
+        }];
+
+        // Renderiza los artículos
+        function renderArticles(list) {
+            const grid = document.getElementById('blog-grid');
+            grid.innerHTML = '';
+            list.forEach(article => {
+                const card = document.createElement('article');
+                card.className = 'blog-card';
+                card.tabIndex = 0;
+                card.setAttribute('role', 'button');
+                card.setAttribute('aria-label', article.title);
+                card.onclick = () => window.location.href = `detalle.html?id=${article.id}`;
+                card.onkeydown = e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        window.location.href = `detalle.html?id=${article.id}`;
+                    }
+                };
+                card.innerHTML = `
+                    <img src="${article.img}" alt="${article.title}" class="blog-img">
+                    <div class="blog-card-content">
+                        <span class="blog-category">${article.category.charAt(0).toUpperCase() + article.category.slice(1)}</span>
+                        <h2 class="blog-title">${article.title}</h2>
+                        <p class="blog-snippet">${article.snippet}</p>
+                        <span class="blog-date">${new Date(article.date).toLocaleDateString('es-CL')}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Filtros y orden
+        function applyFilters() {
+            const cat = document.getElementById('filter-category').value;
+            const sort = document.getElementById('sort-date').value;
+            let filtered = articles.slice();
+            if (cat !== 'all') {
+                filtered = filtered.filter(a => a.category === cat);
+            }
+            filtered.sort((a, b) => sort === 'asc' ?
+                new Date(a.date) - new Date(b.date) :
+                new Date(b.date) - new Date(a.date)
+            );
+            renderArticles(filtered);
+        }
+
+        document.getElementById('filter-category').addEventListener('change', applyFilters);
+        document.getElementById('sort-date').addEventListener('change', applyFilters);
+
+        // Inicial
+        renderArticles(articles);
+    </script>
+</body>
+
+</html>
