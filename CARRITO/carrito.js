@@ -4,6 +4,7 @@
  */
 
 const ShoppingCart = {
+        // --- CRUD: ADD ---
         /**
          * Add item to cart
          * @param {Object} item - Product object
@@ -12,7 +13,6 @@ const ShoppingCart = {
          */
         add(item, qty, opciones = {}) {
             const cart = this.getCart();
-
             // Check if item already exists in cart
             const existingIndex = cart.findIndex(cartItem => cartItem.code === item.code);
 
@@ -35,6 +35,7 @@ const ShoppingCart = {
             this.updateUI();
         },
 
+        // --- CRUD: UPDATE ---
         /**
          * Update item quantity
          * @param {string} code - Product code
@@ -46,17 +47,16 @@ const ShoppingCart = {
 
             if (index >= 0) {
                 cart[index].qty = qty;
-
                 // Remove item if quantity is zero or less
                 if (qty <= 0) {
                     cart.splice(index, 1);
                 }
-
                 this.saveCart(cart);
                 this.updateUI();
             }
         },
 
+        // --- CRUD: REMOVE ---
         /**
          * Remove item from cart
          * @param {string} code - Product code
@@ -72,6 +72,7 @@ const ShoppingCart = {
             }
         },
 
+        // --- CRUD: CLEAR ---
         /**
          * Clear entire cart
          */
@@ -80,6 +81,7 @@ const ShoppingCart = {
             this.updateUI();
         },
 
+        // --- UTIL: GET CART ---
         /**
          * Get cart from localStorage
          * @returns {Array} Cart items
@@ -89,6 +91,7 @@ const ShoppingCart = {
             return cartJSON ? JSON.parse(cartJSON) : [];
         },
 
+        // --- UTIL: SAVE CART ---
         /**
          * Save cart to localStorage
          * @param {Array} cart - Cart items
@@ -97,8 +100,9 @@ const ShoppingCart = {
             localStorage.setItem('cart', JSON.stringify(cart));
         },
 
+        // --- UI: UPDATE BADGE & PAGE ---
         /**
-         * Update UI elements
+         * Update UI elements (badge and cart page)
          */
         updateUI() {
             // Update cart badge
@@ -116,6 +120,7 @@ const ShoppingCart = {
             }
         },
 
+        // --- UI: RENDER CART PAGE ---
         /**
          * Render cart items on cart page
          */
@@ -138,55 +143,55 @@ const ShoppingCart = {
                         total += itemTotal;
 
                         html += `
-        <div class="cart-item">
-          <div class="item-details">
-            <h3>${item.name}</h3>
-            <p>Código: ${item.code}</p>
-            ${item.opciones.tamano ? `<p>Tamaño: ${item.opciones.tamano}</p>` : ''}
-            ${item.opciones.mensaje ? `<p>Mensaje: ${item.opciones.mensaje}</p>` : ''}
-          </div>
-          <div class="item-price">
-            $${item.priceCLP.toLocaleString('es-CL')}
-          </div>
-          <div class="item-quantity">
-            <button class="qty-btn" onclick="ShoppingCart.update('${item.code}', ${item.qty - 1})">-</button>
-            <span>${item.qty}</span>
-            <button class="qty-btn" onclick="ShoppingCart.update('${item.code}', ${item.qty + 1})">+</button>
-          </div>
-          <div class="item-total">
-            $${itemTotal.toLocaleString('es-CL')}
-          </div>
-          <button class="remove-btn" onclick="ShoppingCart.remove('${item.code}')">✕</button>
-        </div>
-      `;
-    });
-    
-    html += `
-      <div class="cart-summary">
-        <div class="cart-total">
-          <span>Total:</span>
-          <span>$${total.toLocaleString('es-CL')}</span>
-        </div>
-        <button class="clear-btn" onclick="ShoppingCart.clear()">Vaciar carrito</button>
-        <button class="checkout-btn">Proceder al pago</button>
-      </div>
-    `;
-    
-    cartContainer.innerHTML = html;
-  },
-  
-  /**
-   * Initialize cart
-   */
-init() {
-    // Initialize cart if it doesn't exist
-    if (!localStorage.getItem('cart')) {
-        localStorage.setItem('cart', JSON.stringify([]));
+                <div class="cart-item">
+                    <div class="item-details">
+                        <h3>${item.name}</h3>
+                        <p>Código: ${item.code}</p>
+                        ${item.opciones.tamano ? `<p>Tamaño: ${item.opciones.tamano}</p>` : ''}
+                        ${item.opciones.mensaje ? `<p>Mensaje: ${item.opciones.mensaje}</p>` : ''}
+                    </div>
+                    <div class="item-price">
+                        $${item.priceCLP.toLocaleString('es-CL')}
+                    </div>
+                    <div class="item-quantity">
+                        <button class="qty-btn" onclick="ShoppingCart.update('${item.code}', ${item.qty - 1})">-</button>
+                        <span>${item.qty}</span>
+                        <button class="qty-btn" onclick="ShoppingCart.update('${item.code}', ${item.qty + 1})">+</button>
+                    </div>
+                    <div class="item-total">
+                        $${itemTotal.toLocaleString('es-CL')}
+                    </div>
+                    <button class="remove-btn" onclick="ShoppingCart.remove('${item.code}')">✕</button>
+                </div>
+            `;
+        });
+
+        html += `
+            <div class="cart-summary">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span>$${total.toLocaleString('es-CL')}</span>
+                </div>
+                <button class="clear-btn" onclick="ShoppingCart.clear()">Vaciar carrito</button>
+                <button class="checkout-btn">Proceder al pago</button>
+            </div>
+        `;
+
+        cartContainer.innerHTML = html;
+    },
+
+    // --- INIT: CART ---
+    /**
+     * Initialize cart
+     */
+    init() {
+        // Initialize cart if it doesn't exist
+        if (!localStorage.getItem('cart')) {
+            localStorage.setItem('cart', JSON.stringify([]));
+        }
+        // Update UI based on current cart state
+        this.updateUI();
     }
-    
-    // Update UI based on current cart state
-    this.updateUI();
-}
 };
 
 // Initialize cart on page load
