@@ -160,3 +160,28 @@ function mostrarNotificacion(mensaje) {
 document.addEventListener("DOMContentLoaded", () => {
   renderizarProductos(PRODUCTS_PS); // o el arreglo que estés usando
 });
+
+
+
+function renderizarProductos(lista) {
+  const contenedor = document.getElementById("productos-container");
+  const loader = document.getElementById("loader");
+
+  // Mostrar loader
+  contenedor.style.display = "none";
+  loader.style.display = "grid";
+
+  // Simular carga (puedes ajustar el tiempo)
+  setTimeout(() => {
+    loader.style.display = "none";
+    contenedor.innerHTML = "";
+
+    lista.forEach(producto => {
+      const card = crearCard(producto);
+      contenedor.appendChild(card);
+    });
+
+    contenedor.style.display = "grid";
+    inicializarBotonesAñadir();
+  }, 600); // 600ms de carga simulada
+}
