@@ -28,6 +28,49 @@
     </div>
   </section>
 
+  <!-- Filtros combinables -->
+  <section id="filtros-opciones">
+    <h3>Filtrar por:</h3>
+
+    <!-- Categoría -->
+    <label for="filtro-categoria">Categoría:</label>
+    <select id="filtro-categoria">
+      <option value="">Todas</option>
+      <option value="CAT01">Pastelería</option>
+      <option value="CAT02">Tortas</option>
+      <!-- Agrega más según tu inventario -->
+    </select>
+
+    <!-- Tipo de forma -->
+    <label for="filtro-forma">Forma:</label>
+    <select id="filtro-forma">
+      <option value="">Todas</option>
+      <option value="cuadrada">Cuadrada</option>
+      <option value="circular">Circular</option>
+    </select>
+
+    <!-- Tamaño disponible -->
+    <label for="filtro-tamano">Tamaño:</label>
+    <select id="filtro-tamano">
+      <option value="">Todos</option>
+      <option value="individual">Individual</option>
+      <option value="familiar">Familiar</option>
+    </select>
+
+    <!-- Etiquetas -->
+    <fieldset>
+      <legend>Etiquetas:</legend>
+      <label><input type="checkbox" name="etiquetas" value="sin azúcar"> Sin azúcar</label>
+      <label><input type="checkbox" name="etiquetas" value="sin gluten"> Sin gluten</label>
+      <label><input type="checkbox" name="etiquetas" value="vegana"> Vegana</label>
+      <label><input type="checkbox" name="etiquetas" value="tradicional"> Tradicional</label>
+      <label><input type="checkbox" name="etiquetas" value="especial"> Especial</label>
+    </fieldset>
+
+    <!-- Botón limpiar -->
+    <button id="btn-limpiar">Limpiar filtros</button>
+  </section>
+
   <!-- Contenedor de productos -->
   <section class="productos-grid" id="productos-container">
     <!-- Aquí se insertarán dinámicamente las tarjetas de producto -->
