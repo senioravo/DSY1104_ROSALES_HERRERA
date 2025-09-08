@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Los Mil Sabores</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navegación -->
+  <nav>
+    <ul class="nav-list">
+      <li><a href="#" class="nav-link active">Inicio</a></li>
+      <li><a href="#" class="nav-link">Menú</a></li>
+      <li><a href="#" class="nav-link">Contacto</a></li>
+      <li><button class="cart-button">🛒<span class="badge">0</span></button></li>
+    </ul>
+  </nav>
+
+  <!-- Título principal -->
+  <h1 class="catalog-title">Los Mil Sabores</h1>
+
+  <!-- Barra de búsqueda y filtros -->
+  <section class="barra-interactiva">
+    <div class="busqueda-grupo">
+      <input type="text" id="busqueda" placeholder="Buscar platos...">
+      <button id="btn-toggle-filtros">Filtros</button>
+    </div>
+  </section>
+
+  <!-- Contenedor de productos -->
+  <section class="productos-grid" id="productos-container">
+    <!-- Aquí se insertarán dinámicamente las tarjetas de producto -->
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
