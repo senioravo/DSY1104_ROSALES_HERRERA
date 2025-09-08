@@ -7,7 +7,9 @@ function formatoCLP(valor) {
   return `$${valor.toLocaleString("es-CL")}`;
 }
 
-
+/**
+ * Filtros combinables
+ */
 function obtenerFiltros() {
   const categoria = document.getElementById("filtro-categoria").value;
   const forma = document.getElementById("filtro-forma").value;
@@ -49,16 +51,9 @@ function leerFiltrosDesdeURL() {
   };
 }
 
-document.getElementById("btn-limpiar").addEventListener("click", () => {
-  document.getElementById("filtro-categoria").value = "";
-  document.getElementById("filtro-forma").value = "";
-  document.getElementById("filtro-tamano").value = "";
-  document.querySelectorAll("input[name='etiquetas']").forEach(e => e.checked = false);
-
-  actualizarURL({ categoria: "", forma: "", tamano: "", etiquetas: [] });
-  renderizarProductos(productos); // Reemplaza con tu función de render
-});
-
+/**
+ * Búsqueda y orden
+ */
 function normalizarTexto(texto) {
   return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
@@ -84,25 +79,9 @@ function ordenarPorPrecio(productos, ascendente = true) {
   return [...productos].sort((a, b) => ascendente ? a.precioCLP - b.precioCLP : b.precioCLP - a.precioCLP);
 }
 
-
-
-let ordenAscendente = true;
-
-document.getElementById("btn-orden-precio").addEventListener("click", () => {
-  ordenAscendente = !ordenAscendente;
-  actualizarListado();
-});
-
-const actualizarListado = debounce(() => {
-  const texto = document.getElementById("busqueda").value;
-  const filtrados = filtrarPorBusqueda(productos, texto);
-  const ordenados = ordenarPorPrecio(filtrados, ordenAscendente);
-  renderizarProductos(ordenados);
-}, 250);
-
-document.getElementById("busqueda").addEventListener("input", actualizarListado);
-
-
+/**
+ * Renderizado de cards
+ */
 function crearCard(producto) {
   const card = document.createElement("div");
   card.classList.add("producto");
@@ -119,15 +98,37 @@ function crearCard(producto) {
       ${producto.etiquetas?.map(tag => `<span class="badge-etiqueta">${tag}</span>`).join("")}
     </div>
     <button class="btn-añadir" data-id="${producto.code}">Añadir</button>
+    <button class="btn-favorito" data-id="${producto.code}">🤍</button>
   `;
 
   return card;
 }
 
+function renderizarProductos(lista) {
+  const contenedor = document.getElementById("productos-container");
+  const loader = document.getElementById("loader");
 
+  contenedor.style.display = "none";
+  loader.style.display = "grid";
 
+  setTimeout(() => {
+    loader.style.display = "none";
+    contenedor.innerHTML = "";
 
+    lista.forEach(producto => {
+      const card = crearCard(producto);
+      contenedor.appendChild(card);
+    });
 
+    contenedor.style.display = "grid";
+    inicializarBotonesAñadir();
+    inicializarBotonesFavorito();
+  }, 600);
+}
+
+/**
+ * Eventos de botones
+ */
 function inicializarBotonesAñadir() {
   document.querySelectorAll(".btn-añadir").forEach(boton => {
     boton.addEventListener("click", () => {
@@ -139,6 +140,18 @@ function inicializarBotonesAñadir() {
   });
 }
 
+function inicializarBotonesFavorito() {
+  document.querySelectorAll(".btn-favorito").forEach(boton => {
+    boton.addEventListener("click", () => {
+      boton.classList.toggle("activo");
+      boton.textContent = boton.classList.contains("activo") ? "❤️" : "🤍";
+    });
+  });
+}
+
+/**
+ * Carrito
+ */
 function agregarAlCarrito(idProducto) {
   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
   const productoExistente = carrito.find(p => p.id === idProducto);
@@ -159,35 +172,48 @@ function actualizarBadgeCarrito() {
 }
 
 function mostrarNotificacion(mensaje) {
-  // Puedes usar un toast, alert o animación
-  alert(mensaje); // Simple por ahora
+  alert(mensaje); // Puedes reemplazar por un toast visual
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderizarProductos(PRODUCTS_PS); // o el arreglo que estés usando
+/**
+ * Filtros y búsqueda
+ */
+let ordenAscendente = true;
+const productos = PRODUCTS_PS;
+
+document.getElementById("btn-orden-precio").addEventListener("click", () => {
+  ordenAscendente = !ordenAscendente;
+  actualizarListado();
 });
 
+document.getElementById("busqueda").addEventListener("input", actualizarListado);
 
+document.getElementById("btn-limpiar").addEventListener("click", () => {
+  document.getElementById("filtro-categoria").value = "";
+  document.getElementById("filtro-forma").value = "";
+  document.getElementById("filtro-tamano").value = "";
+  document.querySelectorAll("input[name='etiquetas']").forEach(e => e.checked = false);
 
-function renderizarProductos(lista) {
-  const contenedor = document.getElementById("productos-container");
-  const loader = document.getElementById("loader");
+  actualizarURL({ categoria: "", forma: "", tamano: "", etiquetas: [] });
+  renderizarProductos(productos);
+});
 
-  // Mostrar loader
-  contenedor.style.display = "none";
-  loader.style.display = "grid";
+const actualizarListado = debounce(() => {
+  const texto = document.getElementById("busqueda").value;
+  const filtros = obtenerFiltros();
+  const filtrados = filtrarProductos(productos, filtros);
+  const buscados = filtrarPorBusqueda(filtrados, texto);
+  const ordenados = ordenarPorPrecio(buscados, ordenAscendente);
+  renderizarProductos(ordenados);
+}, 250);
 
-  // Simular carga (puedes ajustar el tiempo)
-  setTimeout(() => {
-    loader.style.display = "none";
-    contenedor.innerHTML = "";
-
-    lista.forEach(producto => {
-      const card = crearCard(producto);
-      contenedor.appendChild(card);
-    });
-
-    contenedor.style.display = "grid";
-    inicializarBotonesAñadir();
-  }, 600); // 600ms de carga simulada
-}
+/**
+ * Inicialización
+ */
+document.addEventListener("DOMContentLoaded", () => {
+  const filtrosIniciales = leerFiltrosDesdeURL();
+  const filtrados = filtrarProductos(productos, filtrosIniciales);
+  const ordenados = ordenarPorPrecio(filtrados, ordenAscendente);
+  renderizarProductos(ordenados);
+  actualizarBadgeCarrito();
+});
