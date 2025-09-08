@@ -101,3 +101,62 @@ const actualizarListado = debounce(() => {
 }, 250);
 
 document.getElementById("busqueda").addEventListener("input", actualizarListado);
+
+
+
+function crearCard(producto) {
+  const card = document.createElement("div");
+  card.classList.add("producto");
+
+  card.innerHTML = `
+    <img src="${producto.imagen}" alt="Imagen de ${producto.nombre}">
+    <h2>${producto.nombre}</h2>
+    <p><strong>Precio:</strong> ${formatoCLP(producto.precioCLP)}</p>
+    <div class="badges">
+      <span class="badge-categoria">${producto.categoriaId}</span>
+      ${producto.etiquetas?.map(tag => `<span class="badge-etiqueta">${tag}</span>`).join("")}
+    </div>
+    <button class="btn-añadir" data-id="${producto.code}">Añadir</button>
+  `;
+
+  return card;
+}
+
+function inicializarBotonesAñadir() {
+  document.querySelectorAll(".btn-añadir").forEach(boton => {
+    boton.addEventListener("click", () => {
+      const id = boton.dataset.id;
+      agregarAlCarrito(id);
+      mostrarNotificacion("Producto añadido al carrito");
+      actualizarBadgeCarrito();
+    });
+  });
+}
+
+function agregarAlCarrito(idProducto) {
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  const productoExistente = carrito.find(p => p.id === idProducto);
+
+  if (productoExistente) {
+    productoExistente.cantidad += 1;
+  } else {
+    carrito.push({ id: idProducto, cantidad: 1 });
+  }
+
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+function actualizarBadgeCarrito() {
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  const total = carrito.reduce((acc, p) => acc + p.cantidad, 0);
+  document.querySelector(".badge").textContent = total;
+}
+
+function mostrarNotificacion(mensaje) {
+  // Puedes usar un toast, alert o animación
+  alert(mensaje); // Simple por ahora
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderizarProductos(PRODUCTS_PS); // o el arreglo que estés usando
+});
