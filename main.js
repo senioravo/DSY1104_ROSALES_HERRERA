@@ -59,3 +59,45 @@ document.getElementById("btn-limpiar").addEventListener("click", () => {
   renderizarProductos(productos); // Reemplaza con tu función de render
 });
 
+function normalizarTexto(texto) {
+  return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function debounce(fn, delay) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+
+function filtrarPorBusqueda(productos, texto) {
+  const query = normalizarTexto(texto);
+  return productos.filter(p => {
+    const nombre = normalizarTexto(p.nombre);
+    const codigo = normalizarTexto(p.code);
+    return nombre.includes(query) || codigo.includes(query);
+  });
+}
+
+function ordenarPorPrecio(productos, ascendente = true) {
+  return [...productos].sort((a, b) => ascendente ? a.precioCLP - b.precioCLP : b.precioCLP - a.precioCLP);
+}
+
+
+
+let ordenAscendente = true;
+
+document.getElementById("btn-orden-precio").addEventListener("click", () => {
+  ordenAscendente = !ordenAscendente;
+  actualizarListado();
+});
+
+const actualizarListado = debounce(() => {
+  const texto = document.getElementById("busqueda").value;
+  const filtrados = filtrarPorBusqueda(productos, texto);
+  const ordenados = ordenarPorPrecio(filtrados, ordenAscendente);
+  renderizarProductos(ordenados);
+}, 250);
+
+document.getElementById("busqueda").addEventListener("input", actualizarListado);
