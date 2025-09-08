@@ -103,16 +103,18 @@ const actualizarListado = debounce(() => {
 document.getElementById("busqueda").addEventListener("input", actualizarListado);
 
 
-
 function crearCard(producto) {
   const card = document.createElement("div");
   card.classList.add("producto");
+
+  const esStockBajo = producto.stock <= 3 && producto.stock > 0;
 
   card.innerHTML = `
     <img src="${producto.imagen}" alt="Imagen de ${producto.nombre}">
     <h2>${producto.nombre}</h2>
     <p><strong>Precio:</strong> ${formatoCLP(producto.precioCLP)}</p>
     <div class="badges">
+      ${esStockBajo ? `<span class="badge-stock">Últimas unidades</span>` : ""}
       <span class="badge-categoria">${producto.categoriaId}</span>
       ${producto.etiquetas?.map(tag => `<span class="badge-etiqueta">${tag}</span>`).join("")}
     </div>
@@ -121,6 +123,10 @@ function crearCard(producto) {
 
   return card;
 }
+
+
+
+
 
 function inicializarBotonesAñadir() {
   document.querySelectorAll(".btn-añadir").forEach(boton => {
