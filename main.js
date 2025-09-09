@@ -1,15 +1,11 @@
 import { PRODUCTS_PS } from "./productos_pasteleria.js";
 
-/**
- * Convierte un número en formato de moneda chilena (CLP).
- */
+/** Formato CLP */
 function formatoCLP(valor) {
   return `$${valor.toLocaleString("es-CL")}`;
 }
 
-/**
- * Obtiene los filtros seleccionados por el usuario
- */
+/** Filtros activos */
 function obtenerFiltros() {
   const categoria = document.getElementById("filtro-categoria").value;
   const forma = document.getElementById("filtro-forma").value;
@@ -17,13 +13,10 @@ function obtenerFiltros() {
   const etiquetas = Array.from(document.querySelectorAll("input[name='etiquetas']:checked")).map(e => e.value);
   const precioMin = parseInt(document.getElementById("precio-min").value) || 0;
   const precioMax = parseInt(document.getElementById("precio-max").value) || Infinity;
-
   return { categoria, forma, tamano, etiquetas, precioMin, precioMax };
 }
 
-/**
- * Aplica los filtros combinables a la lista de productos
- */
+/** Filtrado combinable */
 function filtrarProductos(productos, filtros) {
   return productos.filter(p => {
     const coincideCategoria = !filtros.categoria || p.categoriaId === filtros.categoria;
@@ -31,28 +24,21 @@ function filtrarProductos(productos, filtros) {
     const coincideTamano = !filtros.tamano || p.tamañosDisponibles.includes(filtros.tamano);
     const coincideEtiquetas = filtros.etiquetas.length === 0 || filtros.etiquetas.every(tag => p.etiquetas?.includes(tag));
     const dentroDelRango = p.precioCLP >= filtros.precioMin && p.precioCLP <= filtros.precioMax;
-
     return coincideCategoria && coincideForma && coincideTamano && coincideEtiquetas && dentroDelRango;
   });
 }
 
-/**
- * Actualiza la URL con los filtros activos
- */
+/** Actualiza URL con filtros */
 function actualizarURL(filtros) {
   const params = new URLSearchParams();
-
   if (filtros.categoria) params.set("categoria", filtros.categoria);
   if (filtros.forma) params.set("forma", filtros.forma);
   if (filtros.tamano) params.set("tamano", filtros.tamano);
   filtros.etiquetas.forEach(tag => params.append("etiqueta", tag));
-
   history.replaceState(null, "", "?" + params.toString());
 }
 
-/**
- * Lee los filtros desde la URL al cargar la página
- */
+/** Filtros desde URL */
 function leerFiltrosDesdeURL() {
   const params = new URLSearchParams(window.location.search);
   return {
@@ -63,16 +49,12 @@ function leerFiltrosDesdeURL() {
   };
 }
 
-/**
- * Normaliza texto para búsqueda (sin tildes, minúsculas)
- */
+/** Normaliza texto */
 function normalizarTexto(texto) {
   return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-/**
- * Función debounce para evitar múltiples llamadas rápidas
- */
+/** Debounce */
 function debounce(fn, delay) {
   let timer;
   return function (...args) {
@@ -81,9 +63,7 @@ function debounce(fn, delay) {
   };
 }
 
-/**
- * Filtra productos por texto de búsqueda
- */
+/** Búsqueda por texto */
 function filtrarPorBusqueda(productos, texto) {
   const query = normalizarTexto(texto);
   return productos.filter(p => {
@@ -93,16 +73,12 @@ function filtrarPorBusqueda(productos, texto) {
   });
 }
 
-/**
- * Ordena productos por precio
- */
+/** Orden por precio */
 function ordenarPorPrecio(productos, ascendente = true) {
   return [...productos].sort((a, b) => ascendente ? a.precioCLP - b.precioCLP : b.precioCLP - a.precioCLP);
 }
 
-/**
- * Crea una tarjeta de producto con botones y badges
- */
+/** Crea tarjeta de producto */
 function crearCard(producto) {
   const card = document.createElement("div");
   card.classList.add("producto");
@@ -131,10 +107,7 @@ function crearCard(producto) {
   return card;
 }
 
-
-/**
- * Renderiza la lista de productos con animación de carga
- */
+/** Renderiza productos */
 function renderizarProductos(lista) {
   const contenedor = document.getElementById("productos-container");
   const loader = document.getElementById("loader");
@@ -154,13 +127,11 @@ function renderizarProductos(lista) {
     contenedor.style.display = "grid";
     inicializarBotonesAñadir();
     inicializarBotonesFavorito();
-    inicializarBotonesVerMas(lista); // ✅ PS-028: activa botón “Ver más”
+    inicializarBotonesVerMas(lista);
   }, 600);
 }
 
-/**
- * Activa botón “Añadir” en cada card
- */
+/** Botón “Añadir” */
 function inicializarBotonesAñadir() {
   document.querySelectorAll(".btn-añadir").forEach(boton => {
     boton.addEventListener("click", () => {
@@ -172,9 +143,7 @@ function inicializarBotonesAñadir() {
   });
 }
 
-/**
- * Activa botón de favoritos visuales (sin login)
- */
+/** Botón “Favorito” */
 function inicializarBotonesFavorito() {
   document.querySelectorAll(".btn-favorito").forEach(boton => {
     boton.addEventListener("click", () => {
@@ -184,9 +153,7 @@ function inicializarBotonesFavorito() {
   });
 }
 
-/**
- * Activa botón “Ver más” para abrir el modal (PS-028)
- */
+/** Botón “Ver más” */
 function inicializarBotonesVerMas(lista) {
   document.querySelectorAll(".btn-vermas").forEach(boton => {
     boton.addEventListener("click", () => {
@@ -197,9 +164,7 @@ function inicializarBotonesVerMas(lista) {
   });
 }
 
-/**
- * Lógica del carrito
- */
+/** Carrito */
 function agregarAlCarrito(idProducto) {
   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
   const productoExistente = carrito.find(p => p.id === idProducto);
@@ -213,25 +178,19 @@ function agregarAlCarrito(idProducto) {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-/**
- * Actualiza el badge del carrito
- */
+/** Badge del carrito */
 function actualizarBadgeCarrito() {
   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
   const total = carrito.reduce((acc, p) => acc + p.cantidad, 0);
   document.querySelector(".badge").textContent = total;
 }
 
-/**
- * Muestra una notificación simple
- */
+/** Notificación */
 function mostrarNotificacion(mensaje) {
-  alert(mensaje); // Puedes reemplazar por un toast visual
+  alert(mensaje); // Puedes reemplazar por toast visual
 }
 
-/**
- * Eventos de búsqueda y filtros
- */
+/** Eventos */
 let ordenAscendente = true;
 const productos = PRODUCTS_PS;
 
@@ -247,37 +206,16 @@ document.getElementById("btn-limpiar").addEventListener("click", () => {
   document.getElementById("filtro-forma").value = "";
   document.getElementById("filtro-tamano").value = "";
   document.querySelectorAll("input[name='etiquetas']").forEach(e => e.checked = false);
-
   actualizarURL({ categoria: "", forma: "", tamano: "", etiquetas: [] });
   renderizarProductos(productos);
 });
 
-/**
- * Actualiza el listado con filtros, búsqueda y orden
- */
+/** Actualiza listado */
 const actualizarListado = debounce(() => {
-  const texto = document.getElementById("busqueda").value;         // 🟡 Captura el texto de búsqueda
-  const filtros = obtenerFiltros();                                // 🟡 Obtiene los filtros activos
-  const filtrados = filtrarProductos(productos, filtros);          // 🟡 Aplica filtros combinables
-  const buscados = filtrarPorBusqueda(filtrados, texto);           // 🟡 Aplica búsqueda por nombre/código
-  const ordenados = ordenarPorPrecio(buscados, ordenAscendente);   // 🟡 Aplica orden por precio
-  renderizarProductos(ordenados);                                  // 🟢 Renderiza el resultado final
+  const texto = document.getElementById("busqueda").value;
+  const filtros = obtenerFiltros();
+  const filtrados = filtrarProductos(productos, filtros);
+  const buscados = filtrarPorBusqueda(filtrados, texto);
+  const ordenados = ordenarPorPrecio(buscados, ordenAscendente);
+  renderizarProductos(ordenados);
 }, 250);
-
-
-const esAgotado = producto.stock === 0;
-
-card.innerHTML = `
-  <img src="${producto.imagen}" alt="Imagen de ${producto.nombre}">
-  <h2>${producto.nombre}</h2>
-  <p><strong>Precio:</strong> ${formatoCLP(producto.precioCLP)}</p>
-  <div class="badges">
-    ${esAgotado ? `<span class="badge-agotado">Agotado</span>` : ""}
-    ${esStockBajo ? `<span class="badge-stock">Últimas unidades</span>` : ""}
-    <span class="badge-categoria">${producto.categoriaId}</span>
-    ${producto.etiquetas?.map(tag => `<span class="badge-etiqueta">${tag}</span>`).join("")}
-  </div>
-  <button class="btn-añadir" data-id="${producto.code}">Añadir</button>
-  <button class="btn-favorito" data-id="${producto.code}">🤍</button>
-  <button class="btn-vermas" data-id="${producto.code}">Ver más</button>
-`;

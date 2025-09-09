@@ -40,6 +40,19 @@ function renderizarDetalle(producto) {
       <p><strong>Formas disponibles:</strong> ${producto.tipoForma}</p>
       <p><strong>Tamaños:</strong> ${producto.tamañosDisponibles.join(", ")}</p>
 
+      <!-- Selector de tamaño y cantidad (PS-032) -->
+      <p><strong>Selecciona tamaño:</strong></p>
+      <select id="selector-tamano">
+        <option value="">-- Selecciona --</option>
+        ${producto.tamañosDisponibles.map(t => `<option value="${t}">${t}</option>`).join("")}
+      </select>
+
+      <p><strong>Cantidad:</strong></p>
+      <input type="number" id="selector-cantidad" min="1" max="${producto.stock}" value="1">
+
+      <p id="error-detalle" class="error-msg"></p>
+
+      <!-- Personalización (PS-031) -->
       ${producto.personalizable ? `
         <label for="mensaje-personalizado">Mensaje personalizado:</label>
         <input type="text" id="mensaje-personalizado" maxlength="${maxMsgChars}" placeholder="Escribe tu dedicatoria...">
@@ -56,7 +69,7 @@ function renderizarDetalle(producto) {
     </section>
   `;
 
-  // Lógica de personalización (PS-031)
+  // Validación de mensaje personalizado (PS-031)
   if (producto.personalizable) {
     const input = document.getElementById("mensaje-personalizado");
     const contador = document.getElementById("contador-msg");
@@ -64,14 +77,8 @@ function renderizarDetalle(producto) {
 
     input.addEventListener("input", () => {
       let raw = input.value;
-
-      // Validación: solo letras, números, espacios y signos básicos
       const limpio = raw.replace(/[^a-zA-Z0-9 .,!¡¿?]/g, "");
-
-      // Escape básico para prevenir XSS
       const escapado = limpio.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-      // Limitar a maxMsgChars
       const final = escapado.slice(0, maxMsgChars);
 
       input.value = final;
@@ -79,9 +86,39 @@ function renderizarDetalle(producto) {
       preview.textContent = final;
     });
   }
+
+  // Validación de tamaño y cantidad (PS-032)
+  const btnAñadir = document.querySelector(".btn-añadir");
+  const selectorTamano = document.getElementById("selector-tamano");
+  const selectorCantidad = document.getElementById("selector-cantidad");
+  const errorMsg = document.getElementById("error-detalle");
+
+  btnAñadir.addEventListener("click", () => {
+    const tamano = selectorTamano.value;
+    const cantidad = parseInt(selectorCantidad.value);
+
+    errorMsg.textContent = "";
+
+    if (!tamano) {
+      errorMsg.textContent = "Debes seleccionar un tamaño.";
+      return;
+    }
+
+    if (isNaN(cantidad) || cantidad <= 0) {
+      errorMsg.textContent = "La cantidad debe ser mayor a 0.";
+      return;
+    }
+
+    if (cantidad > producto.stock) {
+      errorMsg.textContent = `Solo hay ${producto.stock} unidades disponibles.`;
+      return;
+    }
+
+    // Aquí podrías guardar en el carrito si avanzas con PS-040
+    mostrarNotificacion(`Añadido ${cantidad} ${tamano} al carrito`);
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   const producto = obtenerProductoDesdeURL();
   renderizarDetalle(producto);
-});

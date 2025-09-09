@@ -173,3 +173,18 @@
 }
 
 
+#selector-tamano,
+#selector-cantidad {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid var(--accent-choco);
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+#error-detalle {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
