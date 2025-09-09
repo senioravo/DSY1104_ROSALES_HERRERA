@@ -8,7 +8,7 @@ function formatoCLP(valor) {
 }
 
 /**
- * Filtros combinables
+ * Obtiene los filtros seleccionados por el usuario
  */
 function obtenerFiltros() {
   const categoria = document.getElementById("filtro-categoria").value;
@@ -21,6 +21,9 @@ function obtenerFiltros() {
   return { categoria, forma, tamano, etiquetas, precioMin, precioMax };
 }
 
+/**
+ * Aplica los filtros combinables a la lista de productos
+ */
 function filtrarProductos(productos, filtros) {
   return productos.filter(p => {
     const coincideCategoria = !filtros.categoria || p.categoriaId === filtros.categoria;
@@ -33,6 +36,9 @@ function filtrarProductos(productos, filtros) {
   });
 }
 
+/**
+ * Actualiza la URL con los filtros activos
+ */
 function actualizarURL(filtros) {
   const params = new URLSearchParams();
 
@@ -44,6 +50,9 @@ function actualizarURL(filtros) {
   history.replaceState(null, "", "?" + params.toString());
 }
 
+/**
+ * Lee los filtros desde la URL al cargar la página
+ */
 function leerFiltrosDesdeURL() {
   const params = new URLSearchParams(window.location.search);
   return {
@@ -55,12 +64,15 @@ function leerFiltrosDesdeURL() {
 }
 
 /**
- * Búsqueda y orden
+ * Normaliza texto para búsqueda (sin tildes, minúsculas)
  */
 function normalizarTexto(texto) {
   return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
+/**
+ * Función debounce para evitar múltiples llamadas rápidas
+ */
 function debounce(fn, delay) {
   let timer;
   return function (...args) {
@@ -69,6 +81,9 @@ function debounce(fn, delay) {
   };
 }
 
+/**
+ * Filtra productos por texto de búsqueda
+ */
 function filtrarPorBusqueda(productos, texto) {
   const query = normalizarTexto(texto);
   return productos.filter(p => {
@@ -78,12 +93,15 @@ function filtrarPorBusqueda(productos, texto) {
   });
 }
 
+/**
+ * Ordena productos por precio
+ */
 function ordenarPorPrecio(productos, ascendente = true) {
   return [...productos].sort((a, b) => ascendente ? a.precioCLP - b.precioCLP : b.precioCLP - a.precioCLP);
 }
 
 /**
- * Renderizado de cards
+ * Crea una tarjeta de producto con botones y badges
  */
 function crearCard(producto) {
   const card = document.createElement("div");
@@ -102,11 +120,15 @@ function crearCard(producto) {
     </div>
     <button class="btn-añadir" data-id="${producto.code}">Añadir</button>
     <button class="btn-favorito" data-id="${producto.code}">🤍</button>
+    <button class="btn-vermas" data-id="${producto.code}">Ver más</button>
   `;
 
   return card;
 }
 
+/**
+ * Renderiza la lista de productos con animación de carga
+ */
 function renderizarProductos(lista) {
   const contenedor = document.getElementById("productos-container");
   const loader = document.getElementById("loader");
@@ -126,11 +148,12 @@ function renderizarProductos(lista) {
     contenedor.style.display = "grid";
     inicializarBotonesAñadir();
     inicializarBotonesFavorito();
+    inicializarBotonesVerMas(lista); // ✅ PS-028: activa botón “Ver más”
   }, 600);
 }
 
 /**
- * Eventos de botones
+ * Activa botón “Añadir” en cada card
  */
 function inicializarBotonesAñadir() {
   document.querySelectorAll(".btn-añadir").forEach(boton => {
@@ -143,6 +166,9 @@ function inicializarBotonesAñadir() {
   });
 }
 
+/**
+ * Activa botón de favoritos visuales (sin login)
+ */
 function inicializarBotonesFavorito() {
   document.querySelectorAll(".btn-favorito").forEach(boton => {
     boton.addEventListener("click", () => {
@@ -153,7 +179,20 @@ function inicializarBotonesFavorito() {
 }
 
 /**
- * Carrito
+ * Activa botón “Ver más” para abrir el modal (PS-028)
+ */
+function inicializarBotonesVerMas(lista) {
+  document.querySelectorAll(".btn-vermas").forEach(boton => {
+    boton.addEventListener("click", () => {
+      const id = boton.dataset.id;
+      const producto = lista.find(p => p.code === id);
+      abrirModal(producto);
+    });
+  });
+}
+
+/**
+ * Lógica del carrito
  */
 function agregarAlCarrito(idProducto) {
   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
@@ -168,18 +207,24 @@ function agregarAlCarrito(idProducto) {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
+/**
+ * Actualiza el badge del carrito
+ */
 function actualizarBadgeCarrito() {
   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
   const total = carrito.reduce((acc, p) => acc + p.cantidad, 0);
   document.querySelector(".badge").textContent = total;
 }
 
+/**
+ * Muestra una notificación simple
+ */
 function mostrarNotificacion(mensaje) {
   alert(mensaje); // Puedes reemplazar por un toast visual
 }
 
 /**
- * Filtros y búsqueda
+ * Eventos de búsqueda y filtros
  */
 let ordenAscendente = true;
 const productos = PRODUCTS_PS;
@@ -201,22 +246,14 @@ document.getElementById("btn-limpiar").addEventListener("click", () => {
   renderizarProductos(productos);
 });
 
-const actualizarListado = debounce(() => {
-  const texto = document.getElementById("busqueda").value;
-  const filtros = obtenerFiltros();
-  const filtrados = filtrarProductos(productos, filtros);
-  const buscados = filtrarPorBusqueda(filtrados, texto);
-  const ordenados = ordenarPorPrecio(buscados, ordenAscendente);
-  renderizarProductos(ordenados);
-}, 250);
-
 /**
- * Inicialización
+ * Actualiza el listado con filtros, búsqueda y orden
  */
-document.addEventListener("DOMContentLoaded", () => {
-  const filtrosIniciales = leerFiltrosDesdeURL();
-  const filtrados = filtrarProductos(productos, filtrosIniciales);
-  const ordenados = ordenarPorPrecio(filtrados, ordenAscendente);
-  renderizarProductos(ordenados);
-  actualizarBadgeCarrito();
-});
+const actualizarListado = debounce(() => {
+  const texto = document.getElementById("busqueda").value;         // 🟡 Captura el texto de búsqueda
+  const filtros = obtenerFiltros();                                // 🟡 Obtiene los filtros activos
+  const filtrados = filtrarProductos(productos, filtros);          // 🟡 Aplica filtros combinables
+  const buscados = filtrarPorBusqueda(filtrados, texto);           // 🟡 Aplica búsqueda por nombre/código
+  const ordenados = ordenarPorPrecio(buscados, ordenAscendente);   // 🟡 Aplica orden por precio
+  renderizarProductos(ordenados);                                  // 🟢 Renderiza el resultado final
+}, 250);
