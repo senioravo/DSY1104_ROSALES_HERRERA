@@ -146,6 +146,9 @@
   margin-top: 1rem;
 }
 
+
+
+
 #mensaje-personalizado {
   width: 100%;
   padding: 0.5rem;
@@ -154,12 +157,19 @@
   border-radius: 6px;
 }
 
-.btn-volver {
-  display: inline-block;
-  margin-top: 2rem;
-  text-decoration: none;
-  color: var(--accent-choco);
-  font-weight: bold;
+#contador-msg {
   font-size: 0.9rem;
+  color: var(--accent-choco);
+  margin-top: 0.3rem;
 }
+
+.preview-msg {
+  margin-top: 1rem;
+  background-color: #f9f9f9;
+  padding: 0.8rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: var(--text);
+}
+
 

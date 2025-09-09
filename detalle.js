@@ -20,6 +20,7 @@ function renderizarDetalle(producto) {
 
   const esAgotado = producto.stock === 0;
   const esStockBajo = producto.stock <= 3 && producto.stock > 0;
+  const maxMsgChars = producto.maxMsgChars || 50;
 
   contenedor.innerHTML = `
     <section class="detalle-producto">
@@ -41,7 +42,12 @@ function renderizarDetalle(producto) {
 
       ${producto.personalizable ? `
         <label for="mensaje-personalizado">Mensaje personalizado:</label>
-        <input type="text" id="mensaje-personalizado" placeholder="Escribe tu dedicatoria...">
+        <input type="text" id="mensaje-personalizado" maxlength="${maxMsgChars}" placeholder="Escribe tu dedicatoria...">
+        <p id="contador-msg">0/${maxMsgChars}</p>
+        <div class="preview-msg">
+          <strong>Vista previa:</strong>
+          <p id="preview-msg"></p>
+        </div>
       ` : ""}
 
       <button class="btn-añadir" data-id="${producto.code}" ${esAgotado ? "disabled" : ""}>Añadir</button>
@@ -49,11 +55,33 @@ function renderizarDetalle(producto) {
       <a href="productos.html" class="btn-volver">← Volver al catálogo</a>
     </section>
   `;
+
+  // Lógica de personalización (PS-031)
+  if (producto.personalizable) {
+    const input = document.getElementById("mensaje-personalizado");
+    const contador = document.getElementById("contador-msg");
+    const preview = document.getElementById("preview-msg");
+
+    input.addEventListener("input", () => {
+      let raw = input.value;
+
+      // Validación: solo letras, números, espacios y signos básicos
+      const limpio = raw.replace(/[^a-zA-Z0-9 .,!¡¿?]/g, "");
+
+      // Escape básico para prevenir XSS
+      const escapado = limpio.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+      // Limitar a maxMsgChars
+      const final = escapado.slice(0, maxMsgChars);
+
+      input.value = final;
+      contador.textContent = `${final.length}/${maxMsgChars}`;
+      preview.textContent = final;
+    });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   const producto = obtenerProductoDesdeURL();
   renderizarDetalle(producto);
 });
-
-
