@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mil Sabores</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="style_productos.css">
+  <script src="main.js" type="module" defer></script>
 </head>
 <body>
 
-  <!-- REQ_3: Navegación global -->
+  <!-- 🧭 Navegación global -->
   <nav role="navigation">
     <ul class="nav-list">
       <li><a href="#" class="nav-link">HOME</a></li>
@@ -25,21 +25,20 @@
     </ul>
   </nav>
 
-  <!-- Título principal -->
-  <h1 class="catalog-title">Los Mil Sabores</h1>
+  <!-- 🏷️ Título principal -->
+  <h1 class="catalog-title">Catálogo de productos</h1>
 
-  <!-- Barra de búsqueda y orden -->
+  <!-- 🔍 Barra de búsqueda y orden -->
   <section class="barra-interactiva">
     <div class="busqueda-grupo">
       <label for="busqueda">Buscar:</label>
       <input type="text" id="busqueda" placeholder="Buscar por nombre o código...">
-      
       <button id="btn-toggle-filtros">Filtros</button>
       <button id="btn-orden-precio">Ordenar por precio</button>
     </div>
   </section>
 
-  <!-- Filtros combinables -->
+  <!-- 🧩 Filtros combinables -->
   <section id="filtros-opciones">
     <h3>Filtrar por:</h3>
 
@@ -47,8 +46,14 @@
     <label for="filtro-categoria">Categoría:</label>
     <select id="filtro-categoria">
       <option value="">Todas</option>
-      <option value="CAT01">Pastelería</option>
-      <option value="CAT02">Tortas</option>
+      <option value="TC">Tortas Cuadradas</option>
+      <option value="TT">Tortas Circulares</option>
+      <option value="PI">Postres Individuales</option>
+      <option value="PSA">Sin Azúcar</option>
+      <option value="PT">Pastelería Tradicional</option>
+      <option value="PG">Sin Gluten</option>
+      <option value="PV">Veganos</option>
+      <option value="TE">Tortas Especiales</option>
     </select>
 
     <!-- Tipo de forma -->
@@ -63,18 +68,24 @@
     <label for="filtro-tamano">Tamaño:</label>
     <select id="filtro-tamano">
       <option value="">Todos</option>
-      <option value="individual">Individual</option>
-      <option value="familiar">Familiar</option>
+      <option value="unidad">Unidad</option>
+      <option value="S (8 porciones)">S (8 porciones)</option>
+      <option value="M (12 porciones)">M (12 porciones)</option>
+      <option value="L (20 porciones)">L (20 porciones)</option>
     </select>
 
     <!-- Etiquetas -->
     <fieldset>
       <legend>Etiquetas:</legend>
-      <label><input type="checkbox" name="etiquetas" value="sin azúcar"> Sin azúcar</label>
-      <label><input type="checkbox" name="etiquetas" value="sin gluten"> Sin gluten</label>
-      <label><input type="checkbox" name="etiquetas" value="vegana"> Vegana</label>
-      <label><input type="checkbox" name="etiquetas" value="tradicional"> Tradicional</label>
-      <label><input type="checkbox" name="etiquetas" value="especial"> Especial</label>
+      <label><input type="checkbox" name="etiquetas" value="Sin azúcar"> Sin azúcar</label>
+      <label><input type="checkbox" name="etiquetas" value="Sin gluten"> Sin gluten</label>
+      <label><input type="checkbox" name="etiquetas" value="Vegana"> Vegana</label>
+      <label><input type="checkbox" name="etiquetas" value="Tradicional"> Tradicional</label>
+      <label><input type="checkbox" name="etiquetas" value="Especial"> Especial</label>
+      <label><input type="checkbox" name="etiquetas" value="Chocolate"> Chocolate</label>
+      <label><input type="checkbox" name="etiquetas" value="Frutas"> Frutas</label>
+      <label><input type="checkbox" name="etiquetas" value="Cumpleaños"> Cumpleaños</label>
+      <label><input type="checkbox" name="etiquetas" value="Boda"> Boda</label>
     </fieldset>
 
     <!-- Rango de precio -->
@@ -83,36 +94,36 @@
       <input type="number" id="precio-min" placeholder="Ej: 2000">
 
       <label for="precio-max">Precio máximo:</label>
-      <input type="number" id="precio-max" placeholder="Ej: 10000">
+      <input type="number" id="precio-max" placeholder="Ej: 100000">
     </div>
 
     <!-- Botón limpiar -->
     <button id="btn-limpiar">Limpiar filtros</button>
   </section>
 
-  <!-- Loader de productos -->
+  <!-- ⏳ Loader de productos -->
   <div id="loader" class="skeleton-loader" style="display: none;">
     <div class="skeleton-card"></div>
     <div class="skeleton-card"></div>
     <div class="skeleton-card"></div>
   </div>
 
-  <!-- Contenedor de productos -->
+  <!-- 🧁 Contenedor de productos -->
   <section class="productos-grid" id="productos-container">
     <!-- Aquí se insertarán dinámicamente las tarjetas de producto -->
   </section>
 
-  <!-- Modal de detalle de producto -->
+  <!-- 🪟 Modal de detalle de producto -->
   <div id="modal-producto" class="modal" style="display: none;">
-  <div class="modal-contenido">
-    <span id="modal-cerrar" class="modal-cerrar">×</span>
-    <img id="modal-imagen" src="" alt="">
-    <h2 id="modal-nombre"></h2>
-    <p id="modal-precio"></p>
-    <p id="modal-descripcion"></p>
-    <button id="modal-añadir">Añadir al carrito</button>
+    <div class="modal-contenido">
+      <span id="modal-cerrar" class="modal-cerrar">×</span>
+      <img id="modal-imagen" src="" alt="">
+      <h2 id="modal-nombre"></h2>
+      <p id="modal-precio"></p>
+      <p id="mo   dal-descripcion"></p>
+      <button id="modal-añadir">Añadir al carrito</button>
+    </div>
   </div>
-</div>
 
 </body>
 </html>
