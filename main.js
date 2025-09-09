@@ -257,3 +257,21 @@ const actualizarListado = debounce(() => {
   const ordenados = ordenarPorPrecio(buscados, ordenAscendente);   // 🟡 Aplica orden por precio
   renderizarProductos(ordenados);                                  // 🟢 Renderiza el resultado final
 }, 250);
+
+
+const esAgotado = producto.stock === 0;
+
+card.innerHTML = `
+  <img src="${producto.imagen}" alt="Imagen de ${producto.nombre}">
+  <h2>${producto.nombre}</h2>
+  <p><strong>Precio:</strong> ${formatoCLP(producto.precioCLP)}</p>
+  <div class="badges">
+    ${esAgotado ? `<span class="badge-agotado">Agotado</span>` : ""}
+    ${esStockBajo ? `<span class="badge-stock">Últimas unidades</span>` : ""}
+    <span class="badge-categoria">${producto.categoriaId}</span>
+    ${producto.etiquetas?.map(tag => `<span class="badge-etiqueta">${tag}</span>`).join("")}
+  </div>
+  <button class="btn-añadir" data-id="${producto.code}">Añadir</button>
+  <button class="btn-favorito" data-id="${producto.code}">🤍</button>
+  <button class="btn-vermas" data-id="${producto.code}">Ver más</button>
+`;
