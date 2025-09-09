@@ -49,6 +49,19 @@ footer {
 
 /* NAVBAR */
 
+nav {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    padding: 0 2rem;
+}
+
 .nav-list {
     list-style: none;
     margin: 0;
@@ -59,18 +72,11 @@ footer {
     background-color: var(--accent-choco);
     flex-wrap: wrap;
     gap: 1rem;
-    width: 100%;
+    width: 95%;
+    max-width: 1200px;
     box-sizing: border-box;
-}
-
-nav {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+    margin: 0 auto;
+    border-radius: 0 0 16px 16px;
 }
 
 .nav-link {

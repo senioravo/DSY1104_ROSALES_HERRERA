@@ -124,6 +124,19 @@ img {
 
 /* NAVBAR */
 
+nav {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    padding: 0 2rem;
+}
+
 .nav-list {
     list-style: none;
     margin: 0;
@@ -134,18 +147,12 @@ img {
     background-color: var(--accent-choco);
     flex-wrap: wrap;
     gap: 1rem;
-    width: 100%;
+    width: 95%;
+    max-width: 1200px;
     box-sizing: border-box;
-}
-
-nav {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+    margin: 0 auto;
+    border-radius: 0 0 16px 16px;
+    /* Eliminar height fijo que estaba causando el problema */
 }
 
 .nav-button {
@@ -174,14 +181,34 @@ nav {
     color: var(--bg);
     text-decoration: none;
     padding: 0.5rem 1rem;
+    /* Volver a 0.5rem como en NOSOTROS */
     border-radius: 4px;
     transition: all 0.2s ease;
     font-weight: bold;
+    font-size: 1rem;
+    /* Ajustar a 1rem como en NOSOTROS */
+    /* Eliminar line-height que estaba causando el problema */
 }
 
 .nav-link:hover {
     background-color: var(--accent-pink);
     color: var(--text);
+}
+
+
+/* Responsive nav adjustments */
+
+@media (max-width: 768px) {
+    nav {
+        padding: 0 1rem;
+    }
+    .nav-list {
+        width: 100%;
+        border-radius: 0 0 12px 12px;
+        padding: .5rem;
+        /* Estandarizado para mobile también */
+        flex-direction: column;
+    }
 }
 
 .cart-button {
@@ -192,20 +219,31 @@ nav {
     cursor: pointer;
     position: relative;
     font-size: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--text);
 }
 
-.badge {
+#cart-badge {
     position: absolute;
     top: -8px;
     right: -8px;
-    background: var(--text);
-    color: var(--bg);
+    background-color: var(--accent-pink);
+    color: white;
     border-radius: 50%;
-    padding: 0.25rem 0.5rem;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 0.8rem;
     font-weight: bold;
-    text-align: center;
 }
+
+
+/* Eliminar los comentarios del cart-button duplicado al final del archivo */
 
 
 /* Ajusta el contenido principal para no quedar oculto bajo la navbar fija */
@@ -519,7 +557,8 @@ main {
 
 /* Cart badge styling */
 
-.cart-button {
+
+/* .cart-button {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -527,9 +566,10 @@ main {
     text-decoration: none;
     color: var(--text, #333);
     font-size: 1.5rem;
-}
+} */
 
-#cart-badge {
+
+/* #cart-badge {
     position: absolute;
     top: -8px;
     right: -8px;
@@ -543,7 +583,7 @@ main {
     justify-content: center;
     font-size: 0.8rem;
     font-weight: bold;
-}
+} */
 
 
 /* HIGHLIGHTS SECTION */
