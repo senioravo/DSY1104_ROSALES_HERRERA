@@ -2,18 +2,26 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Los Mil Sabores</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mil Sabores</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
 
-  <!-- Navegación -->
-  <nav>
+  <!-- REQ_3: Navegación global -->
+  <nav role="navigation">
     <ul class="nav-list">
-      <li><a href="#" class="nav-link active">Inicio</a></li>
-      <li><a href="#" class="nav-link">Menú</a></li>
+      <li><a href="#" class="nav-link">HOME</a></li>
+      <li><a href="productos.html" class="nav-link">Productos</a></li>
+      <li><a href="#" class="nav-link">Personaliza tu torta</a></li>
+      <li><a href="#" class="nav-link">Recetas/Blog</a></li>
       <li><a href="#" class="nav-link">Contacto</a></li>
-      <li><button class="cart-button">🛒<span class="badge">0</span></button></li>
+      <li>
+        <button class="cart-button">
+          🛒 <span class="badge">0</span>
+        </button>
+      </li>
     </ul>
   </nav>
 
@@ -41,7 +49,6 @@
       <option value="">Todas</option>
       <option value="CAT01">Pastelería</option>
       <option value="CAT02">Tortas</option>
-      <!-- Agrega más según tu inventario -->
     </select>
 
     <!-- Tipo de forma -->
@@ -70,21 +77,30 @@
       <label><input type="checkbox" name="etiquetas" value="especial"> Especial</label>
     </fieldset>
 
+    <!-- Rango de precio -->
+    <div class="filtro-precio">
+      <label for="precio-min">Precio mínimo:</label>
+      <input type="number" id="precio-min" placeholder="Ej: 2000">
+
+      <label for="precio-max">Precio máximo:</label>
+      <input type="number" id="precio-max" placeholder="Ej: 10000">
+    </div>
+
     <!-- Botón limpiar -->
     <button id="btn-limpiar">Limpiar filtros</button>
   </section>
-   
+
+  <!-- Loader de productos -->
   <div id="loader" class="skeleton-loader" style="display: none;">
-  <div class="skeleton-card"></div>
-  <div class="skeleton-card"></div>
-  <div class="skeleton-card"></div>
-</div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+  </div>
 
   <!-- Contenedor de productos -->
   <section class="productos-grid" id="productos-container">
     <!-- Aquí se insertarán dinámicamente las tarjetas de producto -->
   </section>
 
-  <script src="script.js"></script>
 </body>
 </html>

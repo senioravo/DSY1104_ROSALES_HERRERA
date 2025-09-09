@@ -45,3 +45,18 @@
   color: var(--accent-pink);
   transform: scale(1.2);
 }
+
+.filtro-precio {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.filtro-precio input {
+  padding: 0.4rem;
+  border: 1px solid var(--accent-choco);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+

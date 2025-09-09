@@ -15,8 +15,10 @@ function obtenerFiltros() {
   const forma = document.getElementById("filtro-forma").value;
   const tamano = document.getElementById("filtro-tamano").value;
   const etiquetas = Array.from(document.querySelectorAll("input[name='etiquetas']:checked")).map(e => e.value);
+  const precioMin = parseInt(document.getElementById("precio-min").value) || 0;
+  const precioMax = parseInt(document.getElementById("precio-max").value) || Infinity;
 
-  return { categoria, forma, tamano, etiquetas };
+  return { categoria, forma, tamano, etiquetas, precioMin, precioMax };
 }
 
 function filtrarProductos(productos, filtros) {
@@ -25,8 +27,9 @@ function filtrarProductos(productos, filtros) {
     const coincideForma = !filtros.forma || p.tipoForma === filtros.forma;
     const coincideTamano = !filtros.tamano || p.tamañosDisponibles.includes(filtros.tamano);
     const coincideEtiquetas = filtros.etiquetas.length === 0 || filtros.etiquetas.every(tag => p.etiquetas?.includes(tag));
+    const dentroDelRango = p.precioCLP >= filtros.precioMin && p.precioCLP <= filtros.precioMax;
 
-    return coincideCategoria && coincideForma && coincideTamano && coincideEtiquetas;
+    return coincideCategoria && coincideForma && coincideTamano && coincideEtiquetas && dentroDelRango;
   });
 }
 
