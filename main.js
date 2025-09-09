@@ -108,23 +108,29 @@ function crearCard(producto) {
   card.classList.add("producto");
 
   const esStockBajo = producto.stock <= 3 && producto.stock > 0;
+  const esAgotado = producto.stock === 0;
 
   card.innerHTML = `
     <img src="${producto.imagen}" alt="Imagen de ${producto.nombre}">
     <h2>${producto.nombre}</h2>
     <p><strong>Precio:</strong> ${formatoCLP(producto.precioCLP)}</p>
     <div class="badges">
+      ${esAgotado ? `<span class="badge-agotado">Agotado</span>` : ""}
       ${esStockBajo ? `<span class="badge-stock">Últimas unidades</span>` : ""}
       <span class="badge-categoria">${producto.categoriaId}</span>
       ${producto.etiquetas?.map(tag => `<span class="badge-etiqueta">${tag}</span>`).join("")}
     </div>
-    <button class="btn-añadir" data-id="${producto.code}">Añadir</button>
-    <button class="btn-favorito" data-id="${producto.code}">🤍</button>
-    <button class="btn-vermas" data-id="${producto.code}">Ver más</button>
+    <div class="acciones-producto">
+      <button class="btn-añadir" data-id="${producto.code}" ${esAgotado ? "disabled" : ""}>Añadir</button>
+      <button class="btn-favorito" data-id="${producto.code}">🤍</button>
+      <button class="btn-vermas" data-id="${producto.code}">Vista rápida</button>
+      <a href="detalle.html?code=${producto.code}" class="link-detalle">Ver detalle completo</a>
+    </div>
   `;
 
   return card;
 }
+
 
 /**
  * Renderiza la lista de productos con animación de carga

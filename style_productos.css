@@ -107,3 +107,59 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+
+
+.acciones-producto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.link-detalle {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--accent-choco);
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.detalle-producto {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: var(--bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.detalle-producto img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.aviso-agotado {
+  color: var(--accent-choco);
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+#mensaje-personalizado {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.btn-volver {
+  display: inline-block;
+  margin-top: 2rem;
+  text-decoration: none;
+  color: var(--accent-choco);
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
