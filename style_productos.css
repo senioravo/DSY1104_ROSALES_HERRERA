@@ -44,20 +44,31 @@ h1, h2 {
 }
 
 .producto-card {
-  background: white;
+  background-color: #fff0f5;
   border-radius: var(--radius);
-  box-shadow: 0 2px 8px var(--shadow);
+  box-shadow: 0 0 12px rgba(255, 182, 193, 0.3);
+  border: 1px solid #f7dbe2;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
   height: 100%;
-  border: 1px solid #e0e0e0;
+  opacity: 0;
+  transform: translateY(20px) scale(1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.8s ease;
 }
 
-.producto-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(247, 198, 208, 0.3); /* sombra más marcada al pasar el mouse */
+.producto-card.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.producto-card.visible:hover {
+  transform: translateY(0) scale(1.02);
+  box-shadow: 0 6px 16px rgba(247, 198, 208, 0.4);
+}
+
+.producto-card.visible:hover .producto-imagen {
+  transform: scale(1.05);
 }
 
 .producto-imagen {
@@ -69,9 +80,7 @@ h1, h2 {
   background: #fff;
   display: block;
   margin: 0 auto;
-}
-.producto-card:hover .producto-imagen {
-  transform: scale(1.05);
+  transition: transform 0.3s ease;
 }
 
 .producto-info {
@@ -181,6 +190,7 @@ h1, h2 {
   background-color: var(--accent-choco);
   padding: 1rem;
   list-style: none;
+  margin: 0;
 }
 
 .nav-link {
@@ -191,6 +201,23 @@ h1, h2 {
 
 .nav-link:hover {
   text-decoration: underline;
+}
+
+.cart-button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: white;
+}
+
+.badge {
+  background-color: #ff69b4;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  margin-left: 0.3rem;
 }
 
 /* ===============================
@@ -247,18 +274,9 @@ h1, h2 {
   100% { background-position: 200% 0; }
 }
 
-
-.producto-card {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.8s ease;
-}
-
-.producto-card.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+/* ===============================
+   📭 Mensaje vacío
+   =============================== */
 .mensaje-vacio {
   text-align: center;
   font-size: 1.2rem;
@@ -270,10 +288,12 @@ h1, h2 {
   border-radius: 8px;
 }
 
-
+/* ===============================
+   🗑️ Botón eliminar pastel
+   =============================== */
 .btn-eliminar {
-  background-color: #fce4ec; /* rosa pastel suave */
-  color: #c2185b; /* tono frambuesa para contraste */
+  background-color: #fce4ec;
+  color: #c2185b;
   border: 1px solid #f8bbd0;
   border-radius: 6px;
   padding: 0.4rem 0.8rem;
@@ -285,4 +305,57 @@ h1, h2 {
 .btn-eliminar:hover {
   background-color: #f8bbd0;
   transform: scale(1.05);
+}
+
+/* ===============================
+   📱 Responsive para móviles
+   =============================== */
+
+   @media (max-width: 768px) {
+  .productos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  .producto-info {
+    padding: 1rem;
+  }
+
+  .btn-agregar,
+  .btn-eliminar {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .barra-interactiva {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .busqueda-grupo {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filtro-precio {
+    width: 100%;
+    align-items: center;
+  }
+
+  .skeleton-loader {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .mensaje-vacio {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
 }

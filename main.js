@@ -1,6 +1,6 @@
 import { PRODUCTS_PS } from "./productos_pasteleria.js";
 
-/** Formato CLP */
+/** Formatea precio en CLP */
 function formatoCLP(valor) {
   return `$${valor.toLocaleString("es-CL")}`;
 }
@@ -68,6 +68,7 @@ function renderizarProductos(lista) {
     mensajeVacio.style.display = "none";
     inicializarBotonesAñadir();
     inicializarBotonesFavorito();
+    inicializarBotonesEliminar();
     animarTarjetas();
   }, 600);
 }
@@ -178,6 +179,18 @@ function inicializarBotonesAñadir() {
   });
 }
 
+function inicializarBotonesEliminar() {
+  document.querySelectorAll(".btn-eliminar").forEach(boton => {
+    boton.addEventListener("click", () => {
+      const id = boton.dataset.id;
+      eliminarDelCarrito(id);
+      mostrarNotificacion("Producto eliminado del carrito");
+      actualizarBadgeCarrito();
+      boton.remove();
+    });
+  });
+}
+
 function inicializarBotonesFavorito() {
   document.querySelectorAll(".btn-favorito").forEach(boton => {
     boton.addEventListener("click", () => {
@@ -223,6 +236,7 @@ function mostrarNotificacion(mensaje) {
 let ordenAscendente = true;
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Render inicial
   renderizarProductos(PRODUCTS_PS);
   actualizarBadgeCarrito();
 
@@ -240,9 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btn-orden-precio").addEventListener("click", () => {
     ordenAscendente = !ordenAscendente;
     const flecha = document.getElementById("flecha-precio");
-    if (flecha) {
-      flecha.textContent = ordenAscendente ? "⬇️" : "⬆️";
-    }
+    flecha.textContent = ordenAscendente ? "⬇️" : "⬆️";
     actualizarListado();
   });
 
@@ -271,6 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+/** Actualiza la URL con filtros activos */
 function actualizarURL() {
   const filtros = obtenerFiltros();
   const texto = document.getElementById("busqueda").value;

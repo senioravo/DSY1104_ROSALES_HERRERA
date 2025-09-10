@@ -1,3 +1,5 @@
+export const PRODUCTS_PS = [ /* array de productos */ ];
+
 // productos_pasteleria.js
 "use strict";
 
