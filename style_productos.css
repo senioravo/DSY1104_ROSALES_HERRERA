@@ -56,19 +56,20 @@ h1, h2 {
 }
 
 .producto-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(247, 198, 208, 0.3); /* sombra más marcada al pasar el mouse */
 }
 
 .producto-imagen {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+  height: auto;
+  max-height: 200px;
+  object-fit: contain;
+  padding: 0.5rem;
   background: #fff;
-  border-bottom: 1px solid #eee;
+  display: block;
+  margin: 0 auto;
 }
-
 .producto-card:hover .producto-imagen {
   transform: scale(1.05);
 }
@@ -246,57 +247,42 @@ h1, h2 {
   100% { background-position: 200% 0; }
 }
 
-/* ===============================
-   🪟 Modal de vista rápida
-   =============================== */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+
+.producto-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
 }
 
-.modal-contenido {
-  background-color: var(--bg);
-  padding: 2rem;
-  border-radius: var(--radius);
-  max-width: 400px;
-  width: 90%;
+.producto-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mensaje-vacio {
   text-align: center;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  position: relative;
-}
-
-.modal-contenido img {
-  max-width: 100%;
+  font-size: 1.2rem;
+  color: #c48ca4;
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #fff0f5;
+  border: 1px solid #f7dbe2;
   border-radius: 8px;
-  margin-bottom: 1rem;
 }
 
-.modal-contenido h2 {
-  color: var(--accent-choco);
-  margin-bottom: 0.5rem;
-}
 
-.modal-contenido p {
-  color: var(--text-2);
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.modal-cerrar {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 2rem;
+.btn-eliminar {
+  background-color: #fce4ec; /* rosa pastel suave */
+  color: #c2185b; /* tono frambuesa para contraste */
+  border: 1px solid #f8bbd0;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
   cursor: pointer;
-  color: var(--accent-choco);
-  background: none;
-  border: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-eliminar:hover {
+  background-color: #f8bbd0;
+  transform: scale(1.05);
 }

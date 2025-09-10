@@ -13,6 +13,9 @@ function crearCard(producto) {
   const esStockBajo = producto.stock <= 3 && producto.stock > 0;
   const esAgotado = producto.stock === 0;
 
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  const estaEnCarrito = carrito.some(p => p.id === producto.code);
+
   card.innerHTML = `
     <img src="${producto.imagen}" alt="Imagen de ${producto.nombre}" class="producto-imagen">
     <div class="producto-info">
@@ -27,8 +30,8 @@ function crearCard(producto) {
       <div class="acciones-producto">
         <button class="btn-agregar" data-id="${producto.code}" ${esAgotado ? "disabled" : ""}>Añadir</button>
         <button class="btn-favorito" data-id="${producto.code}">🤍</button>
-        <button class="btn-vermas" data-id="${producto.code}">Vista rápida</button>
         <a href="detalle.html?code=${producto.code}" class="link-detalle">Ver detalle completo</a>
+        ${estaEnCarrito ? `<button class="btn-eliminar" data-id="${producto.code}">Eliminar</button>` : ""}
       </div>
     </div>
   `;
@@ -40,13 +43,21 @@ function crearCard(producto) {
 function renderizarProductos(lista) {
   const contenedor = document.getElementById("productos-container");
   const loader = document.getElementById("loader");
+  const mensajeVacio = document.getElementById("mensaje-vacio");
 
   contenedor.style.display = "none";
   loader.style.display = "grid";
+  mensajeVacio.style.display = "none";
 
   setTimeout(() => {
     loader.style.display = "none";
     contenedor.innerHTML = "";
+
+    if (lista.length === 0) {
+      mensajeVacio.style.display = "block";
+      contenedor.style.display = "none";
+      return;
+    }
 
     lista.forEach(producto => {
       const card = crearCard(producto);
@@ -54,10 +65,27 @@ function renderizarProductos(lista) {
     });
 
     contenedor.style.display = "grid";
+    mensajeVacio.style.display = "none";
     inicializarBotonesAñadir();
     inicializarBotonesFavorito();
-    inicializarBotonesVerMas(lista);
+    animarTarjetas();
   }, 600);
+}
+
+/** Animación al entrar en pantalla */
+function animarTarjetas() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  });
+
+  document.querySelectorAll(".producto-card").forEach(card => {
+    observer.observe(card);
+  });
 }
 
 /** Filtros activos */
@@ -119,6 +147,7 @@ const actualizarListado = debounce(() => {
   const buscados = filtrarPorBusqueda(filtrados, texto);
   const ordenados = ordenarPorPrecio(buscados, ordenAscendente);
   renderizarProductos(ordenados);
+  actualizarURL();
 }, 250);
 
 /** Botones */
@@ -129,6 +158,22 @@ function inicializarBotonesAñadir() {
       agregarAlCarrito(id);
       mostrarNotificacion("Producto añadido al carrito");
       actualizarBadgeCarrito();
+
+      const acciones = boton.closest(".acciones-producto");
+      if (acciones && !acciones.querySelector(".btn-eliminar")) {
+        const btnEliminar = document.createElement("button");
+        btnEliminar.classList.add("btn-eliminar");
+        btnEliminar.dataset.id = id;
+        btnEliminar.textContent = "Eliminar";
+        acciones.appendChild(btnEliminar);
+
+        btnEliminar.addEventListener("click", () => {
+          eliminarDelCarrito(id);
+          mostrarNotificacion("Producto eliminado del carrito");
+          actualizarBadgeCarrito();
+          btnEliminar.remove();
+        });
+      }
     });
   });
 }
@@ -138,16 +183,6 @@ function inicializarBotonesFavorito() {
     boton.addEventListener("click", () => {
       boton.classList.toggle("activo");
       boton.textContent = boton.classList.contains("activo") ? "❤️" : "🤍";
-    });
-  });
-}
-
-function inicializarBotonesVerMas(lista) {
-  document.querySelectorAll(".btn-vermas").forEach(boton => {
-    boton.addEventListener("click", () => {
-      const id = boton.dataset.id;
-      const producto = lista.find(p => p.code === id);
-      abrirModal(producto);
     });
   });
 }
@@ -164,6 +199,13 @@ function agregarAlCarrito(idProducto) {
   }
 
   localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+function eliminarDelCarrito(idProducto) {
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  carrito = carrito.filter(p => p.id !== idProducto);
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  actualizarBadgeCarrito();
 }
 
 function actualizarBadgeCarrito() {
@@ -184,13 +226,30 @@ document.addEventListener("DOMContentLoaded", () => {
   renderizarProductos(PRODUCTS_PS);
   actualizarBadgeCarrito();
 
+  // Ocultar filtros al cargar
+  document.getElementById("filtros-opciones").style.display = "none";
+
+  // Mostrar/ocultar filtros al hacer clic
+  document.getElementById("btn-toggle-filtros").addEventListener("click", () => {
+    const filtrosDiv = document.getElementById("filtros-opciones");
+    const visible = filtrosDiv.style.display === "block";
+    filtrosDiv.style.display = visible ? "none" : "block";
+  });
+
+  // Ordenar por precio con flecha
   document.getElementById("btn-orden-precio").addEventListener("click", () => {
     ordenAscendente = !ordenAscendente;
+    const flecha = document.getElementById("flecha-precio");
+    if (flecha) {
+      flecha.textContent = ordenAscendente ? "⬇️" : "⬆️";
+    }
     actualizarListado();
   });
 
+  // Búsqueda en tiempo real
   document.getElementById("busqueda").addEventListener("input", actualizarListado);
 
+  // Botón para limpiar filtros
   document.getElementById("btn-limpiar").addEventListener("click", () => {
     document.getElementById("filtro-categoria").value = "";
     document.getElementById("filtro-forma").value = "";
@@ -201,11 +260,30 @@ document.addEventListener("DOMContentLoaded", () => {
     actualizarListado();
   });
 
+  // Actualizar al cambiar filtros
   ["filtro-categoria", "filtro-forma", "filtro-tamano", "precio-min", "precio-max"].forEach(id => {
     document.getElementById(id).addEventListener("input", actualizarListado);
   });
 
+  // Actualizar al cambiar etiquetas
   document.querySelectorAll("input[name='etiquetas']").forEach(checkbox => {
     checkbox.addEventListener("change", actualizarListado);
   });
 });
+
+function actualizarURL() {
+  const filtros = obtenerFiltros();
+  const texto = document.getElementById("busqueda").value;
+  const params = new URLSearchParams();
+
+  if (texto) params.set("q", texto);
+  if (filtros.categoria) params.set("categoria", filtros.categoria);
+  if (filtros.forma) params.set("forma", filtros.forma);
+  if (filtros.tamano) params.set("tamano", filtros.tamano);
+  if (filtros.etiquetas.length) params.set("etiquetas", filtros.etiquetas.join(","));
+  if (filtros.precioMin) params.set("min", filtros.precioMin);
+  if (filtros.precioMax !== Infinity) params.set("max", filtros.precioMax);
+  params.set("orden", ordenAscendente ? "asc" : "desc");
+
+  history.replaceState(null, "", `?${params.toString()}`);
+}

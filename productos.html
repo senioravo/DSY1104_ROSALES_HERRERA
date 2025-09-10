@@ -34,13 +34,16 @@
       <label for="busqueda">Buscar:</label>
       <input type="text" id="busqueda" placeholder="Buscar por nombre o código...">
       <button id="btn-toggle-filtros">Filtros</button>
-      <button id="btn-orden-precio">Ordenar por precio</button>
+      <button id="btn-orden-precio">
+      Ordenar por precio <span id="flecha-precio">⬇️</span>
+      </button>
+
+
     </div>
   </section>
 
   <!-- 🧩 Filtros combinables -->
-  <section id="filtros-opciones">
-    <h3>Filtrar por:</h3>
+  <section id="filtros-opciones" style="display: none;">    <h3>Filtrar por:</h3>
 
     <!-- Categoría -->
     <label for="filtro-categoria">Categoría:</label>
@@ -112,18 +115,10 @@
   <section class="productos-grid" id="productos-container">
     <!-- Aquí se insertarán dinámicamente las tarjetas de producto -->
   </section>
+  <div id="mensaje-vacio" class="mensaje-vacio" style="display: none;">
+   Producto no encontrado 😢.
+</div>
 
-  <!-- 🪟 Modal de detalle de producto -->
-  <div id="modal-producto" class="modal" style="display: none;">
-    <div class="modal-contenido">
-      <span id="modal-cerrar" class="modal-cerrar">×</span>
-      <img id="modal-imagen" src="" alt="">
-      <h2 id="modal-nombre"></h2>
-      <p id="modal-precio"></p>
-      <p id="mo   dal-descripcion"></p>
-      <button id="modal-añadir">Añadir al carrito</button>
-    </div>
-  </div>
-
+ 
 </body>
 </html>
