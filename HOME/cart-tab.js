@@ -46,8 +46,24 @@ export class CartTab {
             return;
         }
 
+
+
         const cartData = this.getCartFromStorage();
         this.cartItems.innerHTML = '';
+
+        // Add profile section first
+        const profileSection = document.createElement('div');
+        profileSection.className = 'cart-profile-section';
+        profileSection.innerHTML = `
+            <div class="profile-container">
+                <img src="../HOME/assets/default-profile.png" alt="Profile" class="profile-image">
+                <div class="profile-buttons">
+                    <a href="../LOGIN/login.html" class="profile-btn login-btn">Ir al Login</a>
+                    <a href="../REGISTRO/registro.html" class="profile-btn register-btn">Registrarse</a>
+                </div>
+            </div>
+        `;
+        this.cartItems.appendChild(profileSection);
 
         if (!cartData || cartData.length === 0) {
             this.cartItems.innerHTML = '<p class="empty-cart">Tu carrito está vacío</p>';
