@@ -1,5 +1,3 @@
-import { PRODUCTS_PS } from "../HOME/productos_pasteleria";
-
 /**
  * Shopping Cart Module
  * Manages cart operations using localStorage
@@ -211,25 +209,21 @@ function initializeCart() {
     updateBadgeCount(); // Add this to update badge on initialization
 }
 
-function addToCart(product) {
+export function addToCart(productCode, quantity = 1) {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const existingItem = cart.find(item => item.id === product.id);
+    const existingItem = cart.find(item => item.code === productCode);
 
     if (existingItem) {
-        existingItem.quantity += 1;
+        existingItem.quantity += quantity;
     } else {
         cart.push({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: `./imgs/${product.id}.png`, // Store complete image path
-            quantity: 1
+            code: productCode,
+            quantity: quantity
         });
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
     updateBadgeCount();
-    return cart;
 }
 
 function removeFromCart(productId) {
@@ -286,7 +280,7 @@ export function updateBadgeCount() {
 }
 
 // Add this debug function
-function getCartContents() {
+export function getCartContents() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     console.log('Current cart contents:', cart);
     return cart;

@@ -722,6 +722,7 @@ main {
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    font-weight: 600;
     transition: all 0.2s ease;
 }
 
@@ -836,13 +837,22 @@ main {
     padding: 1rem 0;
 }
 
+.cart-items-container {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 1rem;
+}
+
 .cart-item {
     display: flex;
     align-items: center;
     padding: 0.8rem;
     margin-bottom: 0.5rem;
-    background: white;
+    background: var(--bg);
+    ;
     border-radius: 8px;
+    /*sombra*/
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .cart-item img {
@@ -868,16 +878,38 @@ main {
 }
 
 .cart-footer {
-    padding: 1rem 0;
+    position: sticky;
+    bottom: 0;
+    background: var(--bg);
+    padding: 1rem;
     border-top: 1px solid var(--accent-choco);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cart-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
 }
 
 .cart-total {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
-    margin-bottom: 1rem;
+    color: var(--text);
+}
+
+.clear-cart-btn {
+    padding: 0.8rem;
+    background: var(--accent-pink);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
 }
 
 .checkout-btn {
@@ -886,14 +918,16 @@ main {
     background: var(--accent-choco);
     color: var(--bg);
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    font-weight: bold;
-    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
 }
 
+.clear-cart-btn:hover,
 .checkout-btn:hover {
-    background: var(--accent-pink);
+    opacity: 0.9;
+    transform: translateY(-2px);
 }
 
 
@@ -997,5 +1031,141 @@ footer {
     }
     .footer-column h3 {
         margin: 0;
+    }
+}
+
+
+/* New styles for add-to-cart section */
+
+.add-to-cart-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--accent-choco);
+    border-radius: 50%;
+    background: var(--bg);
+    color: var(--accent-choco);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.qty-btn:hover {
+    background: var(--accent-choco);
+    color: var(--accent-pink);
+}
+
+.quantity-display {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    min-width: 30px;
+    text-align: center;
+}
+
+.add-to-cart-btn {
+    flex: 1;
+    padding: 0.8rem;
+    background: var(--accent-choco);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+    background: var(--accent-pink);
+}
+
+
+/* Highlight Card Controls */
+
+.highlight-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--bg);
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--accent-choco);
+}
+
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--accent-choco);
+    border-radius: 50%;
+    background: var(--bg);
+    color: var(--accent-choco);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.qty-btn:hover {
+    background: var(--accent-choco);
+    color: white;
+}
+
+.highlight-qty {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    min-width: 30px;
+    text-align: center;
+}
+
+.add-to-cart-btn {
+    flex: 1;
+    padding: 0.8rem;
+    background: var(--accent-choco);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+    background: var(--accent-pink);
+}
+
+
+/* Media queries for responsive design */
+
+@media (max-width: 768px) {
+    .highlight-controls {
+        flex-direction: column;
+    }
+    .quantity-controls {
+        width: 100%;
+        justify-content: center;
+    }
+    .add-to-cart-btn {
+        width: 100%;
     }
 }
