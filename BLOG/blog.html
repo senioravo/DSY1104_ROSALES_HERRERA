@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mil Sabores</title>
     <link rel="stylesheet" href="../BLOG/styles.css">
-    <script src="../CARRITO/carrito.js"></script>
-    <script src="../BLOG/script.js" defer></script>
+    <link rel="stylesheet" href="../HOME/styles.css">
+    <script type="module" src="script.js"></script>
+    <script type="module" src="../HOME/cart-tab.js"></script>
+    <script type="module" src="../CARRITO/carrito.js"></script>
+    <script type="module" src="../HOME/productos_pasteleria.js"></script>
+
 </head>
 
 <body>
@@ -25,6 +29,14 @@
             </li>
         </ul>
     </nav>
+
+    <div class="cart-tab" id="cart-tab">
+        <div class="cart-header">
+            <h2>Tu Carrito</h2>
+            <button class="close-cart" id="close-cart">&times;</button>
+        </div>
+        <div id="cart-items"></div>
+    </div>
 
     <main>
         <section class="blog-section">

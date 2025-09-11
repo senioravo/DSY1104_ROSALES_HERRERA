@@ -74,7 +74,7 @@ export class CartTab {
             const itemElement = document.createElement('div');
             itemElement.className = 'cart-item';
             itemElement.innerHTML = `
-                <img src="assets/${product.code}.png" alt="${product.nombre}" class="cart-item-img">
+                <img src="../HOME/assets/${product.code}.png" alt="${product.nombre}" class="cart-item-img">
                 <div class="cart-item-details">
                     <div class="cart-item-title">${product.nombre}</div>
                     <div class="cart-item-price">${this.formatPrice(product.precioCLP)} × ${item.quantity}</div>
