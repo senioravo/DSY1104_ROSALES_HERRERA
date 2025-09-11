@@ -1,3 +1,5 @@
+import { PRODUCTS_PS } from "../HOME/productos_pasteleria";
+
 /**
  * Shopping Cart Module
  * Manages cart operations using localStorage
@@ -201,3 +203,94 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Make ShoppingCart accessible globally
 window.ShoppingCart = ShoppingCart;
+
+function initializeCart() {
+    if (!localStorage.getItem('cart')) {
+        localStorage.setItem('cart', JSON.stringify([]));
+    }
+    updateBadgeCount(); // Add this to update badge on initialization
+}
+
+function addToCart(product) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingItem = cart.find(item => item.id === product.id);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: `./imgs/${product.id}.png`, // Store complete image path
+            quantity: 1
+        });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateBadgeCount();
+    return cart;
+}
+
+function removeFromCart(productId) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const updatedCart = cart.filter(item => item.id !== productId);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    updateBadgeCount();
+    return updatedCart;
+}
+
+function updateCartItemQuantity(productId, newQuantity) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const item = cart.find(item => item.id === productId);
+    
+    if (item) {
+        if (newQuantity <= 0) {
+            removeFromCart(productId);
+        } else {
+            item.quantity = newQuantity;
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+    }
+    updateBadgeCount();
+}
+
+function getCartTotal() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+}
+
+export function updateCartDisplay() {
+    const cartItems = document.getElementById('cart-items');
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    if (!cartItems) return;
+    
+    cartItems.innerHTML = '';
+    
+    if (cart.length === 0) {
+        cartItems.innerHTML = '<p class="empty-cart">Tu carrito está vacío</p>';
+        return;
+    }
+
+    // ...rest of updateCartDisplay function
+}
+
+export function updateBadgeCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const badge = document.getElementById('cart-badge');
+    if (badge) {
+        badge.textContent = totalItems;
+    }
+}
+
+// Add this debug function
+function getCartContents() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    console.log('Current cart contents:', cart);
+    return cart;
+}
+
+// Initialize cart when script loads
+initializeCart();

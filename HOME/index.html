@@ -5,135 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <!-- Primero carga el módulo de carrito -->
-    <script src="/CARRITO/carrito.js"></script>
+    <script type="module" src="/CARRITO/carrito.js"></script>
     <!-- Después carga el script principal -->
-    <script src="script.js" defer></script>
+    <script type="module" src="script.js"></script>
     <title>Mil Sabores</title>
 </head>
+<main>
 
-<body>
-    <nav role="navigation">
-        <ul class="nav-list">
-            <li><a href="index.html" class="nav-link">HOME</a></li>
-            <li><a href="../NOSOTROS/nosotros.html" class="nav-link">Nosotros</a></li>
-            <li><a href="productos.html" class="nav-link">Productos</a></li>
-            <li><a href="../PERSONALIZA/personaliza.html" class="nav-link">Personaliza tu torta</a></li>
-            <li><a href="../BLOG/blog.html" class="nav-link">Recetas/Blog</a></li>
-            <li><a href="../CONTACTO/contacto.html" class="nav-link">Contacto</a></li>
-            <li>
-                <a href="carrito.html" class="cart-button">
-                    🛒 <span id="cart-badge">0</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <body>
+        <nav role="navigation">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">HOME</a></li>
+                <li><a href="../NOSOTROS/nosotros.html" class="nav-link">Nosotros</a></li>
+                <li><a href="productos.html" class="nav-link">Productos</a></li>
+                <li><a href="../PERSONALIZA/personaliza.html" class="nav-link">Personaliza tu torta</a></li>
+                <li><a href="../BLOG/blog.html" class="nav-link">Recetas/Blog</a></li>
+                <li><a href="../CONTACTO/contacto.html" class="nav-link">Contacto</a></li>
+                <li>
+                    <button class="cart-button" id="cart-toggle">
+                        🛒 <span id="cart-badge">0</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-image-container">
-                <img src="cupcake.png" alt="Delicioso cupcake rosado" class="hero-image">
-            </div>
-            <div class="hero-text">
-                <h1>BIENVENIDO A MIL SABORES</h1>
-                <p class="hero-subtitle">¡Tenemos el pastel que necesitas en nuestro catalogo!</p>
-                <p class="hero-promo">¡15%OFF EN TU PRIMERA COMPRA!</p>
-                <h2>Record Guinnes 1995</h2>
-                <a href="productos.html" class="catalog-button">Ver Catálogo</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Categories Section -->
-    <section class="categories-section">
-        <div class="categories-container">
-            <h2 class="categories-title">Categorías</h2>
-            <div class="categories-grid">
-                <a href="productos.html?cat=TC" class="tile" tabindex="0" role="button">
-                    <img src="imgs/cuadrada.png" alt="Torta Cuadrada" class="tile-image">
-                    <span class="tile-text">Tortas Cuadradas</span>
-                </a>
-                <a href="productos.html?cat=TT" class="tile" tabindex="0" role="button">
-                    <img src="imgs/circular.png" alt="Torta Circular" class="tile-image">
-                    <span class="tile-text">Tortas Circulares</span>
-                </a>
-                <a href="productos.html?cat=PI" class="tile" tabindex="0" role="button">
-                    <img src="imgs/postre.png" alt="Postres Individuales" class="tile-image">
-                    <span class="tile-text">Postres Individuales</span>
-                </a>
-                <a href="productos.html?cat=PSA" class="tile" tabindex="0" role="button">
-                    <img src="imgs/sin_azucar.png" alt="Productos Sin Azúcar" class="tile-image">
-                    <span class="tile-text">Sin Azúcar</span>
-                </a>
-                <a href="productos.html?cat=PT" class="tile" tabindex="0" role="button">
-                    <img src="imgs/tradicional.png" alt="Pastelería Tradicional" class="tile-image">
-                    <span class="tile-text">Tradicionales</span>
-                </a>
-                <a href="productos.html?cat=PG" class="tile" tabindex="0" role="button">
-                    <img src="imgs/sin_gluten.png" alt="Productos Sin Gluten" class="tile-image">
-                    <span class="tile-text">Sin Gluten</span>
-                </a>
-                <a href="productos.html?cat=PV" class="tile" tabindex="0" role="button">
-                    <img src="imgs/vegana.png" alt="Productos Veganos" class="tile-image">
-                    <span class="tile-text">Veganos</span>
-                </a>
-                <a href="productos.html?cat=TE" class="tile" tabindex="0" role="button">
-                    <img src="imgs/especial.png" alt="Tortas Especiales" class="tile-image">
-                    <span class="tile-text">Especiales</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Highlights Section -->
-    <section class="highlights-section">
-        <div class="highlights-container">
-            <h2 class="highlights-title">Destacados</h2>
-            <div class="highlights-grid">
-                <!-- Card 1: Torta Cuadrada de Chocolate -->
-                <div class="highlight-card" data-code="TC001" data-name="Torta Cuadrada de Chocolate" data-price="12000" data-categoria="TC" data-forma="cuadrada">
-                    <img src="imgs/chocolate cuadrada.png" alt="Torta Cuadrada de Chocolate" class="highlight-img">
-                    <h3 class="highlight-name">Torta Cuadrada de Chocolate</h3>
-                    <p class="highlight-cat">Tortas Cuadradas</p>
-                    <p class="highlight-price">$12.000</p>
-                    <div class="highlight-controls">
-                        <button class="qty-btn" data-action="decrement">-</button>
-                        <span class="highlight-qty">1</span>
-                        <button class="qty-btn" data-action="increment">+</button>
-                    </div>
-                    <button class="add-cart-btn">Agregar al carrito 🛒</button>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-image-container">
+                    <img src="assets/cupcake.png" alt="Delicioso cupcake rosado" class="hero-image">
                 </div>
-                <!-- Card 2: Torta Circular de Frambuesa -->
-                <div class="highlight-card" data-code="TT002" data-name="Torta Circular de Frambuesa" data-price="13500" data-categoria="TT" data-forma="circular">
-                    <img src="imgs/torta_circular_frambuesa.png" alt="Torta Circular de Frambuesa" class="highlight-img">
-                    <h3 class="highlight-name">Torta Circular de Frambuesa</h3>
-                    <p class="highlight-cat">Tortas Circulares</p>
-                    <p class="highlight-price">$13.500</p>
-                    <div class="highlight-controls">
-                        <button class="qty-btn" data-action="decrement">-</button>
-                        <span class="highlight-qty">1</span>
-                        <button class="qty-btn" data-action="increment">+</button>
-                    </div>
-                    <button class="add-cart-btn">Agregar al carrito 🛒</button>
-                </div>
-                <!-- Card 3: Postre Individual de Limón -->
-                <div class="highlight-card" data-code="PI003" data-name="Postre Individual de Limón" data-price="2500" data-categoria="PI" data-forma="individual">
-                    <img src="imgs/postre_individual_limon.png" alt="Postre Individual de Limón" class="highlight-img">
-                    <h3 class="highlight-name">Postre Individual de Limón</h3>
-                    <p class="highlight-cat">Postres Individuales</p>
-                    <p class="highlight-price">$2.500</p>
-                    <div class="highlight-controls">
-                        <button class="qty-btn" data-action="decrement">-</button>
-                        <span class="highlight-qty">1</span>
-                        <button class="qty-btn" data-action="increment">+</button>
-                    </div>
-                    <button class="add-cart-btn">Agregar al carrito 🛒</button>
+                <div class="hero-text">
+                    <h1>BIENVENIDO A MIL SABORES</h1>
+                    <p class="hero-subtitle">¡Tenemos el pastel que necesitas en nuestro catalogo!</p>
+                    <p class="hero-promo">¡15%OFF EN TU PRIMERA COMPRA!</p>
+                    <h2>Record Guinnes 1995</h2>
+                    <a href="productos.html" class="catalog-button">Ver Catálogo</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-</body>
+        <!-- Categories Section -->
+        <section class="categories-section">
+            <div class="categories-container">
+                <h2 class="categories-title">Nuestras Categorías</h2>
+                <div class="categories-grid" id="categories-grid">
+                    <!-- Categories will be rendered dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Highlights Section -->
+        <section class="highlights-section">
+            <div class="highlights-container">
+                <h2 class="highlights-title">Productos Destacados</h2>
+                <div class="highlights-grid" id="highlights-grid">
+                    <!-- Products will be rendered dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Cart Tab -->
+        <div class="cart-tab" id="cart-tab">
+            <div class="cart-header">
+                <h2>Tu Carrito</h2>
+                <button class="close-cart" id="close-cart">&times;</button>
+            </div>
+
+            <div class="user-section">
+                <div class="user-profile">
+                    <img src="assets/default-profile.png" alt="Foto de perfil" class="profile-img">
+                </div>
+                <button class="auth-btn login-btn">Iniciar Sesión</button>
+                <button class="auth-btn register-btn">Registrarse</button>
+            </div>
+
+            <div class="cart-items" id="cart-items">
+                <!-- Items will be inserted here dynamically -->
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total-amount">$0</span>
+                </div>
+                <button class="checkout-btn">Ir a Pagar</button>
+            </div>
+        </div>
+    </body>
+</main>
 <footer>
     <div class="footer-container">
         <!-- Column 1: Copyright -->
