@@ -1,4 +1,3 @@
-export const PRODUCTS_PS = [ /* array de productos */ ];
 
 // productos_pasteleria.js
 "use strict";
@@ -85,7 +84,7 @@ export const PRODUCTS_PS = [
     code: "PI001",
     nombre: "Mousse de Chocolate",
     categoriaId: "PI",
-    tipoForma: null,
+    tipoForma: "Copa",
     tamanosDisponibles: ["unidad"],
     precioCLP: 5000,
     stock: 40,
@@ -99,7 +98,7 @@ export const PRODUCTS_PS = [
     code: "PI002",
     nombre: "Tiramisú Clásico",
     categoriaId: "PI",
-    tipoForma: null,
+    tipoForma: "Cuadrada",
     tamanosDisponibles: ["unidad"],
     precioCLP: 5500,
     stock: 36,
@@ -145,7 +144,7 @@ export const PRODUCTS_PS = [
     code: "PT001",
     nombre: "Empanada de Manzana",
     categoriaId: "PT",
-    tipoForma: null,
+    tipoForma: "Otro",
     tamanosDisponibles: ["unidad"],
     precioCLP: 3000,
     stock: 50,
