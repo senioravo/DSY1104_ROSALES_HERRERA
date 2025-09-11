@@ -1,53 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mil Sabores</title>
-  <link rel="stylesheet" href="style_productos.css">
-  <script src="main.js" type="module" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mil Sabores</title>
+    <link rel="stylesheet" href="style_productos.css">
+    <script src="main.js" type="module" defer></script>
 </head>
+
 <body>
 
-  <!-- 🧭 Navegación global -->
-  <nav role="navigation">
-    <ul class="nav-list">
-      <li><a href="#" class="nav-link">HOME</a></li>
-      <li><a href="productos.html" class="nav-link">Productos</a></li>
-      <li><a href="#" class="nav-link">Personaliza tu torta</a></li>
-      <li><a href="#" class="nav-link">Recetas/Blog</a></li>
-      <li><a href="#" class="nav-link">Contacto</a></li>
-      <li>
-        <button class="cart-button">
-          🛒 <span class="badge">0</span>
-        </button>
-      </li>
-    </ul>
-  </nav>
+    <!-- 🧭 Navegación global -->
+    <nav role="navigation">
+        <ul class="nav-list">
+            <li><a href="../HOME/index.html" class="nav-link">HOME</a></li>
+            <li><a href="../NOSOTROS/nosotros.html" class="nav-link">Nosotros</a></li>
+            <li><a href="../Productos/productos.html" class="nav-link">Productos</a></li>
+            <li><a href="../PERSONALIZA/personaliza.html" class="nav-link">Personaliza tu torta</a></li>
+            <li><a href="../BLOG/blog.html" class="nav-link">Recetas/Blog</a></li>
+            <li><a href="../CONTACTO/contacto.html" class="nav-link">Contacto</a></li>
+            <li>
+                <button class="cart-button" id="cart-toggle">
+                    🛒 <span id="cart-badge">0</span>
+                </button>
+            </li>
+        </ul>
+    </nav>
 
-  <!-- 🏷️ Título principal -->
-  <h1 class="catalog-title">Catálogo de productos</h1>
+    <!-- 🏷️ Título principal -->
+    <h1 class="catalog-title">Catálogo de productos</h1>
 
-  <!-- 🔍 Barra de búsqueda y orden -->
-  <section class="barra-interactiva">
-    <div class="busqueda-grupo">
-      <label for="busqueda">Buscar:</label>
-      <input type="text" id="busqueda" placeholder="Buscar por nombre o código...">
-      <button id="btn-toggle-filtros">Filtros</button>
-      <button id="btn-orden-precio">
+    <!-- 🔍 Barra de búsqueda y orden -->
+    <section class="barra-interactiva">
+        <div class="busqueda-grupo">
+            <label for="busqueda">Buscar:</label>
+            <input type="text" id="busqueda" placeholder="Buscar por nombre o código...">
+            <button id="btn-toggle-filtros">Filtros</button>
+            <button id="btn-orden-precio">
       Ordenar por precio <span id="flecha-precio">⬇️</span>
       </button>
 
 
-    </div>
-  </section>
+        </div>
+    </section>
 
-  <!-- 🧩 Filtros combinables -->
-  <section id="filtros-opciones" style="display: none;">    <h3>Filtrar por:</h3>
+    <!-- 🧩 Filtros combinables -->
+    <section id="filtros-opciones" style="display: none;">
+        <h3>Filtrar por:</h3>
 
-    <!-- Categoría -->
-    <label for="filtro-categoria">Categoría:</label>
-    <select id="filtro-categoria">
+        <!-- Categoría -->
+        <label for="filtro-categoria">Categoría:</label>
+        <select id="filtro-categoria">
       <option value="">Todas</option>
       <option value="TC">Tortas Cuadradas</option>
       <option value="TT">Tortas Circulares</option>
@@ -59,17 +63,17 @@
       <option value="TE">Tortas Especiales</option>
     </select>
 
-    <!-- Tipo de forma -->
-    <label for="filtro-forma">Forma:</label>
-    <select id="filtro-forma">
+        <!-- Tipo de forma -->
+        <label for="filtro-forma">Forma:</label>
+        <select id="filtro-forma">
       <option value="">Todas</option>
       <option value="cuadrada">Cuadrada</option>
       <option value="circular">Circular</option>
     </select>
 
-    <!-- Tamaño disponible -->
-    <label for="filtro-tamano">Tamaño:</label>
-    <select id="filtro-tamano">
+        <!-- Tamaño disponible -->
+        <label for="filtro-tamano">Tamaño:</label>
+        <select id="filtro-tamano">
       <option value="">Todos</option>
       <option value="unidad">Unidad</option>
       <option value="S (8 porciones)">S (8 porciones)</option>
@@ -77,48 +81,76 @@
       <option value="L (20 porciones)">L (20 porciones)</option>
     </select>
 
-    <!-- Etiquetas -->
-    <fieldset>
-      <legend>Etiquetas:</legend>
-      <label><input type="checkbox" name="etiquetas" value="Sin azúcar"> Sin azúcar</label>
-      <label><input type="checkbox" name="etiquetas" value="Sin gluten"> Sin gluten</label>
-      <label><input type="checkbox" name="etiquetas" value="Vegana"> Vegana</label>
-      <label><input type="checkbox" name="etiquetas" value="Tradicional"> Tradicional</label>
-      <label><input type="checkbox" name="etiquetas" value="Especial"> Especial</label>
-      <label><input type="checkbox" name="etiquetas" value="Chocolate"> Chocolate</label>
-      <label><input type="checkbox" name="etiquetas" value="Frutas"> Frutas</label>
-      <label><input type="checkbox" name="etiquetas" value="Cumpleaños"> Cumpleaños</label>
-      <label><input type="checkbox" name="etiquetas" value="Boda"> Boda</label>
-    </fieldset>
+        <!-- Etiquetas -->
+        <fieldset>
+            <legend>Etiquetas:</legend>
+            <label><input type="checkbox" name="etiquetas" value="Sin azúcar"> Sin azúcar</label>
+            <label><input type="checkbox" name="etiquetas" value="Sin gluten"> Sin gluten</label>
+            <label><input type="checkbox" name="etiquetas" value="Vegana"> Vegana</label>
+            <label><input type="checkbox" name="etiquetas" value="Tradicional"> Tradicional</label>
+            <label><input type="checkbox" name="etiquetas" value="Especial"> Especial</label>
+            <label><input type="checkbox" name="etiquetas" value="Chocolate"> Chocolate</label>
+            <label><input type="checkbox" name="etiquetas" value="Frutas"> Frutas</label>
+            <label><input type="checkbox" name="etiquetas" value="Cumpleaños"> Cumpleaños</label>
+            <label><input type="checkbox" name="etiquetas" value="Boda"> Boda</label>
+        </fieldset>
 
-    <!-- Rango de precio -->
-    <div class="filtro-precio">
-      <label for="precio-min">Precio mínimo:</label>
-      <input type="number" id="precio-min" placeholder="Ej: 2000">
+        <!-- Rango de precio -->
+        <div class="filtro-precio">
+            <label for="precio-min">Precio mínimo:</label>
+            <input type="number" id="precio-min" placeholder="Ej: 2000">
 
-      <label for="precio-max">Precio máximo:</label>
-      <input type="number" id="precio-max" placeholder="Ej: 100000">
+            <label for="precio-max">Precio máximo:</label>
+            <input type="number" id="precio-max" placeholder="Ej: 100000">
+        </div>
+
+        <!-- Botón limpiar -->
+        <button id="btn-limpiar">Limpiar filtros</button>
+    </section>
+
+    <!-- ⏳ Loader de productos -->
+    <div id="loader" class="skeleton-loader" style="display: none;">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
     </div>
 
-    <!-- Botón limpiar -->
-    <button id="btn-limpiar">Limpiar filtros</button>
-  </section>
-
-  <!-- ⏳ Loader de productos -->
-  <div id="loader" class="skeleton-loader" style="display: none;">
-    <div class="skeleton-card"></div>
-    <div class="skeleton-card"></div>
-    <div class="skeleton-card"></div>
-  </div>
-
-  <!-- 🧁 Contenedor de productos -->
-  <section class="productos-grid" id="productos-container">
-    <!-- Aquí se insertarán dinámicamente las tarjetas de producto -->
-  </section>
-  <div id="mensaje-vacio" class="mensaje-vacio" style="display: none;">
-   Producto no encontrado 😢.
-</div>
+    <!-- 🧁 Contenedor de productos -->
+    <section class="productos-grid" id="productos-container">
+        <!-- Aquí se insertarán dinámicamente las tarjetas de producto -->
+    </section>
+    <div id="mensaje-vacio" class="mensaje-vacio" style="display: none;">
+        Producto no encontrado 😢.
+    </div>
 
 
+    <!-- Footer igual que HOME -->
+    <footer>
+        <div class="footer-container">
+            <!-- Column 1: Copyright -->
+            <div class="footer-column">
+                <p>&copy; 2024 Mil Sabores.</p>
+                <p>Todos los derechos reservados.</p>
+            </div>
+            <!-- Column 2: Quick Links -->
+            <div class="footer-column">
+                <h3>Enlaces</h3>
+                <ul class="footer-links">
+                    <li><a href="../NOSOTROS/nosotros.html">Nosotros</a></li>
+                    <li><a href="../CONTACTO/contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <!-- Column 3: Social Media -->
+            <div class="footer-column">
+                <h3>Síguenos en</h3>
+                <ul class="social-links">
+                    <li><a href="https://facebook.com/milsabores" aria-label="Facebook">Facebook</a></li>
+                    <li><a href="https://instagram.com/milsabores" aria-label="Instagram">Instagram</a></li>
+                    <li><a href="https://x.com/milsabores" aria-label="X">X</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
 </body>
+
 </html>

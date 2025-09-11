@@ -2,21 +2,21 @@ import { PRODUCTS_PS } from "./productos_pasteleria.js";
 
 /** Formatea precio en CLP */
 function formatoCLP(valor) {
-  return `$${valor.toLocaleString("es-CL")}`;
+    return `$${valor.toLocaleString("es-CL")}`;
 }
 
 /** Crea tarjeta de producto */
 function crearCard(producto) {
-  const card = document.createElement("div");
-  card.classList.add("producto-card");
+    const card = document.createElement("div");
+    card.classList.add("producto-card");
 
-  const esStockBajo = producto.stock <= 3 && producto.stock > 0;
-  const esAgotado = producto.stock === 0;
+    const esStockBajo = producto.stock <= 3 && producto.stock > 0;
+    const esAgotado = producto.stock === 0;
 
-  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-  const estaEnCarrito = carrito.some(p => p.id === producto.code);
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    const estaEnCarrito = carrito.some(p => p.id === producto.code);
 
-  card.innerHTML = `
+    card.innerHTML = `
     <img src="${producto.imagen}" alt="Imagen de ${producto.nombre}" class="producto-imagen">
     <div class="producto-info">
       <h3>${producto.nombre}</h3>
@@ -89,6 +89,11 @@ function animarTarjetas() {
   });
 }
 
+/** Ordena productos por precio */
+function ordenarPorPrecio(lista, ascendente = true) {
+  return lista.slice().sort((a, b) => ascendente ? a.precioCLP - b.precioCLP : b.precioCLP - a.precioCLP);
+}
+
 /** Filtros activos */
 function obtenerFiltros() {
   const categoria = document.getElementById("filtro-categoria").value;
@@ -114,21 +119,18 @@ function filtrarProductos(productos, filtros) {
 
 /** Búsqueda por texto */
 function normalizarTexto(texto) {
-  return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  if (!texto) return "";
+  return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
 }
 
 function filtrarPorBusqueda(productos, texto) {
+  if (!texto) return productos;
   const query = normalizarTexto(texto);
   return productos.filter(p => {
     const nombre = normalizarTexto(p.nombre);
     const codigo = normalizarTexto(p.code);
     return nombre.includes(query) || codigo.includes(query);
   });
-}
-
-/** Orden por precio */
-function ordenarPorPrecio(productos, ascendente = true) {
-  return [...productos].sort((a, b) => ascendente ? a.precioCLP - b.precioCLP : b.precioCLP - a.precioCLP);
 }
 
 /** Debounce */
