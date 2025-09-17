@@ -76,13 +76,14 @@ function renderizarProductos(lista) {
 /** Animación al entrar en pantalla */
 function animarTarjetas() {
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    entries.forEach((entry, index) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
+        setTimeout(() => {
+          entry.target.classList.add("reveal");
+        }, index * 100);
       }
     });
-  });
+  }, { threshold: 0.1 });
 
   document.querySelectorAll(".producto-card").forEach(card => {
     observer.observe(card);
