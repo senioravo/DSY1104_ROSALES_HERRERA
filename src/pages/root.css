@@ -1,33 +1,129 @@
+/* === PALETA MIL SABORES === */
+:root,
+[data-bs-theme="light"] {
+    /* === PALETA MIL SABORES === */
+    /* Strawberry - Rosa pastel */
+    --strawberry: #E5ADA8;
+    --strawberry-light: #fcc1cb;
+    --strawberry-lighter: #ff9fb7;
+    --strawberry-dark: #cf8a8f;
+    --strawberry-darker: #dd6f7d;
+    --strawberry-emphasis: #e2546e;
+    /* Vanilla - Crema suave */
+    --vanilla: #E5E0D8;
+    --vanilla-light: #F2EFEA;
+    --vanilla-lighter: #F8F6F2;
+    --vanilla-dark: #D6CFC4;
+    --vanilla-darker: #C7BEB0;
+    --vanilla-emphasis: #B8AD9C;
+    /* Caramel - Dorado cálido */
+    --caramel: #D0A77B;
+    --caramel-light: #E2C19B;
+    --caramel-lighter: #F0DEBB;
+    --caramel-dark: #BE955B;
+    --caramel-darker: #AC833B;
+    --caramel-emphasis: #9A711B;
+    /* Chocolate - Marrón rico */
+    --chocolate: #725C3F;
+    --chocolate-light: #8F7659;
+    --chocolate-lighter: #AC9073;
+    --chocolate-dark: #5B4A32;
+    --chocolate-darker: #443825;
+    --chocolate-emphasis: #2D2518;
+    /* Lemon - Amarillo cremoso */
+    --lemon: #EFE8D8;
+    --lemon-light: #F5F0E6;
+    --lemon-lighter: #FAF7F0;
+    --lemon-dark: #E3D9C4;
+    --lemon-darker: #D7CAB0;
+    --lemon-emphasis: #CBBB9C;
+    /* Mint - Verde suave */
+    --mint: #D8D7B2;
+    --mint-light: #e4e3be;
+    --mint-lighter: #F2F1DE;
+    --mint-dark: #C9C89C;
+    --mint-darker: #BAB986;
+    --mint-emphasis: #ABAA70;
+    /* === COLORES FUNCIONALES BOOTSTRAP === */
+    /* Principales */
+    --bs-primary: var(--strawberry);
+    --bs-primary-rgb: 229, 173, 168;
+    --bs-secondary: var(--chocolate);
+    --bs-secondary-rgb: 114, 92, 63;
+    --bs-success: var(--mint-dark);
+    --bs-success-rgb: 201, 200, 156;
+    --bs-info: var(--caramel-light);
+    --bs-info-rgb: 226, 193, 155;
+    --bs-warning: var(--caramel);
+    --bs-warning-rgb: 208, 167, 123;
+    --bs-danger: var(--strawberry-dark);
+    --bs-danger-rgb: 214, 139, 133;
+    /* Cuerpo y texto */
+    --bs-body-bg: var(--lemon);
+    --bs-body-color: var(--chocolate);
+    --bs-text-muted: var(--chocolate-light);
+    /* Enlaces */
+    --bs-link-color: var(--strawberry-dark);
+    --bs-link-hover-color: var(--strawberry-emphasis);
+    --bs-link-decoration: none;
+    /* Bordes y divisores */
+    --bs-border-color: var(--vanilla-dark);
+    --bs-border-color-translucent: rgba(229, 224, 216, 0.2);
+    /* Fondos neutros */
+    --bs-gray-100: var(--vanilla-lighter);
+    --bs-gray-200: var(--vanilla-light);
+    --bs-gray-300: var(--vanilla);
+    --bs-gray-400: var(--vanilla-dark);
+    --bs-gray-500: var(--vanilla-darker);
+    --bs-gray-600: var(--chocolate-light);
+    --bs-gray-700: var(--chocolate);
+    --bs-gray-800: var(--chocolate-dark);
+    --bs-gray-900: var(--chocolate-emphasis);
+}
+
 /* Reset global para máximo ancho */
 
 * {
     box-sizing: border-box;
 }
 
+html {
+    overflow-x: hidden !important;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Prevenir overflow horizontal en todos los contenedores */
+.container, .container-fluid {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+}
+
 body {
     margin: 0 !important;
     padding: 0 !important;
-    width: 100vw;
+    width: 100%;
     max-width: 100%;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
 }
 
 #root {
-    width: 100vw;
+    width: 100%;
     max-width: 100%;
     margin: 0;
     padding: 0;
+    overflow-x: hidden !important;
 }
 
 .root-layout {
     min-height: 100vh;
-    width: 100vw;
+    width: 100%;
     max-width: 100%;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
     box-sizing: border-box;
 }
 
@@ -77,11 +173,14 @@ body {
 
 #navBarRoot {
     margin-bottom: 0;
-    width: 100vw !important;
+    width: 100% !important;
     max-width: 100% !important;
     background-color: #343a40 !important;
     /* Color de fondo oscuro */
     padding: 0 !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1020 !important;
 }
 
 #navBarRoot.navbar {
@@ -89,6 +188,9 @@ body {
     width: 100% !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1020 !important;
 }
 
 #navBarRoot .container {
@@ -333,4 +435,66 @@ footer {
     padding: 1rem;
     text-align: center;
     margin-top: auto;
+}
+
+/* === ESTILOS PARA CAROUSEL === */
+/* Indicadores del carousel - mantener bordes consistentes */
+#historyCarousel .carousel-indicators button,
+.carousel-indicators button {
+    border: 2px solid var(--caramel-dark) !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: var(--caramel-dark) !important;
+}
+
+#historyCarousel .carousel-indicators button:hover,
+#historyCarousel .carousel-indicators button:focus,
+#historyCarousel .carousel-indicators button:active,
+#historyCarousel .carousel-indicators button:focus-visible,
+.carousel-indicators button:hover,
+.carousel-indicators button:focus,
+.carousel-indicators button:active,
+.carousel-indicators button:focus-visible {
+    border: 2px solid var(--caramel-dark) !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: var(--caramel-dark) !important;
+}
+
+#historyCarousel .carousel-indicators button.active,
+.carousel-indicators button.active {
+    border: 2px solid var(--caramel-dark) !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: var(--caramel-dark) !important;
+}
+
+/* Forzar que no haya borders negros o de otro color */
+#historyCarousel .carousel-indicators [data-bs-target] {
+    border-color: var(--caramel-dark) !important;
+}
+
+/* Eliminar cualquier estilo de Bootstrap que pueda interferir */
+.carousel-indicators {
+    margin-bottom: 1rem !important;
+}
+
+/* Prevenir overflow en el carousel */
+.carousel {
+    overflow: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.carousel-inner {
+    overflow: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.carousel-indicators [data-bs-target] {
+    border-top: 2px solid var(--caramel-dark) !important;
+    border-bottom: 2px solid var(--caramel-dark) !important;
+    border-left: 2px solid var(--caramel-dark) !important;
+    border-right: 2px solid var(--caramel-dark) !important;
 }
