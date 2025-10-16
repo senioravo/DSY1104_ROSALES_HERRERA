@@ -5,6 +5,7 @@ import Nosotros from './pages/nosotros/index'
 import Productos from './pages/productos/index'
 import PersonalizaTuTorta from './pages/personaliza-tu-torta/index'
 import Blog from './pages/blog/index'
+import Articulo from './pages/blog/articulo'
 import Contacto from './pages/contacto/index'
 
 export const router = createBrowserRouter([
@@ -36,6 +37,11 @@ export const router = createBrowserRouter([
                 path: 'blog',
                 Component: Blog,
                 /* loader: blogLoader */
+            },
+            {
+                path: 'blog/:slug',
+                Component: Articulo,
+                /* loader: articuloLoader */
             },
             {
                 path: 'contacto',

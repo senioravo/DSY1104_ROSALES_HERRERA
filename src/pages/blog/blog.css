@@ -1,0 +1,31 @@
+/* Estilos personalizados para complementar Bootstrap */
+
+.text-brown {
+    color: #6B4226;
+}
+
+/* Efectos hover para tarjetas de Bootstrap */
+.blog-card-bootstrap {
+    transition: all 0.3s ease;
+    border: none !important;
+}
+
+.blog-card-bootstrap:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.blog-card-bootstrap img {
+    transition: transform 0.3s ease;
+}
+
+.blog-card-bootstrap:hover img {
+    transform: scale(1.1);
+}
+
+/* Botones personalizados */
+.btn-outline-primary:hover {
+    background-color: #FFE8F0 !important;
+    border-color: #F4A5C4 !important;
+    color: #6B4226 !important;
+}

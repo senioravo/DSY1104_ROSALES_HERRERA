@@ -1,0 +1,97 @@
+/* Estilos complementarios para artículos con Bootstrap */
+
+.text-brown {
+    color: #6B4226;
+}
+
+.btn-primary:hover {
+    background-color: #e08fb0 !important;
+    border-color: #e08fb0 !important;
+    transform: translateX(-5px);
+}
+
+/* Contenido del artículo */
+.articulo-contenido {
+    color: #444;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.articulo-contenido h2 {
+    color: #6B4226;
+    font-size: 2rem;
+    margin: 2rem 0 1rem 0;
+    font-weight: 700;
+}
+
+.articulo-contenido h3 {
+    color: #8B5A3C;
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem 0;
+    font-weight: 600;
+}
+
+.articulo-contenido h4 {
+    color: #8B5A3C;
+    font-size: 1.2rem;
+    margin: 1.5rem 0 0.8rem 0;
+    font-weight: 600;
+}
+
+.articulo-contenido p {
+    margin-bottom: 1.5rem;
+}
+
+.articulo-contenido ul,
+.articulo-contenido ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.articulo-contenido li {
+    margin-bottom: 0.8rem;
+    line-height: 1.7;
+}
+
+.articulo-contenido strong {
+    color: #6B4226;
+    font-weight: 700;
+}
+
+.articulo-contenido blockquote {
+    background: #FFF9F5;
+    border-left: 5px solid #F4A5C4;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 8px;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: #6B4226;
+}
+
+.articulo-contenido img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+    margin: 2rem 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .articulo-contenido {
+        font-size: 1rem;
+    }
+
+    .articulo-contenido h2 {
+        font-size: 1.6rem;
+    }
+
+    .articulo-contenido h3 {
+        font-size: 1.3rem;
+    }
+
+    .articulo-contenido ul,
+    .articulo-contenido ol {
+        padding-left: 1.5rem;
+    }
+}
