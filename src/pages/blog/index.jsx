@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Row, Col, Card, Button, ButtonGroup } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
+import { BlogCard, CategoryFilter } from '../../components/root/BlogComponents';
 import './blog.css';
 
 // Datos de ejemplo de los artículos del blog
@@ -114,71 +115,23 @@ export default function Blog() {
                 </p>
             </div>
 
-            {/* Filtros por categoría usando Bootstrap */}
-            <div className="d-flex justify-content-center mb-5 flex-wrap gap-2">
-                <ButtonGroup>
-                    {categorias.map(cat => (
-                        <Button
-                            key={cat}
-                            variant={filtro === cat ? 'primary' : 'outline-primary'}
-                            onClick={() => setFiltro(cat)}
-                            className="rounded-pill mx-1"
-                            style={{
-                                backgroundColor: filtro === cat ? '#F4A5C4' : 'transparent',
-                                borderColor: '#F4A5C4',
-                                color: filtro === cat ? 'white' : '#F4A5C4'
-                            }}
-                        >
-                            {cat}
-                        </Button>
-                    ))}
-                </ButtonGroup>
+            {/* Filtros por categoría */}
+            <div className="d-flex justify-content-center mb-5">
+                <CategoryFilter 
+                    categorias={categorias}
+                    categoriaActiva={filtro}
+                    onCategoriaChange={setFiltro}
+                />
             </div>
 
-            {/* Grid de artículos usando Bootstrap */}
+            {/* Grid de artículos */}
             <Row className="g-4">
                 {articulosFiltrados.map(post => (
                     <Col key={post.id} xs={12} md={6} lg={4}>
-                        <Card 
-                            className="h-100 blog-card-bootstrap shadow-sm"
+                        <BlogCard 
+                            post={post}
                             onClick={() => handleClickArticulo(post.slug)}
-                            style={{ cursor: 'pointer', borderRadius: '20px', overflow: 'hidden' }}
-                        >
-                            <div style={{ position: 'relative' }}>
-                                <Card.Img 
-                                    variant="top" 
-                                    src={post.imagen} 
-                                    alt={post.titulo}
-                                    style={{ height: '250px', objectFit: 'cover' }}
-                                />
-                                <span 
-                                    className="position-absolute badge rounded-pill"
-                                    style={{
-                                        top: '1rem',
-                                        left: '1rem',
-                                        backgroundColor: '#F4A5C4',
-                                        padding: '0.5rem 1rem',
-                                        fontSize: '0.9rem'
-                                    }}
-                                >
-                                    {post.categoria}
-                                </span>
-                            </div>
-                            <Card.Body className="d-flex flex-column" style={{ backgroundColor: '#FFF9F5' }}>
-                                <Card.Title 
-                                    className="fw-bold mb-3"
-                                    style={{ color: '#6B4226', fontSize: '1.4rem' }}
-                                >
-                                    {post.titulo}
-                                </Card.Title>
-                                <Card.Text className="text-muted mb-3 flex-grow-1">
-                                    {post.descripcion}
-                                </Card.Text>
-                                <Card.Text className="text-muted small">
-                                    <small>{post.fecha}</small>
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                        />
                     </Col>
                 ))}
             </Row>

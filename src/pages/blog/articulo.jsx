@@ -1,5 +1,6 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Button, Badge } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import { ArticleHeader, ArticleImage, BackButton } from '../../components/root/BlogComponents';
 import './articulo.css';
 
 // Base de datos completa de artículos (la misma que en index.jsx)
@@ -1061,66 +1062,34 @@ const articulosCompletos = {
 
 export default function Articulo() {
     const { slug } = useParams();
-    const navigate = useNavigate();
     const articulo = articulosCompletos[slug];
 
     if (!articulo) {
         return (
             <Container className="py-5 text-center">
                 <h2 className="text-brown mb-4">Artículo no encontrado</h2>
-                <Button 
-                    variant="primary"
-                    onClick={() => navigate('/blog')}
-                    className="rounded-pill px-4"
-                    style={{ backgroundColor: '#F4A5C4', borderColor: '#F4A5C4' }}
-                >
-                    Volver al Blog
-                </Button>
+                <BackButton text="Volver al Blog" />
             </Container>
         );
     }
 
     return (
         <Container className="py-5">
-            <Button 
-                variant="primary"
-                onClick={() => navigate('/blog')}
-                className="mb-4 rounded-pill px-4"
-                style={{ backgroundColor: '#F4A5C4', borderColor: '#F4A5C4' }}
-            >
-                ← Volver a Blog
-            </Button>
+            <BackButton />
 
             <article className="bg-white rounded-4 shadow-sm p-4 p-md-5">
                 <header className="text-center mb-5">
-                    <Badge 
-                        bg="primary" 
-                        className="rounded-pill px-4 py-2 mb-3"
-                        style={{ 
-                            backgroundColor: '#F4A5C4',
-                            fontSize: '0.9rem',
-                            fontWeight: '600'
-                        }}
-                    >
-                        {articulo.categoria}
-                    </Badge>
-                    <h1 className="display-4 fw-bold text-brown mb-3">
-                        {articulo.titulo}
-                    </h1>
-                    <p className="text-muted">{articulo.fecha}</p>
+                    <ArticleHeader 
+                        categoria={articulo.categoria}
+                        titulo={articulo.titulo}
+                        fecha={articulo.fecha}
+                    />
                 </header>
 
-                <div className="mb-5 rounded-4 overflow-hidden">
-                    <img 
-                        src={articulo.imagen} 
-                        alt={articulo.titulo}
-                        className="w-100"
-                        style={{ 
-                            height: '450px', 
-                            objectFit: 'cover'
-                        }}
-                    />
-                </div>
+                <ArticleImage 
+                    src={articulo.imagen}
+                    alt={articulo.titulo}
+                />
 
                 <div 
                     className="articulo-contenido"
