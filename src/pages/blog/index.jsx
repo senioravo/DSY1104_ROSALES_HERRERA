@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
-import { BlogCard, CategoryFilter } from '../../components/root/BlogComponents';
+import { Container } from 'react-bootstrap';
+import { BlogHero, BlogGrid, CategoryFilter } from '../../components/root/BlogComponents';
 import './blog.css';
 
 // Datos de ejemplo de los artículos del blog
@@ -104,37 +104,25 @@ export default function Blog() {
     };
 
     return (
-        <Container className="py-5">
-            {/* Header del Blog */}
-            <div className="text-center mb-5">
-                <h1 className="display-4 fw-bold text-brown mb-3">
-                    Nuestro Blog de Pastelería
-                </h1>
-                <p className="lead text-muted">
-                    Recetas, técnicas, historias y consejos para todos los amantes de la repostería
-                </p>
-            </div>
+        <main className="blog-page">
+            <BlogHero />
+            
+            <Container className="py-5">
+                {/* Filtros por categoría */}
+                <div className="d-flex justify-content-center mb-5">
+                    <CategoryFilter 
+                        categorias={categorias}
+                        categoriaActiva={filtro}
+                        onCategoriaChange={setFiltro}
+                    />
+                </div>
 
-            {/* Filtros por categoría */}
-            <div className="d-flex justify-content-center mb-5">
-                <CategoryFilter 
-                    categorias={categorias}
-                    categoriaActiva={filtro}
-                    onCategoriaChange={setFiltro}
+                {/* Grid de artículos */}
+                <BlogGrid 
+                    posts={articulosFiltrados}
+                    onPostClick={handleClickArticulo}
                 />
-            </div>
-
-            {/* Grid de artículos */}
-            <Row className="g-4">
-                {articulosFiltrados.map(post => (
-                    <Col key={post.id} xs={12} md={6} lg={4}>
-                        <BlogCard 
-                            post={post}
-                            onClick={() => handleClickArticulo(post.slug)}
-                        />
-                    </Col>
-                ))}
-            </Row>
-        </Container>
+            </Container>
+        </main>
     );
 }

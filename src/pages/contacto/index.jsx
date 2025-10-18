@@ -1,8 +1,12 @@
+﻿import { ContactoHero, ContactForm, ContactInfo } from '../../components/root/ContactoComponents';
+import './contacto.css';
+
 export default function Contacto() {
     return (
-        <div>
-            <h1>Contacto</h1>
-            <p>Ponte en contacto con nosotros para pedidos y consultas.</p>
-        </div>
-    )
+        <main className="contacto-page">
+            <ContactoHero />
+            <ContactForm />
+            <ContactInfo />
+        </main>
+    );
 }
