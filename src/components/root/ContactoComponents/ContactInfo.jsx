@@ -53,18 +53,6 @@ export default function ContactInfo() {
                         </div>
                     ))}
                 </div>
-
-                <div className="row mt-5">
-                    <div className="col-12">
-                        <div className="map-container">
-                            <div className="map-placeholder">
-                                <i className="fas fa-map"></i>
-                                <h3>Ubicación</h3>
-                                <p>Aquí puedes integrar Google Maps o cualquier otro mapa</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
     );

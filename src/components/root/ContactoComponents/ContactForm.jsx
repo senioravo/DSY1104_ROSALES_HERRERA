@@ -98,7 +98,7 @@ export default function ContactForm() {
                                                 name="nombre"
                                                 value={formData.nombre}
                                                 onChange={handleInputChange}
-                                                className={orm-control }
+                                                className="form-control"
                                                 placeholder="Tu nombre completo"
                                             />
                                             {errors.nombre && <div className="invalid-feedback">{errors.nombre}</div>}
@@ -117,7 +117,7 @@ export default function ContactForm() {
                                                 name="email"
                                                 value={formData.email}
                                                 onChange={handleInputChange}
-                                                className={orm-control }
+                                                className="form-control"
                                                 placeholder="tu@email.com"
                                             />
                                             {errors.email && <div className="invalid-feedback">{errors.email}</div>}
@@ -138,7 +138,7 @@ export default function ContactForm() {
                                                 name="telefono"
                                                 value={formData.telefono}
                                                 onChange={handleInputChange}
-                                                className={orm-control }
+                                                className="form-control"
                                                 placeholder="+56 9 1234 5678"
                                             />
                                             {errors.telefono && <div className="invalid-feedback">{errors.telefono}</div>}
@@ -157,7 +157,7 @@ export default function ContactForm() {
                                                 name="asunto"
                                                 value={formData.asunto}
                                                 onChange={handleInputChange}
-                                                className={orm-control }
+                                                className="form-control"
                                                 placeholder="Motivo de tu consulta"
                                             />
                                             {errors.asunto && <div className="invalid-feedback">{errors.asunto}</div>}
@@ -175,7 +175,7 @@ export default function ContactForm() {
                                         name="mensaje"
                                         value={formData.mensaje}
                                         onChange={handleInputChange}
-                                        className={orm-control }
+                                        className="form-control"
                                         rows="5"
                                         placeholder="Escribe aquí tu mensaje..."
                                     ></textarea>

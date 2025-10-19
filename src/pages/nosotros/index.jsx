@@ -6,8 +6,8 @@ export default function Nosotros() {
         <main className="nosotros-page">
             <HeroSection />
             <MissionSection />
-            <ValuesSection />
             <TimelineSection />
+            <ValuesSection />
         </main>
     );
 }
