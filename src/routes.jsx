@@ -8,45 +8,61 @@ import Blog from './pages/blog/index'
 import Articulo from './pages/blog/articulo'
 import Contacto from './pages/contacto/index'
 
+// Importar todos los loaders
+// Importar todos los loaders
+import {
+  homeLoader,
+  nosotrosLoader,
+  productosLoader,
+  personalizaTuTortaLoader,
+  blogLoader,
+  articuloLoader,
+  contactoLoader
+} from "./loaders";
+
+// Importar componente de error
+import ErrorBoundary from "./components/common/ErrorBoundary";
+
 export const router = createBrowserRouter([
     {
         path: '/',
         Component: Root,
+        errorElement: <ErrorBoundary />,
         children: [
             {
                 index: true,
                 Component: Home,
-                /* loader: homeLoader */
+                loader: homeLoader
             },
             {
                 path: 'nosotros',
                 Component: Nosotros,
-                /* loader: nosotrosLoader */
+                loader: nosotrosLoader
             },
             {
                 path: 'productos',
                 Component: Productos,
-                /* loader: productosLoader */
+                loader: productosLoader
             },
             {
                 path: 'personaliza-tu-torta',
                 Component: PersonalizaTuTorta,
-                /* loader: personalizaTuTortaLoader */
+                loader: personalizaTuTortaLoader
             },
             {
                 path: 'blog',
                 Component: Blog,
-                /* loader: blogLoader */
+                loader: blogLoader
             },
             {
                 path: 'blog/:slug',
                 Component: Articulo,
-                /* loader: articuloLoader */
+                loader: articuloLoader
             },
             {
                 path: 'contacto',
                 Component: Contacto,
-                /* loader: contactoLoader */
+                loader: contactoLoader
             }
         ]
     }

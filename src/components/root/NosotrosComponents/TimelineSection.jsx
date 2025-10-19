@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-export default function TimelineSection() {
+export default function TimelineSection({ timeline: timelineFromLoader }) {
     const [activeCard, setActiveCard] = useState(0);
 
-    // Datos del timeline con información histórica
-    const timelineData = [
+    // Datos por defecto del timeline si no vienen del loader
+    const defaultTimelineData = [
         {
             id: 1,
             year: "1995",
@@ -42,6 +42,21 @@ export default function TimelineSection() {
             icon: "fas fa-rocket"
         }
     ];
+
+    // Usar datos del loader si están disponibles, sino usar los por defecto
+    const timelineData = timelineFromLoader?.length > 0 ? 
+        timelineFromLoader.map((item, index) => ({
+            id: index + 1,
+            year: item.year.toString(),
+            title: item.event,
+            subtitle: item.event,
+            description: item.description,
+            image: `/images/nosotros/carrusel-${item.year}.png`,
+            icon: index === 0 ? "fas fa-seedling" : 
+                  index === 1 ? "fas fa-chart-line" : 
+                  index === 2 ? "fas fa-cogs" : "fas fa-rocket"
+        })) : 
+        defaultTimelineData;
 
     return (
         <section className="timeline-section">

@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { BlogHero, BlogGrid, CategoryFilter } from '../../components/root/BlogComponents';
+import { useBlogData } from '../../hooks/useLoaderData';
 import './blog.css';
 
 // Datos de ejemplo de los artículos del blog
@@ -92,12 +93,43 @@ const blogPosts = [
 export default function Blog() {
     const navigate = useNavigate();
     const [filtro, setFiltro] = useState('Todos');
-
-    const categorias = ['Todos', ...new Set(blogPosts.map(post => post.categoria))];
+    
+    // Usar datos del loader (opcionales)
+    const { posts: loaderPosts, categories: loaderCategories, totalPosts, recentPosts, hasLoaderData } = useBlogData();
+    
+    // Combinar datos: priorizar los originales, agregar loader como extra
+    const allBlogPosts = useMemo(() => {
+        // Siempre empezar con los datos originales
+        let combinedPosts = [...blogPosts];
+        
+        // Solo agregar datos del loader si existen y no están vacíos
+        if (hasLoaderData && loaderPosts.length > 0) {
+            const loaderPostsFormatted = loaderPosts.map(post => ({
+                id: post.id + 1000, // ID único para evitar conflictos
+                categoria: post.category,
+                titulo: post.title,
+                descripcion: post.excerpt,
+                imagen: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800',
+                fecha: new Date(post.publishDate).toLocaleDateString('es-CL'),
+                slug: post.slug
+            }));
+            
+            // Añadir al final para mantener los originales primero
+            combinedPosts = [...combinedPosts, ...loaderPostsFormatted];
+        }
+        
+        return combinedPosts;
+    }, [loaderPosts, hasLoaderData]);
+    
+    // Categorias: priorizar las originales
+    const categoriasOriginales = [...new Set(blogPosts.map(post => post.categoria))];
+    const categoriasFromLoader = hasLoaderData ? (loaderCategories?.map(cat => cat.name) || []) : [];
+    const categoriasAdicionales = categoriasFromLoader.filter(cat => !categoriasOriginales.includes(cat));
+    const categorias = ['Todos', ...categoriasOriginales, ...categoriasAdicionales];
 
     const articulosFiltrados = filtro === 'Todos' 
-        ? blogPosts 
-        : blogPosts.filter(post => post.categoria === filtro);
+        ? allBlogPosts 
+        : allBlogPosts.filter(post => post.categoria === filtro);
 
     const handleClickArticulo = (slug) => {
         navigate(`/blog/${slug}`);
@@ -122,6 +154,27 @@ export default function Blog() {
                     posts={articulosFiltrados}
                     onPostClick={handleClickArticulo}
                 />
+                
+                {/* Información adicional del loader */}
+                {loaderCategories && loaderCategories.length > 0 && (
+                    <div className="category-stats mt-5">
+                        <h3 className="text-center mb-4">Estadísticas por Categoría</h3>
+                        <div className="row">
+                            {loaderCategories.map((category, index) => (
+                                <div key={index} className="col-md-3 mb-3">
+                                    <div className="card text-center">
+                                        <div className="card-body">
+                                            <h5 className="card-title">{category.name}</h5>
+                                            <p className="card-text text-muted">
+                                                {category.count} artículos
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </Container>
         </main>
     );

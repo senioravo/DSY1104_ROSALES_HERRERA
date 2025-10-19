@@ -1,16 +1,103 @@
-# React + Vite
+# Mil Sabores - Pastelería Web Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación web moderna para la pastelería "Mil Sabores", construida con React 19 + Vite y React Router con implementación avanzada de **Loaders**.
 
-Currently, two official plugins are available:
+## Características Principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### React Router Loaders
+- **Carga de datos anticipada** antes del renderizado de componentes
+- **Experiencia de usuario optimizada** con estados de carga elegantes
+- **Manejo robusto de errores** con páginas de error personalizadas
+- **Arquitectura escalable** preparada para APIs reales
 
-## React Compiler
+###  Tecnologías Implementadas
+- **React 19.1.1** - Framework principal con hooks avanzados
+- **Vite 7.1.8** - Herramienta de desarrollo ultra-rápida
+- **React Router 7.9.3** - Navegación con loaders y error boundaries
+- **Bootstrap 5.3.8** - Framework CSS responsive
+- **Jasmine + Karma** - Suite de testing completa
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Testing Académico
+- **6 archivos de pruebas** implementados (.spec.js)
+- **Karma configurado** para ejecución de tests
+- **Coverage reports** disponibles
+- **Documentación completa** para evaluación académica
 
-## Expanding the ESLint configuration
+###  Páginas Implementadas
+- **Home** - Página principal con estadísticas dinámicas
+- **Nosotros** - Historia, misión, valores y timeline
+- **Productos** - Catálogo con ofertas especiales
+- **Blog** - Artículos con categorías y filtros
+- **Contacto** - Formulario y información de sucursales
+- **Personaliza tu Torta** - Configurador de productos personalizados
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+##  Instalación y Uso
+
+```bash
+# Clonar el repositorio
+git clone [repository-url]
+cd DSY1104_ROSALES_HERRERA-3
+
+# Instalar dependencias
+npm install
+
+# Ejecutar en desarrollo
+npm run dev
+
+# Ejecutar tests
+npm test
+
+# Build para producción
+npm run build
+```
+
+##  Documentación Técnica
+
+### React Router Loaders
+Ver [LOADERS.md](./LOADERS.md) para documentación completa sobre la implementación de loaders.
+
+### Testing
+Ver [TESTING.md](./TESTING.md) para guía completa de testing con Jasmine/Karma.
+
+## Arquitectura del Proyecto
+
+```
+src/
+├── loaders/           # Funciones loader para carga de datos
+├── hooks/             # Hooks personalizados
+├── components/        # Componentes reutilizables
+│   ├── root/         # Componentes de layout
+│   └── common/       # Componentes compartidos
+├── pages/            # Páginas de la aplicación
+└── assets/           # Recursos estáticos
+```
+
+## Valor Académico
+
+Este proyecto demuestra:
+- **Arquitectura escalable** con separación de responsabilidades
+- **Implementación avanzada** de React Router
+- **Testing profesional** con Jasmine/Karma
+- **Mejores prácticas** de desarrollo frontend
+- **Experiencia de usuario** de calidad empresarial
+
+## Características Avanzadas de Loaders
+
+### Implementación Completa
+- **6 loaders configurados** para todas las páginas
+- **Hooks personalizados** para acceso tipado a datos
+- **Estados de carga** con spinners elegantes
+- **Manejo de errores** con error boundaries
+- **Simulación de red** para testing realista
+
+### Beneficios
+- **Datos inmediatos** al cargar páginas
+- **Experiencia fluida** sin pantallas vacías
+- **Código mantenible** con separación clara
+- **Preparado para APIs** reales
+
+---
+
+**Desarrollado para:** DSY1104 - Duoc UC  
+**Situación Evaluativa:** Entrega por encargo  
+**Tecnología Principal:** React 19 + Vite 7 + React Router Loaders

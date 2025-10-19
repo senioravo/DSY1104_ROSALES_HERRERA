@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { ArticleHeader, ArticleImage, BackButton } from '../../components/root/BlogComponents';
+import { useArticuloData } from '../../hooks/useLoaderData';
 import './articulo.css';
 
 // Base de datos completa de artículos (la misma que en index.jsx)
@@ -1062,12 +1063,33 @@ const articulosCompletos = {
 
 export default function Articulo() {
     const { slug } = useParams();
-    const articulo = articulosCompletos[slug];
+    const { post: loaderPost, relatedPosts } = useArticuloData();
+    
+    // Usar datos del loader si están disponibles, sino usar datos locales
+    let articulo = null;
+    
+    if (loaderPost && loaderPost.slug === slug) {
+        // Convertir datos del loader al formato esperado
+        articulo = {
+            categoria: loaderPost.category,
+            titulo: loaderPost.title,
+            descripcion: loaderPost.excerpt,
+            imagen: loaderPost.image || 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=1200',
+            fecha: new Date(loaderPost.publishDate).toLocaleDateString('es-CL'),
+            contenido: loaderPost.content ? 
+                loaderPost.content.split('\n').map(line => `<p>${line}</p>`).join('') : 
+                '<p>Contenido no disponible</p>'
+        };
+    } else {
+        // Usar datos locales como fallback
+        articulo = articulosCompletos[slug];
+    }
 
     if (!articulo) {
         return (
             <Container className="py-5 text-center">
                 <h2 className="text-brown mb-4">Artículo no encontrado</h2>
+                <p className="text-muted mb-4">El artículo "{slug}" no existe o ha sido movido.</p>
                 <BackButton text="Volver al Blog" />
             </Container>
         );
@@ -1091,10 +1113,76 @@ export default function Articulo() {
                     alt={articulo.titulo}
                 />
 
-                <div 
-                    className="articulo-contenido"
-                    dangerouslySetInnerHTML={{ __html: articulo.contenido }}
-                />
+                <div className="articulo-contenido">
+                    {/* Mostrar contenido formateado */}
+                    {loaderPost && loaderPost.slug === slug ? (
+                        // Contenido del loader (formato markdown-like)
+                        <div 
+                            className="loader-content"
+                            dangerouslySetInnerHTML={{ 
+                                __html: articulo.contenido.replace(/\n/g, '<br>').replace(/##/g, '<h3>').replace(/###/g, '<h4>')
+                            }}
+                        />
+                    ) : (
+                        // Contenido local (HTML)
+                        <div 
+                            className="local-content"
+                            dangerouslySetInnerHTML={{ __html: articulo.contenido }}
+                        />
+                    )}
+                    
+                    {/* Información adicional del loader */}
+                    {loaderPost && loaderPost.slug === slug && (
+                        <div className="article-meta mt-4 pt-4 border-top">
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <small className="text-muted">
+                                        <i className="fas fa-user me-1"></i>
+                                        Por {loaderPost.author}
+                                    </small>
+                                </div>
+                                <div className="col-md-6 text-md-end">
+                                    <small className="text-muted">
+                                        <i className="fas fa-clock me-1"></i>
+                                        Tiempo de lectura: {loaderPost.readTime}
+                                    </small>
+                                </div>
+                            </div>
+                            {loaderPost.tags && (
+                                <div className="article-tags mt-3">
+                                    <small className="text-muted me-2">Etiquetas:</small>
+                                    {loaderPost.tags.map((tag, index) => (
+                                        <span key={index} className="badge bg-secondary me-1">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    )}
+                    
+                    {/* Artículos relacionados del loader */}
+                    {relatedPosts && relatedPosts.length > 0 && (
+                        <div className="related-posts mt-5 pt-4 border-top">
+                            <h4 className="mb-3">Artículos Relacionados</h4>
+                            <div className="row">
+                                {relatedPosts.map((related, index) => (
+                                    <div key={index} className="col-md-6 mb-3">
+                                        <div className="card h-100">
+                                            <div className="card-body">
+                                                <h6 className="card-title">{related.title}</h6>
+                                                <p className="card-text small text-muted">{related.excerpt}</p>
+                                                <small className="text-muted">
+                                                    {new Date(related.publishDate).toLocaleDateString('es-CL')}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
             </article>
         </Container>
     );

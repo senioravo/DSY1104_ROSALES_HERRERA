@@ -1,4 +1,4 @@
-export default function MissionSection() {
+export default function MissionSection({ mission, vision }) {
     return (
         <section className="mission-section">
             <div className="container">
@@ -6,7 +6,13 @@ export default function MissionSection() {
                     <div className="col-lg-6">
                         <div className="mission-content">
                             <h2>Nuestra Misión</h2>
-                            <p>Desde 1995, nos dedicamos a crear dulces momentos que perduren en el tiempo. Cada torta, cada pastel, cada sonrisa de satisfacción de nuestros clientes es parte de nuestra historia.</p>
+                            <p>{mission || "Desde 1995, nos dedicamos a crear dulces momentos que perduren en el tiempo. Cada torta, cada pastel, cada sonrisa de satisfacción de nuestros clientes es parte de nuestra historia."}</p>
+                            {vision && (
+                                <div className="vision-content mt-4">
+                                    <h3>Nuestra Visión</h3>
+                                    <p>{vision}</p>
+                                </div>
+                            )}
                             <div className="mission-stats">
                                 <div className="stat-item">
                                     <span className="stat-number">30+</span>
