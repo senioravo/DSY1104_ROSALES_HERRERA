@@ -1,6 +1,5 @@
-export default function ValuesSection({ values: valuesFromLoader }) {
-    // Valores por defecto si no vienen del loader
-    const defaultValues = [
+export default function ValuesSection() {
+    const values = [
         {
             icon: "fas fa-heart",
             title: "Pasión",
@@ -22,13 +21,6 @@ export default function ValuesSection({ values: valuesFromLoader }) {
             description: "Productos frescos elaborados diariamente"
         }
     ];
-
-    // Usar valores del loader si están disponibles, sino usar los por defecto
-    const values = valuesFromLoader?.length > 0 ? valuesFromLoader.map(value => ({
-        icon: `fas ${value.icon}`,
-        title: value.name,
-        description: value.description
-    })) : defaultValues;
 
     return (
         <section className="values-section">

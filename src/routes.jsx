@@ -8,16 +8,10 @@ import Blog from './pages/blog/index'
 import Articulo from './pages/blog/articulo'
 import Contacto from './pages/contacto/index'
 
-// Importar todos los loaders
-// Importar todos los loaders
+// Solo importar los loaders que realmente necesitamos
 import {
-  homeLoader,
-  nosotrosLoader,
-  productosLoader,
-  personalizaTuTortaLoader,
   blogLoader,
-  articuloLoader,
-  contactoLoader
+  articuloLoader
 } from "./loaders";
 
 // Importar componente de error
@@ -31,38 +25,38 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                Component: Home,
-                loader: homeLoader
+                Component: Home
+                // Sin loader - página simple
             },
             {
                 path: 'nosotros',
-                Component: Nosotros,
-                loader: nosotrosLoader
+                Component: Nosotros
+                // Sin loader - página simple
             },
             {
                 path: 'productos',
-                Component: Productos,
-                loader: productosLoader
+                Component: Productos
+                // Sin loader - página simple
             },
             {
                 path: 'personaliza-tu-torta',
-                Component: PersonalizaTuTorta,
-                loader: personalizaTuTortaLoader
+                Component: PersonalizaTuTorta
+                // Sin loader - página simple
             },
             {
                 path: 'blog',
                 Component: Blog,
-                loader: blogLoader
+                loader: blogLoader  // Solo el blog usa loader
             },
             {
                 path: 'blog/:slug',
                 Component: Articulo,
-                loader: articuloLoader
+                loader: articuloLoader  // Solo los artículos usan loader
             },
             {
                 path: 'contacto',
-                Component: Contacto,
-                loader: contactoLoader
+                Component: Contacto
+                // Sin loader - página simple
             }
         ]
     }
