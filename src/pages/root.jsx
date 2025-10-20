@@ -1,4 +1,7 @@
 import { Outlet, useNavigation } from "react-router-dom"
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import NavBarRoot from "../components/root/NavBarRoot.jsx";
 import FooterRoot from "../components/root/FooterRoot.jsx";
 import "./root.css"
@@ -13,13 +16,14 @@ export default function Root() {
             <NavBarRoot />
             <main className="main-content">
                 {isLoading ? (
-                    <div className="loading-container">
-                        <p>Cargando...</p>
-                    </div>
+                <div className="loading-container">
+                    <p>Cargando...</p>
+                </div>
                 ) : (
-                    <Outlet />
+                <Outlet />
                 )}
             </main>
+            
             <FooterRoot />
         </div>
     )

@@ -6,6 +6,7 @@ import Productos from './pages/productos/index'
 import PersonalizaTuTorta from './pages/personaliza-tu-torta/index'
 import Blog from './pages/blog/index'
 import Contacto from './pages/contacto/index'
+import { homeLoader } from './loaders/homeLoader.jsx'
 
 export const router = createBrowserRouter([
     {
@@ -15,7 +16,7 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 Component: Home,
-                /* loader: homeLoader */
+                loader: homeLoader
             },
             {
                 path: 'nosotros',
