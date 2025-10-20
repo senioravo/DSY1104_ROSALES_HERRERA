@@ -391,3 +391,77 @@
     outline: 3px solid #4A90E2;
     outline-offset: 2px;
 }
+
+/* Estilos para Sucursales */
+.sucursal-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    padding: 2rem;
+    height: 100%;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.sucursal-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border-color: var(--accent-pink, #FFC0CB);
+}
+
+.sucursal-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--accent-pink, #FFC0CB);
+}
+
+.sucursal-header i {
+    font-size: 2.5rem;
+    color: var(--accent-choco, #8B4513);
+    margin-bottom: 0.5rem;
+}
+
+.sucursal-header h3 {
+    color: var(--accent-choco, #8B4513);
+    font-family: var(--font-head, "Pacifico", cursive);
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.sucursal-body p {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #666;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.sucursal-body p:hover {
+    background-color: #f8f9fa;
+}
+
+.sucursal-body p i {
+    color: var(--accent-pink, #FFC0CB);
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.sucursal-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive para sucursales */
+@media (max-width: 768px) {
+    .sucursal-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .contact-info-header h2 {
+        font-size: 2rem;
+    }
+}
