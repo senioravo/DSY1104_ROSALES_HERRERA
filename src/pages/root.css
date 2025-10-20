@@ -5,8 +5,8 @@
     /* === PALETA MIL SABORES === */
     /* Strawberry - Rosa pastel */
     --strawberry: #E5ADA8;
-    --strawberry-light: #fcc1cb;
-    --strawberry-lighter: #ff9fb7;
+    --strawberry-light: #f5c9d1;
+    --strawberry-lighter: #ffecf0;
     --strawberry-dark: #cf8a8f;
     --strawberry-darker: #dd6f7d;
     --strawberry-emphasis: #e2546e;
@@ -22,12 +22,12 @@
     --caramel-light: #E2C19B;
     --caramel-lighter: #F0DEBB;
     --caramel-dark: #BE955B;
-    --caramel-darker: #AC833B;
-    --caramel-emphasis: #9A711B;
+    --caramel-darker: #866437;
+    --caramel-emphasis: #68543d;
     /* Chocolate - Marrón rico */
     --chocolate: #725C3F;
-    --chocolate-light: #8F7659;
-    --chocolate-lighter: #AC9073;
+    --chocolate-light: #b39e86;
+    --chocolate-lighter: #d3bfa9;
     --chocolate-dark: #5B4A32;
     --chocolate-darker: #443825;
     --chocolate-emphasis: #2D2518;
@@ -82,39 +82,47 @@
     --bs-gray-900: var(--chocolate-emphasis);
 }
 
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100vw;
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
 #root {
-    width: 100vw;
-    max-width: 100%;
+    width: 100%;
+    max-width: 100vw;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 .root-layout {
-    min-height: 100vh;
-    width: 100vw;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
-    box-sizing: border-box;
+    width: 100%;
+}
+
+.main-container {
+    flex: 1;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    /* Padding-top para compensar el navbar fijo */
+    padding-top: 100px !important;
+    /* Altura aproximada del navbar + margen */
+}
+
+
+/* Sin padding-top cuando hay Hero (Hero cubre toda la pantalla) */
+
+.main-container:has(.hero-section) {
+    padding-top: 0 !important;
+}
+
+
+/* Columna principal */
+
+.main-content-col {
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 .root-nav {
-    background-color: #f8f9fa;
     padding: 1rem;
     margin-bottom: 2rem;
     border-radius: 0.5rem;
@@ -157,87 +165,44 @@ body {
     }
 }
 
-
-/* === RESPONSIVE BREAKPOINTS BOOTSTRAP === */
-
-
-/* X-Small: <576px */
-
 #navBarRoot {
-    margin: 10px !important;
+    position: fixed !important;
+    top: 20px !important;
+    left: 10px !important;
+    right: 10px !important;
     width: calc(100vw - 20px) !important;
     max-width: calc(100% - 20px) !important;
+    margin: 0 !important;
     padding: 0 !important;
     border-radius: 10px !important;
     overflow: hidden !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+    z-index: 1030 !important;
+    /* Bootstrap navbar z-index */
+    transition: transform 0.3s ease, opacity 0.3s ease !important;
 }
 
-
-/* Small: ≥576px */
-
-@media (min-width: 576px) {
-    #navBarRoot {
-        margin: 15px 20px !important;
-        width: calc(100vw - 40px) !important;
-        max-width: calc(100% - 40px) !important;
-        border-radius: 12px !important;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25) !important;
-    }
+#navBarRoot.navbar-visible {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
 }
 
-
-/* Medium: ≥768px */
-
-@media (min-width: 768px) {
-    #navBarRoot {
-        margin: 20px 30px !important;
-        width: calc(100vw - 60px) !important;
-        max-width: calc(100% - 60px) !important;
-        border-radius: 15px !important;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
-    }
-}
-
-
-/* Large: ≥992px */
-
-@media (min-width: 992px) {
-    #navBarRoot {
-        margin: 20px 40px !important;
-        width: calc(100vw - 80px) !important;
-        max-width: calc(100% - 80px) !important;
-    }
-}
-
-
-/* Extra Large: ≥1200px */
-
-@media (min-width: 1200px) {
-    #navBarRoot {
-        margin: 20px 50px !important;
-        width: calc(100vw - 100px) !important;
-        max-width: calc(100% - 100px) !important;
-    }
-}
-
-
-/* Extra Extra Large: ≥1400px */
-
-@media (min-width: 1400px) {
-    #navBarRoot {
-        margin: 25px 60px !important;
-        width: calc(100vw - 120px) !important;
-        max-width: calc(100% - 120px) !important;
-    }
+#navBarRoot.navbar-hidden {
+    transform: translateY(-120%) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
 #navBarRoot.navbar {
-    background-color: var(--mint) !important;
+    background-color: var(--mint-lighter) !important;
     width: 100% !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
     border-radius: 15px !important;
+    /* Mejora la legibilidad cuando el contenido pasa por debajo */
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    /* Mint con transparencia */
 }
 
 #navBarRoot .container {
@@ -249,32 +214,6 @@ body {
     align-items: center !important;
     gap: 0.5rem !important;
     border-radius: 10px !important;
-}
-
-
-/* Responsive padding for container */
-
-@media (min-width: 576px) {
-    #navBarRoot .container {
-        padding: 10px 15px !important;
-        gap: 0.75rem !important;
-        border-radius: 12px !important;
-    }
-}
-
-@media (min-width: 768px) {
-    #navBarRoot .container {
-        padding: 12px 20px !important;
-        gap: 1rem !important;
-        border-radius: 15px !important;
-    }
-}
-
-@media (min-width: 1200px) {
-    #navBarRoot .container {
-        padding: 15px 25px !important;
-        gap: 1.25rem !important;
-    }
 }
 
 
@@ -297,11 +236,16 @@ body {
 
 #navBarRoot .navbar-toggler {
     justify-self: end !important;
+    border-color: var(--caramel) !important;
+}
+
+#navBarRoot .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28208, 167, 123, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
 #navBarRoot .navbar-brand {
+    padding-left: 10px !important;
     color: var(--strawberry-emphasis) !important;
-    /* Color caramelo para la marca */
     font-weight: bold !important;
     justify-self: start !important;
 }
@@ -325,14 +269,6 @@ body {
     /* Fondo mint con texto strawberry énfasis */
 }
 
-#navBarRoot .navbar-toggler {
-    border-color: var(--caramel) !important;
-}
-
-#navBarRoot .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28208, 167, 123, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
-}
-
 
 /* Estilos para Link personalizados en el navbar */
 
@@ -351,7 +287,7 @@ body {
 }
 
 #navBarRoot .navbar-nav>a:hover {
-    color: var(--mint-light) !important;
+    color: var(--lemon-lighter) !important;
     /*border: 2px solid var(--strawberry-light) !important;*/
     background-color: var(--strawberry-emphasis) !important;
 }
@@ -388,54 +324,6 @@ body {
     white-space: nowrap !important;
 }
 
-
-/* Small devices */
-
-@media (min-width: 576px) {
-    #navBarRoot .custom-nav-link {
-        padding: 0.45rem 0.75rem !important;
-        margin: 0 0.15rem !important;
-        font-size: 0.9rem !important;
-        border-radius: 0.3rem !important;
-    }
-}
-
-
-/* Medium devices */
-
-@media (min-width: 768px) {
-    #navBarRoot .custom-nav-link {
-        padding: 0.5rem 1rem !important;
-        margin: 0 0.25rem !important;
-        border-radius: 0.375rem !important;
-        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-        line-height: 1.5 !important;
-        font-size: 1rem !important;
-    }
-}
-
-
-/* Large devices */
-
-@media (min-width: 992px) {
-    #navBarRoot .custom-nav-link {
-        padding: 0.6rem 1.2rem !important;
-        margin: 0 0.3rem !important;
-        font-size: 1.05rem !important;
-    }
-}
-
-
-/* Extra large devices */
-
-@media (min-width: 1200px) {
-    #navBarRoot .custom-nav-link {
-        padding: 0.7rem 1.4rem !important;
-        margin: 0 0.35rem !important;
-        font-size: 1.1rem !important;
-    }
-}
-
 #navBarRoot .custom-nav-link:hover {
     color: var(--strawberry-emphasis) !important;
     background-color: var(--mint) !important;
@@ -459,39 +347,28 @@ body {
 }
 
 .main-content {
-    flex: 1;
-    width: 100vw;
+    width: 100%;
     max-width: 100%;
-    padding: 0.5rem 10px;
+    padding: 0;
     margin: 0;
     box-sizing: border-box;
+    min-height: calc(100vh - 200px);
+    /* Resta aprox altura navbar + footer */
+}
+
+.loading-container {
+    width: 100%;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
-/* Responsive padding for main content */
+/* Padding específico para páginas que NO contienen Hero */
 
-@media (min-width: 576px) {
-    .main-content {
-        padding: 0.75rem 15px;
-    }
-}
-
-@media (min-width: 768px) {
-    .main-content {
-        padding: 1rem 20px;
-    }
-}
-
-@media (min-width: 992px) {
-    .main-content {
-        padding: 1.25rem 30px;
-    }
-}
-
-@media (min-width: 1200px) {
-    .main-content {
-        padding: 1.5rem 40px;
-    }
+.main-content:not(:has(.hero-section)) {
+    padding: 1rem;
 }
 
 
@@ -528,72 +405,8 @@ body {
     background-color: var(--mint-dark) !important;
 }
 
-
-/* Estilos para los items del dropdown */
-
-#navBarRoot .dropdown-menu {
-    background-color: var(--chocolate-dark) !important;
-    border: 1px solid var(--mint-dark) !important;
-    border-radius: 0.375rem !important;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-}
-
-#navBarRoot .dropdown-item {
-    color: #ffffff !important;
-    padding: 0.5rem 1rem !important;
-    transition: all 0.3s ease !important;
-}
-
-#navBarRoot .dropdown-item:hover {
-    color: var(--strawberry-emphasis) !important;
-    background-color: var(--mint) !important;
-}
-
-#navBarRoot .dropdown-item:focus {
-    color: var(--strawberry-emphasis) !important;
-    background-color: var(--mint-light) !important;
-    outline: none !important;
-}
-
-#navBarRoot .dropdown-divider {
-    border-top: 1px solid var(--mint-dark) !important;
-    margin: 0.5rem 0 !important;
-}
-
-
-/* Fallback para footer genérico */
-
-footer {
-    width: 100%;
-    padding: 1rem;
-    text-align: center;
-    margin-top: auto;
-}
-
-#footerRoot {
-    width: 100vw !important;
-    max-width: 100% !important;
-    background-color: var(--mint) !important;
-    padding: 1rem 0 !important;
-    margin-top: auto;
-    border-top: 3px solid var(--mint-light) !important;
-    box-sizing: border-box;
-}
-
-#footerRoot .container {
-    max-width: 100% !important;
-    width: 100% !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-}
-
-#footerRoot .footer-content {
-    text-align: center;
-    color: var(--chocolate) !important;
-    width: 100%;
-}
-
-#footerRoot .footer-content p {
-    margin-bottom: 0;
-    font-size: 0.9rem;
+.hero-content {
+    margin-top: 50px;
+    position: relative;
+    z-index: 3;
 }
