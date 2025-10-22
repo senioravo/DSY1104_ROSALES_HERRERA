@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-describe('PersonalizeTuTorta.styles - Tests Básicos', () => {
+describe('HomeComponents - Tests Básicos', () => {
     let container, root;
 
     beforeEach(() => {
@@ -48,14 +48,36 @@ describe('PersonalizeTuTorta.styles - Tests Básicos', () => {
             'data-testid': 'message'
         }, message);
         
-        root.render(React.createElement(TestComponent, { message: 'Hello Jasmine' }));
+        root.render(React.createElement(TestComponent, { message: 'Hello Jasmine from HomeComponents.test.jsx' }));
         
         
         // Esperar que React complete el renderizado
         setTimeout(() => {
             const element = container.querySelector('[data-testid="message"]');
             expect(element).not.toBeNull();
-        expect(element.textContent).toBe('Hello Jasmine');
+        expect(element.textContent).toBe('Hello Jasmine from HomeComponents.test.jsx');
+            done();
+        }, 10);
+    });
+
+    it('debería poder manejar eventos básicos', (done) => {
+        let clicked = false;
+        const TestComponent = () => React.createElement('button', { 
+            'data-testid': 'test-button',
+            onClick: () => { clicked = true; }
+        }, 'Click me');
+        
+        root.render(React.createElement(TestComponent));
+        
+        
+        // Esperar que React complete el renderizado
+        setTimeout(() => {
+            const button = container.querySelector('[data-testid="test-button"]');
+        expect(button).not.toBeNull();
+        
+        
+            button.click();
+        expect(clicked).toBe(true);
             done();
         }, 10);
     });

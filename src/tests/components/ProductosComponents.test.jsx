@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-describe('PersonalizeTuTorta.styles - Tests Básicos', () => {
+describe('ProductosComponents - Tests Básicos', () => {
     let container, root;
 
     beforeEach(() => {
