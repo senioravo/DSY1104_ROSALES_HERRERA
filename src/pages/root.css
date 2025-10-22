@@ -94,6 +94,10 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
 }
 
 .main-container {
@@ -178,19 +182,22 @@
     overflow: hidden !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
     z-index: 1030 !important;
-    /* Bootstrap navbar z-index */
     transition: transform 0.3s ease, opacity 0.3s ease !important;
 }
 
-#navBarRoot.navbar-visible {
+#navBarRoot.navbar-visible,
+#navBarRoot.navbar.navbar-visible {
     transform: translateY(0) !important;
     opacity: 1 !important;
+    visibility: visible !important;
 }
 
-#navBarRoot.navbar-hidden {
+#navBarRoot.navbar-hidden,
+#navBarRoot.navbar.navbar-hidden {
     transform: translateY(-120%) !important;
     opacity: 0 !important;
     pointer-events: none !important;
+    /* Removido visibility: hidden para permitir que la animación se vea */
 }
 
 #navBarRoot.navbar {
@@ -350,10 +357,19 @@
     width: 100%;
     max-width: 100%;
     padding: 0;
+    padding-top: 100px;
+    /* Espacio para el navbar fijo (20px top + ~80px altura navbar) */
     margin: 0;
     box-sizing: border-box;
     min-height: calc(100vh - 200px);
     /* Resta aprox altura navbar + footer */
+}
+
+
+/* Sin padding-top cuando hay Hero (Hero se encarga de su propio spacing) */
+
+.main-content:has(.hero-section) {
+    padding-top: 0 !important;
 }
 
 .loading-container {
@@ -369,6 +385,8 @@
 
 .main-content:not(:has(.hero-section)) {
     padding: 1rem;
+    padding-top: 100px;
+    /* Mantener espacio para navbar (20px top + ~80px altura) */
 }
 
 
@@ -403,6 +421,41 @@
 #navBarRoot .navbar-nav .dropdown-toggle.show {
     color: var(--strawberry-emphasis) !important;
     background-color: var(--mint-dark) !important;
+}
+
+
+/* Botón de usuario */
+
+.user-btn {
+    justify-self: end !important;
+    /* Alinea el botón al final de la tercera columna */
+    margin-right: 10px !important;
+    border: 2px solid var(--chocolate) !important;
+    background-color: transparent !important;
+    color: var(--chocolate) !important;
+    border-radius: 33% !important;
+    width: 45px !important;
+    height: 45px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+}
+
+.user-btn:hover {
+    background-color: var(--strawberry-emphasis) !important;
+    color: var(--lemon-lighter) !important;
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.3) !important;
+    transform: scale(1.05) !important;
+}
+
+.user-btn:active,
+.user-btn:focus {
+    background-color: var(--chocolate-dark) !important;
+    color: var(--lemon-lighter) !important;
+    border-color: var(--chocolate-emphasis) !important;
+    box-shadow: 0 0 0 3px var(--chocolate-light) !important;
 }
 
 .hero-content {

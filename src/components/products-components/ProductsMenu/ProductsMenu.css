@@ -1,0 +1,128 @@
+.products-menu {
+    background-color: var(--lemon-light);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--mint-light);
+    position: fixed;
+    /* Ajuste dinámico basado en visibilidad del navbar */
+    top: var(--sidebar-top, 110px);
+    left: calc(2rem + 1rem);
+    /* padding del container + padding de la columna */
+    width: calc(25% - 4rem);
+    /* 25% es 1/4 del ancho, menos los paddings */
+    max-width: 350px;
+    /* Altura dinámica que se ajusta cuando el navbar desaparece */
+    max-height: var(--sidebar-max-height, calc(100vh - 130px));
+    overflow-y: auto;
+    z-index: 100;
+    /* Transición suave para top, instantánea para max-height (evitar cubrir footer) */
+    transition: top 0.3s ease, max-height 0.05s ease;
+}
+
+.menu-section {
+    margin-bottom: 2rem;
+}
+
+.menu-title {
+    color: var(--chocolate-dark);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--mint-light);
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--chocolate-light);
+    z-index: 1;
+}
+
+.search-input {
+    padding-left: 40px;
+    border: 2px solid var(--mint-light);
+    border-radius: 8px;
+    background-color: white;
+}
+
+.search-input:focus {
+    border-color: var(--strawberry-emphasis);
+    box-shadow: 0 0 0 0.2rem rgba(226, 84, 110, 0.25);
+}
+
+.category-item {
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    color: var(--chocolate-dark);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.category-item:hover {
+    background-color: var(--mint-light);
+    color: var(--strawberry-emphasis);
+}
+
+.category-item.active {
+    background-color: var(--strawberry-emphasis) !important;
+    color: white !important;
+    font-weight: 600;
+}
+
+.filter-checkbox {
+    margin-bottom: 0.75rem;
+}
+
+.filter-checkbox label {
+    color: var(--chocolate-dark);
+    cursor: pointer;
+}
+
+.filter-checkbox input:checked {
+    background-color: var(--strawberry-emphasis);
+    border-color: var(--strawberry-emphasis);
+}
+
+
+/* Scrollbar personalizado */
+
+.products-menu::-webkit-scrollbar {
+    width: 8px;
+}
+
+.products-menu::-webkit-scrollbar-track {
+    background: var(--lemon-lighter);
+    border-radius: 10px;
+}
+
+.products-menu::-webkit-scrollbar-thumb {
+    background: var(--mint-dark);
+    border-radius: 10px;
+}
+
+.products-menu::-webkit-scrollbar-thumb:hover {
+    background: var(--mint-darker);
+}
+
+
+/* Responsive para pantallas pequeñas */
+
+@media (max-width: 991px) {
+    .products-menu {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 2rem;
+    }
+}

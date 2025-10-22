@@ -1,0 +1,51 @@
+.productos-page {
+    min-height: 100vh;
+    padding: 2rem 0;
+    background-color: var(--vanilla-light);
+}
+
+.productos-page .container-fluid {
+    max-width: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.productos-page .row {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    /* Importante para que sticky funcione */
+}
+
+.products-menu-col {
+    padding-right: 1.5rem;
+    padding-left: 1rem;
+    display: block;
+    align-self: flex-start;
+    /* Permite que el sticky funcione dentro de un flex container */
+}
+
+.products-section-col {
+    padding-left: 1.5rem;
+    padding-right: 1rem;
+}
+
+
+/* Responsive */
+
+@media (max-width: 991px) {
+    .productos-page .container-fluid {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .products-menu-col {
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-bottom: 2rem;
+    }
+    .products-section-col {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}

@@ -1,0 +1,148 @@
+/* Popover de usuario */
+
+.user-popover {
+    margin-top: 10px;
+    min-width: 320px !important;
+    max-width: 350px !important;
+    border: 2px solid var(--mint-light) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+    border-radius: 12px !important;
+}
+
+.user-popover .popover-header {
+    background: linear-gradient(135deg, var(--strawberry-light) 0%, var(--strawberry-emphasis) 100%) !important;
+    color: var(--lemon-light) !important;
+    font-size: 28px;
+    font-weight: 700 !important;
+    border-bottom: 2px solid var(--mint-dark) !important;
+    padding: 1.5rem 1rem !important;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+    text-align: center !important;
+}
+
+.user-popover .popover-body {
+    background-color: var(--lemon-lighter) !important;
+    border-bottom-left-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+    overflow: hidden !important;
+}
+
+
+/* Perfil de usuario logueado */
+
+.user-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-icon {
+    color: var(--chocolate);
+    margin-bottom: 1rem;
+}
+
+.user-name {
+    color: var(--chocolate-dark);
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    font-size: 1.1rem;
+}
+
+.user-email {
+    color: var(--chocolate-light);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.logout-btn {
+    background-color: var(--strawberry-emphasis) !important;
+    border: none !important;
+    padding: 0.5rem !important;
+    font-weight: 600 !important;
+}
+
+.logout-btn:hover {
+    background-color: var(--strawberry-darker) !important;
+    transform: translateY(-1px);
+}
+
+
+/* Formulario de login */
+
+.login-form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form-container .form-label {
+    color: var(--chocolate-dark);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.login-form-container .form-control {
+    border: 2px solid var(--mint-light);
+    border-radius: 6px;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.login-form-container .form-control:focus {
+    border-color: var(--strawberry-emphasis);
+    box-shadow: 0 0 0 0.2rem rgba(226, 84, 110, 0.25);
+}
+
+.login-btn {
+    background-color: var(--strawberry-emphasis) !important;
+    border: none !important;
+    padding: 0.5rem !important;
+    font-weight: 600 !important;
+    margin-top: 0.5rem !important;
+    border-radius: 6px !important;
+}
+
+.login-btn:hover:not(:disabled) {
+    background-color: var(--strawberry-darker) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.login-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* Link de registro */
+
+.register-link-container {
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--mint-light);
+}
+
+.register-link {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.register-link:hover {
+    color: #0a58ca;
+    text-decoration: underline;
+}
+
+
+/* Alert personalizado */
+
+.login-form-container .alert {
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
