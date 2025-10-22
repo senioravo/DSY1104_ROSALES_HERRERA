@@ -7,6 +7,7 @@ export const PRODUCTS_PS = [
     {
         code: "TC001",
         nombre: "Torta Cuadrada de Chocolate",
+        categoria: "TC",
         categoriaId: "TC",
         tipoForma: "cuadrada",
         tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)", "L (20 porciones)"],
@@ -21,6 +22,7 @@ export const PRODUCTS_PS = [
     {
         code: "TC002",
         nombre: "Torta Cuadrada de Frutas",
+        categoria: "TC",
         categoriaId: "TC",
         tipoForma: "cuadrada",
         tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)", "L (20 porciones)"],
@@ -37,6 +39,7 @@ export const PRODUCTS_PS = [
     {
         code: "TT001",
         nombre: "Torta Circular de Vainilla",
+        categoria: "TT",
         categoriaId: "TT",
         tipoForma: "circular",
         tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)", "L (20 porciones)"],
@@ -51,6 +54,7 @@ export const PRODUCTS_PS = [
     {
         code: "TT002",
         nombre: "Torta Circular de Manjar",
+        categoria: "TT",
         categoriaId: "TT",
         tipoForma: "circular",
         tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)", "L (20 porciones)"],
@@ -67,6 +71,7 @@ export const PRODUCTS_PS = [
     {
         code: "PI001",
         nombre: "Mousse de Chocolate",
+        categoria: "PI",
         categoriaId: "PI",
         tipoForma: null,
         tamanosDisponibles: ["unidad"],
@@ -81,6 +86,7 @@ export const PRODUCTS_PS = [
     {
         code: "PI002",
         nombre: "Tiramisú Clásico",
+        categoria: "PI",
         categoriaId: "PI",
         tipoForma: null,
         tamanosDisponibles: ["unidad"],
@@ -97,6 +103,7 @@ export const PRODUCTS_PS = [
     {
         code: "PSA001",
         nombre: "Torta Sin Azúcar de Naranja",
+        categoria: "PSA",
         categoriaId: "PSA",
         tipoForma: "circular",
         tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)"],
@@ -111,6 +118,7 @@ export const PRODUCTS_PS = [
     {
         code: "PSA002",
         nombre: "Cheesecake Sin Azúcar",
+        categoria: "PSA",
         categoriaId: "PSA",
         tipoForma: "circular",
         tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)"],
@@ -127,6 +135,7 @@ export const PRODUCTS_PS = [
     {
         code: "PT001",
         nombre: "Empanada de Manzana",
+        categoria: "PT",
         categoriaId: "PT",
         tipoForma: null,
         tamanosDisponibles: ["unidad"],
@@ -141,6 +150,7 @@ export const PRODUCTS_PS = [
     {
         code: "PT002",
         nombre: "Tarta de Santiago",
+        categoria: "PT",
         categoriaId: "PT",
         tipoForma: "circular",
         tamanosDisponibles: ["S (8 porciones)"],
@@ -157,6 +167,7 @@ export const PRODUCTS_PS = [
     {
         code: "PG001",
         nombre: "Brownie Sin Gluten",
+        categoria: "PG",
         categoriaId: "PG",
         tipoForma: "cuadrada",
         tamanosDisponibles: ["unidad"],
@@ -171,6 +182,7 @@ export const PRODUCTS_PS = [
     {
         code: "PG002",
         nombre: "Pan Sin Gluten",
+        categoria: "PG",
         categoriaId: "PG",
         tipoForma: null,
         tamanosDisponibles: ["unidad"],
@@ -187,6 +199,7 @@ export const PRODUCTS_PS = [
     {
         code: "PV001",
         nombre: "Torta Vegana de Chocolate",
+        categoria: "PV",
         categoriaId: "PV",
         tipoForma: "circular",
         tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)"],
@@ -201,6 +214,7 @@ export const PRODUCTS_PS = [
     {
         code: "PV002",
         nombre: "Galletas Veganas de Avena",
+        categoria: "PV",
         categoriaId: "PV",
         tipoForma: null,
         tamanosDisponibles: ["unidad"],
@@ -217,6 +231,7 @@ export const PRODUCTS_PS = [
     {
         code: "TE001",
         nombre: "Torta Especial de Cumpleaños",
+        categoria: "TE",
         categoriaId: "TE",
         tipoForma: "circular",
         tamanosDisponibles: ["S (8 porciones)", "M (12 porciones)", "L (20 porciones)"],
@@ -231,6 +246,7 @@ export const PRODUCTS_PS = [
     {
         code: "TE002",
         nombre: "Torta Especial de Boda",
+        categoria: "TE",
         categoriaId: "TE",
         tipoForma: "circular",
         tamanosDisponibles: ["M (12 porciones)", "L (20 porciones)"],
