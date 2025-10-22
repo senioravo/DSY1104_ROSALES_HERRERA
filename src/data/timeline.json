@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "year": "1995",
+    "title": "Los Inicios",
+    "subtitle": "Mejor pastelería comunal de Santiago",
+    "description": "Comenzamos como una pequeña pastelería familiar, ganando el reconocimiento de la revista Dessert&Delicious como la mejor pastelería comunal de Santiago.",
+    "image": "/images/nosotros/carrusel-1995.png",
+    "icon": "fas fa-seedling",
+    "note": "Primera receta de mil hojas",
+    "quote": "Todo gran sueño comienza con un pequeño horno",
+    "destacado": true,
+    "milestones": [
+      { "year": "1998", "text": "Premio mejor pastel de chocolate" },
+      { "year": "2000", "text": "Primeros pedidos corporativos" }
+    ]
+  },
+  {
+    "id": 2,
+    "year": "2005",
+    "title": "Expansión",
+    "subtitle": "Crecimiento y nuevos horizontes",
+    "description": "Expandimos nuestras instalaciones y diversificamos nuestra oferta, incorporando nuevas líneas de productos y técnicas innovadoras de repostería.",
+    "image": "/images/nosotros/carrusel-2005.png",
+    "icon": "fas fa-chart-line",
+    "note": "Más de 50 variedades de tortas",
+    "quote": "Creciendo con amor, un pastel a la vez",
+    "destacado": false,
+    "milestones": [
+      { "year": "2008", "text": "Apertura segunda sucursal" },
+      { "year": "2010", "text": "10,000 clientes satisfechos" }
+    ]
+  },
+  {
+    "id": 3,
+    "year": "2015",
+    "title": "Modernización",
+    "subtitle": "Tecnología y tradición",
+    "description": "Renovamos completamente nuestras instalaciones con equipos de última generación, manteniendo siempre la calidad artesanal que nos caracteriza.",
+    "image": "/images/nosotros/carrusel-2015.png",
+    "icon": "fas fa-cogs",
+    "note": "Horno artesanal de última generación",
+    "quote": "Innovación sin perder la esencia",
+    "destacado": false,
+    "milestones": [
+      { "year": "2018", "text": "Certificación ISO de calidad" },
+      { "year": "2020", "text": "Delivery durante pandemia" }
+    ]
+  },
+  {
+    "id": 4,
+    "year": "2025",
+    "title": "Era Digital",
+    "subtitle": "Innovación constante",
+    "description": "Nos adaptamos a los nuevos tiempos con tecnología de punta y presencia digital, sin perder nunca el sabor casero que nos distingue.",
+    "image": "/images/nosotros/carrusel-2025.png",
+    "icon": "fas fa-rocket",
+    "note": "Pedidos online y envío express",
+    "quote": "El futuro sabe a tradición",
+    "destacado": true,
+    "milestones": [
+      { "year": "2023", "text": "App móvil lanzada" },
+      { "year": "2024", "text": "50,000+ pedidos online" }
+    ]
+  }
+]

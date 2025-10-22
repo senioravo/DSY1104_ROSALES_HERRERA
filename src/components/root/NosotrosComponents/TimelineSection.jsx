@@ -1,79 +1,80 @@
 import { useState } from 'react';
 
-export default function TimelineSection() {
+export default function TimelineSection({ timelineData }) {
     const [activeCard, setActiveCard] = useState(0);
 
-    const timelineData = [
+    // 🔄 DATOS DINÁMICOS con fallback
+    const defaultTimelineData = [
         {
             id: 1,
             year: "1995",
             title: "Los Inicios",
             subtitle: "Mejor pastelería comunal de Santiago",
-            description: "Comenzamos como una pequeña pastelería familiar, ganando el reconocimiento de la revista Dessert&Delicious como la mejor pastelería comunal de Santiago.",
+            description: "Comenzamos como una pequeña pastelería familiar.",
             image: "/images/nosotros/carrusel-1995.png",
-            icon: "fas fa-seedling"
-        },
-        {
-            id: 2,
-            year: "2005",
-            title: "Expansión",
-            subtitle: "Crecimiento y nuevos horizontes",
-            description: "Expandimos nuestras instalaciones y diversificamos nuestra oferta, incorporando nuevas líneas de productos y técnicas innovadoras de repostería.",
-            image: "/images/nosotros/carrusel-2005.png",
-            icon: "fas fa-chart-line"
-        },
-        {
-            id: 3,
-            year: "2015",
-            title: "Modernización",
-            subtitle: "Tecnología y tradición",
-            description: "Renovamos completamente nuestras instalaciones con equipos de última generación, manteniendo siempre la calidad artesanal que nos caracteriza.",
-            image: "/images/nosotros/carrusel-2015.png",
-            icon: "fas fa-cogs"
-        },
-        {
-            id: 4,
-            year: "2025",
-            title: "Era Digital",
-            subtitle: "Innovación constante",
-            description: "Nos adaptamos a los nuevos tiempos con tecnología de punta y presencia digital, sin perder nunca el sabor casero que nos distingue.",
-            image: "/images/nosotros/carrusel-2025.png",
-            icon: "fas fa-rocket"
+            icon: "fas fa-seedling",
+            note: "Primera receta de mil hojas",
+            quote: "Todo gran sueño comienza con un pequeño horno",
+            milestones: []
         }
     ];
+    
+    const timeline = timelineData || defaultTimelineData;
 
     return (
         <section className="timeline-section">
             <div className="container">
                 <div className="timeline-header">
                     <h2>Nuestro Recorrido</h2>
-                    <p>Un viaje de tres décadas compartiendo dulzura</p>
+                    <p>Un viaje de {timeline.length > 1 ? 'décadas' : 'años'} compartiendo dulzura</p>
                 </div>
                 
                 <div className="timeline-container">
                     <div className="timeline-line"></div>
                     
-                    {timelineData.map((item, index) => (
-                        <div 
-                            key={item.id} 
-                            className={`timeline-item ${index % 2 === 0 ? 'timeline-left' : 'timeline-right'} ${activeCard === index ? 'active' : ''}`}
-                            onMouseEnter={() => setActiveCard(index)}
-                        >
-                            <div className="timeline-content">
-                                <div className="timeline-image">
-                                    <img src={item.image} alt={item.title} />
-                                    <div className="timeline-year">{item.year}</div>
+                    {timeline.map((item, index) => (
+                        <div key={item.id}>
+                            {/* Frase inspiradora ARRIBA del evento */}
+                            {index < timeline.length - 1 && item.quote && (
+                                <div className="timeline-quote-top">
+                                    <i className="fas fa-quote-left"></i>
+                                    <span>{item.quote}</span>
+                                    <i className="fas fa-quote-right"></i>
                                 </div>
-                                <div className="timeline-text">
-                                    <div className="timeline-icon">
-                                        <i className={item.icon}></i>
+                            )}
+                            
+                            <div 
+                                className={`timeline-item ${index % 2 === 0 ? 'timeline-left' : 'timeline-right'} ${activeCard === index ? 'active' : ''}`}
+                                onMouseEnter={() => setActiveCard(index)}
+                            >
+                                <div className="timeline-content">
+                                    <div className="timeline-year-badge">{item.year}</div>
+                                    
+                                    <div className="timeline-layout">
+                                        <div className="timeline-image">
+                                            <img src={item.image} alt={item.title} />
+                                        </div>
+                                        <div className="timeline-text">
+                                            <h3>{item.title}</h3>
+                                            <h4>{item.subtitle}</h4>
+                                            <p>{item.description}</p>
+                                        </div>
                                     </div>
-                                    <h3>{item.title}</h3>
-                                    <h4>{item.subtitle}</h4>
-                                    <p>{item.description}</p>
                                 </div>
+                                <div className="timeline-connector"></div>
                             </div>
-                            <div className="timeline-connector"></div>
+                            
+                            {/* Notitas laterales con años intermedios */}
+                            {item.milestones && (
+                                <div className={`timeline-milestones ${index % 2 === 0 ? 'milestones-right' : 'milestones-left'}`}>
+                                    {item.milestones.map((milestone, idx) => (
+                                        <div key={idx} className="milestone-item">
+                                            <span className="milestone-year">{milestone.year}</span>
+                                            <span className="milestone-text">{milestone.text}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>

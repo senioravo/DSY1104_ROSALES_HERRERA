@@ -10,9 +10,12 @@ export default function CategoryFilter({ categorias, categoriaActiva, onCategori
           onClick={() => onCategoriaChange(categoria)}
           className="rounded-pill mx-1"
           style={{
-            backgroundColor: categoriaActiva === categoria ? '#F4A5C4' : 'transparent',
-            borderColor: '#F4A5C4',
-            color: categoriaActiva === categoria ? 'white' : '#F4A5C4'
+            backgroundColor: categoriaActiva === categoria ? 'var(--strawberry)' : 'var(--vanilla-lighter)',
+            borderColor: categoriaActiva === categoria ? 'var(--strawberry-darker)' : 'var(--strawberry)',
+            color: categoriaActiva === categoria ? 'white' : 'var(--strawberry-dark)',
+            fontWeight: categoriaActiva === categoria ? '600' : '500',
+            transition: 'all 0.3s ease',
+            padding: '0.5rem 1.5rem'
           }}
         >
           {categoria}

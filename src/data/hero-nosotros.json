@@ -1,0 +1,28 @@
+{
+  "titulo": "Nuestra Historia",
+  "subtitulo": "30 años endulzando momentos especiales",
+  "descripcion": "Descubre cómo una pequeña pastelería familiar se convirtió en el corazón dulce de Santiago",
+  "icono": "fas fa-birthday-cake",
+  "botonVolver": {
+    "texto": "Volver al Inicio",
+    "icono": "fas fa-arrow-left",
+    "link": "/"
+  },
+  "estadisticasDestacadas": [
+    {
+      "id": 1,
+      "numero": "1995",
+      "texto": "Año de fundación"
+    },
+    {
+      "id": 2,
+      "numero": "30+",
+      "texto": "Años de tradición"
+    },
+    {
+      "id": 3,
+      "numero": "4",
+      "texto": "Generaciones familiares"
+    }
+  ]
+}

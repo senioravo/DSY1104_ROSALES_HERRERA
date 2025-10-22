@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "nombre": "Sucursal Centro",
+    "direccion": "Av. Principal 1234, Santiago Centro",
+    "telefono": "+56 2 2345 6789",
+    "horarios": {
+      "semana": "Lun - Sáb: 9:00 - 20:00",
+      "domingo": "Dom: 10:00 - 18:00"
+    },
+    "activa": true,
+    "destacada": true
+  },
+  {
+    "id": 2,
+    "nombre": "Sucursal Providencia",
+    "direccion": "Av. Providencia 567, Providencia",
+    "telefono": "+56 2 2876 5432",
+    "horarios": {
+      "semana": "Lun - Sáb: 9:00 - 20:00",
+      "domingo": "Dom: 10:00 - 18:00"
+    },
+    "activa": true,
+    "destacada": false
+  },
+  {
+    "id": 3,
+    "nombre": "Sucursal Las Condes",
+    "direccion": "Av. Apoquindo 890, Las Condes",
+    "telefono": "+56 2 2654 3210",
+    "horarios": {
+      "semana": "Lun - Sáb: 9:00 - 20:00",
+      "domingo": "Dom: 10:00 - 18:00"
+    },
+    "activa": true,
+    "destacada": false
+  },
+  {
+    "id": 4,
+    "nombre": "Sucursal Maipú",
+    "direccion": "Av. Pajaritos 1500, Maipú",
+    "telefono": "+56 2 2987 6543",
+    "horarios": {
+      "semana": "Lun - Sáb: 10:00 - 19:00",
+      "domingo": "Dom: 11:00 - 17:00"
+    },
+    "activa": false,
+    "destacada": false
+  }
+]

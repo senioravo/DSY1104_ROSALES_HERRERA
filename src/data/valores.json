@@ -1,0 +1,54 @@
+{
+  "titulo": "Nuestros Valores",
+  "subtitulo": "Los principios que guían nuestro trabajo",
+  "valores": [
+    {
+      "id": 1,
+      "icon": "fas fa-heart",
+      "title": "Pasión",
+      "description": "Ponemos amor en cada receta",
+      "color": "var(--strawberry)",
+      "destacado": true
+    },
+    {
+      "id": 2,
+      "icon": "fas fa-gem",
+      "title": "Calidad",
+      "description": "Ingredientes selectos y procesos cuidadosos",
+      "color": "var(--strawberry-light)",
+      "destacado": true
+    },
+    {
+      "id": 3,
+      "icon": "fas fa-users",
+      "title": "Familia",
+      "description": "Tradición familiar de generación en generación",
+      "color": "var(--strawberry)",
+      "destacado": false
+    },
+    {
+      "id": 4,
+      "icon": "fas fa-leaf",
+      "title": "Frescura",
+      "description": "Productos frescos elaborados diariamente",
+      "color": "var(--strawberry-light)",
+      "destacado": false
+    },
+    {
+      "id": 5,
+      "icon": "fas fa-award",
+      "title": "Excelencia",
+      "description": "Reconocimiento y premios por nuestra calidad",
+      "color": "var(--strawberry)",
+      "destacado": false
+    },
+    {
+      "id": 6,
+      "icon": "fas fa-handshake",
+      "title": "Confianza",
+      "description": "30 años construyendo relaciones duraderas",
+      "color": "var(--strawberry-light)",
+      "destacado": false
+    }
+  ]
+}

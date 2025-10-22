@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "value": "consulta-productos",
+    "label": "Consulta sobre productos",
+    "categoria": "general"
+  },
+  {
+    "id": 2,
+    "value": "pedido-personalizado",
+    "label": "Pedido personalizado",
+    "categoria": "ventas"
+  },
+  {
+    "id": 3,
+    "value": "cotizacion",
+    "label": "Cotización",
+    "categoria": "ventas"
+  },
+  {
+    "id": 4,
+    "value": "reclamo",
+    "label": "Reclamo",
+    "categoria": "servicio"
+  },
+  {
+    "id": 5,
+    "value": "sugerencia",
+    "label": "Sugerencia",
+    "categoria": "general"
+  },
+  {
+    "id": 6,
+    "value": "otro",
+    "label": "Otro",
+    "categoria": "general"
+  }
+]

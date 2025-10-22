@@ -1,18 +1,19 @@
 /* Estilos personalizados para complementar Bootstrap */
 
 .text-brown {
-    color: #6B4226;
+    color: var(--strawberry);
 }
 
 /* Efectos hover para tarjetas de Bootstrap */
 .blog-card-bootstrap {
     transition: all 0.3s ease;
-    border: none !important;
+    background-color: var(--vanilla-lighter);
 }
 
 .blog-card-bootstrap:hover {
     transform: translateY(-10px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 12px 24px rgba(229, 173, 168, 0.3) !important;
+    border-color: var(--strawberry) !important;
 }
 
 .blog-card-bootstrap img {
@@ -20,12 +21,80 @@
 }
 
 .blog-card-bootstrap:hover img {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 /* Botones personalizados */
-.btn-outline-primary:hover {
-    background-color: #FFE8F0 !important;
-    border-color: #F4A5C4 !important;
-    color: #6B4226 !important;
+.btn-outline-primary {
+    border-color: var(--strawberry);
+    color: var(--strawberry-dark);
 }
+
+.btn-outline-primary:hover {
+    background-color: var(--strawberry-light) !important;
+    border-color: var(--strawberry-darker) !important;
+    color: white !important;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--strawberry-lighter) 0%, var(--vanilla-light) 100%);
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-text h1 {
+    color: var(--strawberry);
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.hero-text p {
+    color: var(--strawberry-dark);
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+}
+
+.hero-decoration i {
+    font-size: 3rem;
+    color: var(--strawberry);
+}
+
+.back-button {
+    display: inline-block;
+    color: var(--strawberry);
+    text-decoration: none;
+    margin-bottom: 2rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--strawberry-light);
+    border-radius: 25px;
+    background-color: var(--vanilla-lighter);
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: var(--strawberry-light);
+    border-color: var(--strawberry);
+    color: white;
+    transform: translateX(-5px);
+}
+
+.hero-bg-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    background-image: radial-gradient(var(--strawberry) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+

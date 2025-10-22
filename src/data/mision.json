@@ -1,0 +1,34 @@
+{
+  "mision": {
+    "titulo": "Nuestra Misión",
+    "descripcion": "Desde 1995, nos dedicamos a crear dulces momentos que perduren en el tiempo. Cada torta, cada pastel, cada sonrisa de satisfacción de nuestros clientes es parte de nuestra historia.",
+    "imagen": "/images/nosotros/badge-1995.png",
+    "imagenAlt": "Nuestra pastelería desde 1995"
+  },
+  "estadisticas": [
+    {
+      "id": 1,
+      "numero": "30+",
+      "etiqueta": "Años de experiencia",
+      "descripcion": "Tres décadas perfeccionando nuestras recetas"
+    },
+    {
+      "id": 2,
+      "numero": "10k+",
+      "etiqueta": "Clientes felices",
+      "descripcion": "Miles de familias que confían en nosotros"
+    },
+    {
+      "id": 3,
+      "numero": "100+",
+      "etiqueta": "Productos únicos",
+      "descripcion": "Variedad artesanal para todos los gustos"
+    },
+    {
+      "id": 4,
+      "numero": "4",
+      "etiqueta": "Sucursales",
+      "descripcion": "Presencia en Santiago y comunas"
+    }
+  ]
+}

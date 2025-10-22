@@ -1,31 +1,57 @@
-export default function MissionSection() {
+export default function MissionSection({ misionData, estadisticas }) {
+    // 🔄 DATOS DINÁMICOS con fallback
+    const defaultMision = {
+        titulo: "Nuestra Misión",
+        descripcion: "Desde 1995, nos dedicamos a crear dulces momentos que perduren en el tiempo. Cada torta, cada pastel, cada sonrisa de satisfacción de nuestros clientes es parte de nuestra historia.",
+        imagen: "/images/nosotros/badge-1995.png",
+        imagenAlt: "Nuestra pastelería"
+    };
+    
+    const defaultEstadisticas = [
+        {
+            numero: "30+",
+            etiqueta: "Años de experiencia"
+        },
+        {
+            numero: "10k+",
+            etiqueta: "Clientes felices"
+        },
+        {
+            numero: "100+",
+            etiqueta: "Productos únicos"
+        }
+    ];
+    
+    const mision = misionData || defaultMision;
+    const stats = estadisticas || defaultEstadisticas;
+    
     return (
         <section className="mission-section">
             <div className="container">
                 <div className="row align-items-center">
                     <div className="col-lg-6">
                         <div className="mission-content">
-                            <h2>Nuestra Misión</h2>
-                            <p>Desde 1995, nos dedicamos a crear dulces momentos que perduren en el tiempo. Cada torta, cada pastel, cada sonrisa de satisfacción de nuestros clientes es parte de nuestra historia.</p>
+                            <h2>{mision.titulo}</h2>
+                            <p>{mision.descripcion}</p>
                             <div className="mission-stats">
-                                <div className="stat-item">
-                                    <span className="stat-number">30+</span>
-                                    <span className="stat-label">Años de experiencia</span>
-                                </div>
-                                <div className="stat-item">
-                                    <span className="stat-number">10k+</span>
-                                    <span className="stat-label">Clientes felices</span>
-                                </div>
-                                <div className="stat-item">
-                                    <span className="stat-number">100+</span>
-                                    <span className="stat-label">Productos únicos</span>
-                                </div>
+                                {stats.map((stat, index) => (
+                                    <div key={stat.id || index} className="stat-item">
+                                        <span className="stat-number">{stat.numero}</span>
+                                        <span className="stat-label">{stat.etiqueta}</span>
+                                        {stat.descripcion && (
+                                            <small className="stat-description">{stat.descripcion}</small>
+                                        )}
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
                     <div className="col-lg-6">
                         <div className="mission-image">
-                            <img src="/images/nosotros/badge-1995.png" alt="Nuestra pastelería" />
+                            <img 
+                                src={mision.imagen} 
+                                alt={mision.imagenAlt || mision.titulo} 
+                            />
                             <div className="image-decoration"></div>
                         </div>
                     </div>

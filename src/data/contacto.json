@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "icon": "fas fa-map-marker-alt",
+    "title": "Dirección",
+    "info": "Av. Principal 1234, Santiago, Chile",
+    "color": "var(--strawberry)"
+  },
+  {
+    "id": 2,
+    "icon": "fas fa-phone",
+    "title": "Teléfono",
+    "info": "+56 2 2345 6789",
+    "color": "var(--strawberry-light)"
+  },
+  {
+    "id": 3,
+    "icon": "fas fa-envelope",
+    "title": "Email",
+    "info": "contacto@pasteleria.cl",
+    "color": "var(--strawberry)"
+  },
+  {
+    "id": 4,
+    "icon": "fas fa-clock",
+    "title": "Horarios",
+    "info": "Lun - Sáb: 9:00 - 20:00",
+    "color": "var(--strawberry-light)"
+  }
+]

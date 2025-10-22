@@ -7,11 +7,14 @@ import PersonalizaTuTorta from './pages/personaliza-tu-torta/index'
 import Blog from './pages/blog/index'
 import Articulo from './pages/blog/articulo'
 import Contacto from './pages/contacto/index'
+import MensajesContacto from './pages/mensajes-contacto/index'
 
 // Solo importar los loaders que realmente necesitamos
 import {
   blogLoader,
-  articuloLoader
+  articuloLoader,
+  contactoLoader,
+  nosotrosLoader
 } from "./loaders";
 
 // Importar componente de error
@@ -30,8 +33,9 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'nosotros',
-                Component: Nosotros
-                // Sin loader - página simple
+                Component: Nosotros,
+                loader: nosotrosLoader  // ✅ AHORA TAMBIÉN USA LOADER!
+                // Carga timeline, misión, valores dinámicamente
             },
             {
                 path: 'productos',
@@ -55,8 +59,14 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'contacto',
-                Component: Contacto
-                // Sin loader - página simple
+                Component: Contacto,
+                loader: contactoLoader  // ✅ AHORA USA LOADER!
+                // Carga datos dinámicos de JSON
+            },
+            {
+                path: 'mensajes-contacto',
+                Component: MensajesContacto
+                // Página para ver mensajes guardados en localStorage
             }
         ]
     }
