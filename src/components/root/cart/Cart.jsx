@@ -8,8 +8,18 @@ export default function CarritoLateral() {
   const [mostrar, setMostrar] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [userLoginVisible, setUserLoginVisible] = useState(false);
+  const [buttonVisible, setButtonVisible] = useState(true);
 
-  const handleCerrar = () => setMostrar(false);
+  const handleCerrar = () => {
+    setMostrar(false);
+    // Ocultar el botón inmediatamente cuando se cierra el cart
+    setButtonVisible(false);
+    // Mostrar el botón después de 0.5 segundos con transición
+    setTimeout(() => {
+      setButtonVisible(true);
+    }, 500);
+  };
+  
   const handleMostrar = () => setMostrar(true);
 
   // Cargar carrito al montar y cuando se actualice
@@ -85,6 +95,7 @@ export default function CarritoLateral() {
           onClick={handleMostrar} 
           id="cart-button"
           variant="primary"
+          className={`cart-button-transition ${buttonVisible ? 'cart-button-visible' : 'cart-button-hidden'}`}
         >
           <Cart3 size={20}/>
           {itemCount > 0 && (
