@@ -1,0 +1,95 @@
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mil Sabores</title>
+    <link rel="stylesheet" href="../BLOG/styles.css">
+    <link rel="stylesheet" href="../HOME/styles.css">
+    <script type="module" src="script.js"></script>
+    <script type="module" src="../HOME/cart-tab.js"></script>
+    <script type="module" src="../CARRITO/carrito.js"></script>
+    <script type="module" src="../HOME/productos_pasteleria.js"></script>
+
+</head>
+
+<body>
+    <nav role="navigation">
+        <ul class="nav-list">
+            <li><a href="../HOME/index.html" class="nav-link">HOME</a></li>
+            <li><a href="../NOSOTROS/nosotros.html" class="nav-link">Nosotros</a></li>
+            <li><a href="../HOME/productos.html" class="nav-link">Productos</a></li>
+            <li><a href="../PERSONALIZA/personaliza.html" class="nav-link">Personaliza tu torta</a></li>
+            <li><a href="blog.html" class="nav-link">Recetas/Blog</a></li>
+            <li><a href="../CONTACTO/contacto.html" class="nav-link">Contacto</a></li>
+            <li>
+                <button class="cart-button" id="cart-toggle">
+                    🛒 <span id="cart-badge">0</span>
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="cart-tab" id="cart-tab">
+        <div class="cart-header">
+            <h2>Tu Carrito</h2>
+            <button class="close-cart" id="close-cart">&times;</button>
+        </div>
+        <div id="cart-items"></div>
+    </div>
+
+    <main>
+        <section class="blog-section">
+            <h1 style="margin-top:2.5rem; text-align:center; font-family: var(--font-head); color: var(--accent-choco);">RECETAS/BLOG</h1>
+            <div class="blog-controls" style="display:flex;justify-content:center;gap:1rem;margin-bottom:2rem;">
+                <select id="filter-category" aria-label="Filtrar por categoría">
+                    <option value="all">Todas las categorías</option>
+                    <option value="receta">Recetas</option>
+                    <option value="tips">Tips</option>
+                    <option value="historia">Historia</option>
+                    <option value="decoracion">Decoración</option>
+                    <option value="saludable">Saludable</option>
+                </select>
+                <select id="sort-date" aria-label="Ordenar por fecha">
+                    <option value="desc">Más recientes</option>
+                    <option value="asc">Más antiguos</option>
+                </select>
+            </div>
+            <div class="blog-grid" id="blog-grid">
+                <!-- Artículos generados por JS -->
+            </div>
+        </section>
+    </main>
+    <script>
+    </script>
+    <footer>
+        <div class="footer-container">
+            <!-- Column 1: Copyright -->
+            <div class="footer-column">
+                <p>&copy; 2024 Mil Sabores.</p>
+                <p>Todos los derechos reservados.</p>
+            </div>
+
+            <!-- Column 2: Quick Links -->
+            <div class="footer-column">
+                <h3>Enlaces</h3>
+                <ul class="footer-links">
+                    <li><a href="../NOSOTROS/nosotros.html">Nosotros</a></li>
+                    <li><a href="../CONTACTO/contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Social Media -->
+            <div class="footer-column">
+                <h3>Síguenos en</h3>
+                <ul class="social-links">
+                    <li><a href="https://facebook.com/milsabores" aria-label="Facebook">Facebook</a></li>
+                    <li><a href="https://instagram.com/milsabores" aria-label="Instagram">Instagram</a></li>
+                    <li><a href="https://x.com/milsabores" aria-label="X">X</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
