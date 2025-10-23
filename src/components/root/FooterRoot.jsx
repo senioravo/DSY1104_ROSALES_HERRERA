@@ -1,4 +1,5 @@
 import Container from 'react-bootstrap/Container';
+import './FooterRoot.css';
 
 export default function FooterRoot() {
     return (

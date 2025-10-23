@@ -1,0 +1,230 @@
+.product-card-item {
+    height: 100%;
+    min-height: 550px;
+    /* Altura mínima fija para estandarizar todos los cards */
+    max-height: 550px;
+    /* Altura máxima para mantener consistencia */
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.product-image-container {
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    /* La imagen no se encoge */
+}
+
+.product-card-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-card-item:hover .product-card-image {
+    transform: scale(1.05);
+}
+
+.stock-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
+    z-index: 5;
+}
+
+.customizable-badge {
+    position: absolute;
+    top: 50px;
+    /* Movido hacia abajo para no tapar el botón info */
+    left: 10px;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
+    z-index: 5;
+}
+
+.product-card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    /* El body ocupa el espacio restante */
+    justify-content: space-between;
+    /* Distribuye el espacio uniformemente */
+}
+
+.product-card-title {
+    color: var(--chocolate-dark);
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    min-height: 2.5rem;
+    /* Altura mínima para títulos de 1-2 líneas */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* Máximo 2 líneas */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.product-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    min-height: 2rem;
+    /* Espacio reservado para tags */
+}
+
+.product-tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--mint-dark);
+}
+
+.product-card-price {
+    color: var(--strawberry-emphasis);
+    font-weight: 800;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+
+/* Nueva fila que contiene cantidad + botón carrito */
+
+.cart-controls-row {
+    max-width: 250px;
+    width: fit-content;
+    margin: 0 auto;
+    background-color: var(--strawberry-darker);
+    border-radius: 50px;
+    padding: 0.5rem 1rem;
+    /* Padding interno para no pegar los elementos al borde */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    box-shadow: 0 2px 8px rgba(75, 21, 21, 0.3);
+    /* Espacio entre el grupo de cantidad y el botón carrito */
+}
+
+.quantity-controls-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0rem;
+    /* Espacio reducido entre botones - y + y el número */
+}
+
+.quantity-btn {
+    background-color: var(--lemon-lighter);
+    box-shadow: inset 0 0 2.5px var(--strawberry-emphasis);
+    color: var(--chocolate-dark);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    font-size: 0.8rem;
+    font-weight: 1000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-btn:hover:not(:disabled) {
+    background-color: var(--lemon-light);
+    box-shadow: inset 0 0 0 2px var(--strawberry-darker);
+    transform: scale(1.1);
+}
+
+.quantity-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.quantity-display-card {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--mint-lighter);
+    min-width: 35px;
+    text-align: center;
+}
+
+
+/* Botón inline de carrito (solo icono) */
+
+.add-to-cart-btn-inline {
+    background-color: var(--mint-lighter) !important;
+    border: 2px solid var(--chocolate-dark) !important;
+    color: var(--chocolate-dark);
+    /* Color del icono por defecto */
+    padding: 0.75rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.add-to-cart-btn-inline:hover {
+    border: 2px solid var(--lemon-light) !important;
+    background-color: var(--strawberry-emphasis) !important;
+    color: var(--lemon-light) !important;
+    /* Color del icono al hacer hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 1);
+}
+
+.add-to-cart-btn-inline:active {
+    transform: translateY(0);
+}
+
+
+/* Botón de sin stock (mantener estilo original) */
+
+.add-to-cart-btn {
+    background-color: var(--strawberry) !important;
+    border: 1px solid var(--lemon-light) !important;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-to-cart-btn:hover:not(:disabled) {
+    background-color: var(--strawberry-darker) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 1);
+}
+
+.add-to-cart-btn:disabled {
+    background-color: var(--vanilla-dark) !important;
+    cursor: not-allowed;
+}
+
+.add-to-cart-btn-inline btn btn-primary {
+    padding: 0;
+    border: none;
+    box-shadow: 10px 4px 8px rgba(255, 255, 255, 1);
+}

@@ -1,0 +1,41 @@
+.products-section {
+    padding: 1.5rem 0;
+}
+
+.products-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--mint-light);
+}
+
+.products-title {
+    color: var(--chocolate-dark);
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.products-count {
+    color: var(--chocolate-light);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.no-products {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: var(--lemon-light);
+    border-radius: 15px;
+    margin-top: 2rem;
+}
+
+.no-products h3 {
+    color: var(--chocolate-dark);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.no-products p {
+    color: var(--chocolate-light);
+    font-size: 1.1rem;
+}

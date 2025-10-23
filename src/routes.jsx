@@ -8,6 +8,7 @@ import Blog from './pages/blog/index'
 import Articulo from './pages/blog/articulo'
 import Contacto from './pages/contacto/index'
 import MensajesContacto from './pages/mensajes-contacto/index'
+import Register from './pages/register/index'
 
 // Solo importar los loaders que realmente necesitamos
 import {
@@ -16,6 +17,8 @@ import {
   contactoLoader,
   nosotrosLoader
 } from "./loaders";
+
+import { homeLoader } from './loaders/homeLoader.jsx'
 
 // Importar componente de error
 import ErrorBoundary from "./components/common/ErrorBoundary";
@@ -28,8 +31,8 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                Component: Home
-                // Sin loader - página simple
+                Component: Home,
+                loader: homeLoader
             },
             {
                 path: 'nosotros',
@@ -67,6 +70,10 @@ export const router = createBrowserRouter([
                 path: 'mensajes-contacto',
                 Component: MensajesContacto
                 // Página para ver mensajes guardados en localStorage
+            },
+            {
+                path: 'register',
+                Component: Register
             }
         ]
     }

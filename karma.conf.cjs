@@ -1,114 +1,97 @@
-// Karma configuration
 module.exports = function(config) {
-  config.set({
-    // Base path que será usado para resolver todos los patterns (ej: files, exclude)
-    basePath: '',
+    config.set({
+        // Base path para resolver patrones
+        basePath: '',
 
-    // Frameworks a usar
-    // Disponibles frameworks: https://www.npmjs.com/search?q=keywords:karma-adapter
-    frameworks: ['jasmine'],
+        // Frameworks a utilizar
+        frameworks: ['jasmine', 'webpack'],
 
-    // Lista de archivos / patterns a cargar en el browser
-    files: [
-      // Setup file para configurar el entorno de testing
-      'src/test/setup.js',
-      // Todos los archivos de test
-      'src/**/*.spec.js',
-      'src/**/*.test.js'
-    ],
+        // Archivos a cargar
+        files: [
+            'src/**/*.test.jsx',
+            'src/**/*.test.js'
+        ],
 
-    // Lista de archivos / patterns a excluir
-    exclude: [
-      'node_modules/**/*'
-    ],
+        // Preprocesamiento de archivos
+        preprocessors: {
+            'src/**/*.test.jsx': ['webpack', 'coverage'],
+            'src/**/*.test.js': ['webpack', 'coverage']
+        },
 
-    // Preprocess de archivos antes de servirlos al browser
-    // Disponibles preprocessors: https://www.npmjs.com/search?q=keywords:karma-preprocessor
-    preprocessors: {
-      'src/**/*.js': ['webpack', 'sourcemap'],
-      'src/**/*.jsx': ['webpack', 'sourcemap']
-    },
-
-    // Configuración de Webpack para Karma
-    webpack: {
-      mode: 'development',
-      module: {
-        rules: [
-          {
-            test: /\.(js|jsx)$/,
-            exclude: /node_modules/,
-            use: {
-              loader: 'babel-loader',
-              options: {
-                presets: [
-                  ['@babel/preset-env', { targets: { node: 'current' } }],
-                  ['@babel/preset-react', { runtime: 'automatic' }]
+        // Configuración de webpack
+        webpack: {
+            mode: 'development',
+            module: {
+                rules: [{
+                        test: /\.(js|jsx)$/,
+                        exclude: /node_modules/,
+                        use: {
+                            loader: 'babel-loader',
+                            options: {
+                                presets: [
+                                    ['@babel/preset-env', {
+                                        targets: {
+                                            node: 'current'
+                                        }
+                                    }],
+                                    ['@babel/preset-react', {
+                                        runtime: 'automatic'
+                                    }]
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        test: /\.css$/,
+                        use: ['style-loader', 'css-loader']
+                    },
+                    {
+                        test: /\.(png|jpg|jpeg|gif|svg)$/,
+                        type: 'asset/resource'
+                    }
                 ]
-              }
+            },
+            resolve: {
+                extensions: ['.js', '.jsx'],
+                fallback: {
+                    path: false,
+                    fs: false
+                }
             }
-          },
-          {
-            test: /\.css$/i,
-            use: ['style-loader', 'css-loader']
-          }
-        ]
-      },
-      resolve: {
-        extensions: ['.js', '.jsx']
-      },
-      externals: {
-        'react/lib/ExecutionEnvironment': true,
-        'react/lib/ReactContext': true
-      }
-    },
+        },
 
-    // Test results reporter a usar
-    // Posibles valores: 'dots', 'progress'
-    // Disponibles reporters: https://www.npmjs.com/search?q=keywords:karma-reporter
-    reporters: ['progress'],
+        // Reporteros para los resultados
+        reporters: ['progress', 'coverage'],
 
-    // Puerto del servidor web
-    port: 9876,
+        // Configuración del reporte de cobertura
+        coverageReporter: {
+            dir: 'coverage/',
+            reporters: [
+                { type: 'html', subdir: 'html' },
+                { type: 'lcov', subdir: 'lcov' },
+                { type: 'text-summary' }
+            ]
+        },
 
-    // Habilitar / deshabilitar colores en la salida (reporters y logs)
-    colors: true,
+        // Puerto del servidor web
+        port: 9876,
 
-    // Nivel de logging
-    // Posibles valores: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+        // Habilitar colores en la salida
+        colors: true,
 
-    // Habilitar / deshabilitar watching de archivos y ejecución de tests cuando los archivos cambien
-    autoWatch: true,
+        // Nivel de logging
+        logLevel: config.LOG_INFO,
 
-    // Iniciar estos browsers
-    // Disponibles browser launchers: https://www.npmjs.com/search?q=keywords:karma-launcher
-    browsers: ['jsdom'],
+        // Observar cambios en archivos
+        autoWatch: true,
 
-    // Configuración de jsdom
-    jsdomLauncher: {
-      jsdom: {
-        url: 'http://localhost/',
-        options: {
-          resources: 'usable',
-          runScripts: 'dangerously'
-        }
-      }
-    },
+        // Navegadores a utilizar
+        browsers: ['jsdom'],
 
-    // Continuous Integration mode
-    // Si es true, Karma captura browsers, ejecuta tests y sale
-    singleRun: false,
+        // Modo de Integración Continua
+        singleRun: false,
 
-    // Concurrency level
-    // Cuántos browsers pueden ser iniciados simultáneamente
-    concurrency: Infinity,
-
-    // Configuración de cliente
-    client: {
-      jasmine: {
-        random: false,
-        stopOnFailure: false
-      }
-    }
-  })
-}
+        // Nivel de concurrencia
+        concurrency: Infinity
+    })
+};
