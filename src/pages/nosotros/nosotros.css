@@ -541,8 +541,6 @@
     padding: 0.7rem 1.3rem;
     max-width: 400px;
     background: linear-gradient(135deg, white, var(--lemon));
-    border-left: 4px solid var(--strawberry);
-    border-right: 4px solid var(--strawberry);
     border-radius: 15px;
     box-shadow: 0 3px 10px rgba(229, 173, 168, 0.15);
     font-style: italic;

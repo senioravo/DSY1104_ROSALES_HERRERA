@@ -675,5 +675,8 @@ Muchos postres mejoran al segundo día, cuando los sabores se integran mejor. ¡
     throw new Response("Artículo no encontrado", { status: 404 });
   }
 
-  return { article };
+  return { 
+    article: article,
+    post: article  // Alias para compatibilidad con el hook
+  };
 };

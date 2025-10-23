@@ -139,6 +139,7 @@ export default function Blog() {
     }, [allBlogPosts, categoriaSeleccionada]);
 
     const handleClickArticulo = (slug) => {
+        console.log('Navegando a artículo con slug:', slug);
         navigate(`/blog/${slug}`);
     };
 

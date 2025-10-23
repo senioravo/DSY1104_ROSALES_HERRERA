@@ -57,8 +57,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'blog/:slug',
-                Component: Articulo,
-                loader: articuloLoader  // Solo los artículos usan loader
+                Component: Articulo
+                // loader: articuloLoader  // TEMPORALMENTE COMENTADO PARA DEBUGGING
             },
             {
                 path: 'contacto',
