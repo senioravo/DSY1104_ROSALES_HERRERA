@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import { BlogHero, BlogGrid, CategoryFilter } from '../../components/root/BlogComponents';
+import BlogHeroNew from '../../components/blog-components/BlogHeroNew';
+import { BlogGrid, CategoryFilter } from '../../components/root/BlogComponents';
 import { useBlogData } from '../../hooks/useLoaderData';
 import './blog.css';
 
@@ -92,7 +93,9 @@ const blogPosts = [
 
 export default function Blog() {
     const navigate = useNavigate();
-    const [filtro, setFiltro] = useState('Todos');
+    
+    // Estado para el filtro de categorías
+    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('Todas');
     
     // Usar datos del loader (opcionales)
     const { posts: loaderPosts, categories: loaderCategories, totalPosts, recentPosts, hasLoaderData } = useBlogData();
@@ -120,16 +123,20 @@ export default function Blog() {
         
         return combinedPosts;
     }, [loaderPosts, hasLoaderData]);
-    
-    // Categorias: priorizar las originales
-    const categoriasOriginales = [...new Set(blogPosts.map(post => post.categoria))];
-    const categoriasFromLoader = hasLoaderData ? (loaderCategories?.map(cat => cat.name) || []) : [];
-    const categoriasAdicionales = categoriasFromLoader.filter(cat => !categoriasOriginales.includes(cat));
-    const categorias = ['Todos', ...categoriasOriginales, ...categoriasAdicionales];
 
-    const articulosFiltrados = filtro === 'Todos' 
-        ? allBlogPosts 
-        : allBlogPosts.filter(post => post.categoria === filtro);
+    // Obtener categorías únicas
+    const categorias = useMemo(() => {
+        const uniqueCategories = [...new Set(allBlogPosts.map(post => post.categoria))];
+        return ['Todas', ...uniqueCategories];
+    }, [allBlogPosts]);
+
+    // Filtrar posts por categoría
+    const postsFiltrados = useMemo(() => {
+        if (categoriaSeleccionada === 'Todas') {
+            return allBlogPosts;
+        }
+        return allBlogPosts.filter(post => post.categoria === categoriaSeleccionada);
+    }, [allBlogPosts, categoriaSeleccionada]);
 
     const handleClickArticulo = (slug) => {
         navigate(`/blog/${slug}`);
@@ -137,44 +144,23 @@ export default function Blog() {
 
     return (
         <main className="blog-page">
-            <BlogHero />
+            <BlogHeroNew />
             
             <Container className="py-5">
-                {/* Filtros por categoría */}
-                <div className="d-flex justify-content-center mb-5">
+                {/* Filtro de categorías */}
+                <div className="d-flex justify-content-center mb-4">
                     <CategoryFilter 
                         categorias={categorias}
-                        categoriaActiva={filtro}
-                        onCategoriaChange={setFiltro}
+                        categoriaActiva={categoriaSeleccionada}
+                        onCategoriaChange={setCategoriaSeleccionada}
                     />
                 </div>
-
+                
                 {/* Grid de artículos */}
                 <BlogGrid 
-                    posts={articulosFiltrados}
+                    posts={postsFiltrados}
                     onPostClick={handleClickArticulo}
                 />
-                
-                {/* Información adicional del loader */}
-                {loaderCategories && loaderCategories.length > 0 && (
-                    <div className="category-stats mt-5">
-                        <h3 className="text-center mb-4">Estadísticas por Categoría</h3>
-                        <div className="row">
-                            {loaderCategories.map((category, index) => (
-                                <div key={index} className="col-md-3 mb-3">
-                                    <div className="card text-center">
-                                        <div className="card-body">
-                                            <h5 className="card-title">{category.name}</h5>
-                                            <p className="card-text text-muted">
-                                                {category.count} artículos
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
             </Container>
         </main>
     );

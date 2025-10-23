@@ -1,5 +1,6 @@
 ﻿import { useLoaderData } from 'react-router-dom';
-import { ContactoHero, ContactForm, ContactInfo } from '../../components/root/ContactoComponents';
+import ContactoHeroNew from '../../components/contacto-components/ContactoHeroNew';
+import { ContactForm, ContactInfo } from '../../components/root/ContactoComponents';
 import './contacto.css';
 
 export default function Contacto() {
@@ -8,7 +9,7 @@ export default function Contacto() {
     
     return (
         <main className="contacto-page">
-            <ContactoHero />
+            <ContactoHeroNew />
             <ContactForm opcionesAsunto={opcionesAsunto} />
             <ContactInfo 
                 contactData={contactInfo}

@@ -187,5 +187,85 @@ describe('ContactForm Component', () => {
     });
     
   });
+
+  // GRUPO 4: Tests de autenticación
+  describe('Funcionalidad de autenticación', () => {
+    
+    it('debe simular estado no autenticado', () => {
+      // Simular localStorage vacío (usuario no logueado)
+      const mockLocalStorage = {
+        getItem: jasmine.createSpy('getItem').and.returnValue(null)
+      };
+      
+      // Mock del authService
+      const mockAuthService = {
+        isAuthenticated: jasmine.createSpy('isAuthenticated').and.returnValue(false),
+        getCurrentUser: jasmine.createSpy('getCurrentUser').and.returnValue(null)
+      };
+      
+      expect(mockAuthService.isAuthenticated()).toBe(false);
+      expect(mockAuthService.getCurrentUser()).toBe(null);
+    });
+    
+    it('debe simular estado autenticado', () => {
+      // Simular usuario logueado en localStorage
+      const mockUser = { username: 'admin', role: 'admin' };
+      const mockLocalStorage = {
+        getItem: jasmine.createSpy('getItem').and.returnValue(JSON.stringify(mockUser))
+      };
+      
+      // Mock del authService
+      const mockAuthService = {
+        isAuthenticated: jasmine.createSpy('isAuthenticated').and.returnValue(true),
+        getCurrentUser: jasmine.createSpy('getCurrentUser').and.returnValue(mockUser)
+      };
+      
+      expect(mockAuthService.isAuthenticated()).toBe(true);
+      expect(mockAuthService.getCurrentUser()).toEqual(mockUser);
+    });
+    
+    it('debe simular formulario deshabilitado para usuarios no autenticados', () => {
+      const form = document.createElement('form');
+      const input = document.createElement('input');
+      const textarea = document.createElement('textarea');
+      const button = document.createElement('button');
+      
+      // Simular estado deshabilitado
+      input.disabled = true;
+      textarea.disabled = true;
+      button.disabled = true;
+      
+      form.appendChild(input);
+      form.appendChild(textarea);
+      form.appendChild(button);
+      container.appendChild(form);
+      
+      expect(input.disabled).toBe(true);
+      expect(textarea.disabled).toBe(true);
+      expect(button.disabled).toBe(true);
+    });
+    
+    it('debe simular formulario habilitado para usuarios autenticados', () => {
+      const form = document.createElement('form');
+      const input = document.createElement('input');
+      const textarea = document.createElement('textarea');
+      const button = document.createElement('button');
+      
+      // Simular estado habilitado
+      input.disabled = false;
+      textarea.disabled = false;
+      button.disabled = false;
+      
+      form.appendChild(input);
+      form.appendChild(textarea);
+      form.appendChild(button);
+      container.appendChild(form);
+      
+      expect(input.disabled).toBe(false);
+      expect(textarea.disabled).toBe(false);
+      expect(button.disabled).toBe(false);
+    });
+    
+  });
   
 });

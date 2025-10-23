@@ -8,7 +8,7 @@
       "title": "Pasión",
       "description": "Ponemos amor en cada receta",
       "color": "var(--strawberry)",
-      "destacado": true
+      "destacado": false
     },
     {
       "id": 2,
@@ -16,7 +16,7 @@
       "title": "Calidad",
       "description": "Ingredientes selectos y procesos cuidadosos",
       "color": "var(--strawberry-light)",
-      "destacado": true
+      "destacado": false
     },
     {
       "id": 3,
@@ -31,22 +31,6 @@
       "icon": "fas fa-leaf",
       "title": "Frescura",
       "description": "Productos frescos elaborados diariamente",
-      "color": "var(--strawberry-light)",
-      "destacado": false
-    },
-    {
-      "id": 5,
-      "icon": "fas fa-award",
-      "title": "Excelencia",
-      "description": "Reconocimiento y premios por nuestra calidad",
-      "color": "var(--strawberry)",
-      "destacado": false
-    },
-    {
-      "id": 6,
-      "icon": "fas fa-handshake",
-      "title": "Confianza",
-      "description": "30 años construyendo relaciones duraderas",
       "color": "var(--strawberry-light)",
       "destacado": false
     }

@@ -1,6 +1,9 @@
-﻿import { useState } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { validarEmail, validarTelefono, validarNombre, validarAsunto, validarMensaje } from './FormValidation';
+import { authService } from '../../../services/authService';
+import UserLogin from '../../root/user/UserLogin';
+import './ContactForm.css';
 
 export default function ContactForm({ opcionesAsunto }) {
     const [formData, setFormData] = useState({
@@ -15,6 +18,30 @@ export default function ContactForm({ opcionesAsunto }) {
     const [errors, setErrors] = useState({});
     const [exito, setExito] = useState('');
     const [mostrarAsuntoPersonalizado, setMostrarAsuntoPersonalizado] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [currentUser, setCurrentUser] = useState(null);
+    const [showLogin, setShowLogin] = useState(false);
+
+    // Verificar autenticación al cargar el componente
+    useEffect(() => {
+        const checkAuth = () => {
+            const authenticated = authService.isAuthenticated();
+            const user = authService.getCurrentUser();
+            setIsAuthenticated(authenticated);
+            setCurrentUser(user);
+            
+            // Pre-llenar el formulario con datos del usuario si está autenticado
+            if (authenticated && user) {
+                setFormData(prev => ({
+                    ...prev,
+                    nombre: user.nombre || '',
+                    email: user.email || ''
+                }));
+            }
+        };
+        
+        checkAuth();
+    }, []);
 
     // 🔄 USAR OPCIONES DINÁMICAS o fallback estático
     const opcionesAsuntoFinal = opcionesAsunto && opcionesAsunto.length > 0 
@@ -58,9 +85,49 @@ export default function ContactForm({ opcionesAsunto }) {
         }
     };
 
+    // Manejar login exitoso
+    const handleLoginSuccess = (user) => {
+        setIsAuthenticated(true);
+        setCurrentUser(user);
+        setShowLogin(false);
+        setErrors(prev => ({ ...prev, auth: '' })); // Limpiar error de auth
+        
+        // Pre-llenar formulario con datos del usuario
+        setFormData(prev => ({
+            ...prev,
+            nombre: user.nombre || '',
+            email: user.email || ''
+        }));
+    };
+
+    // Manejar logout
+    const handleLogout = () => {
+        authService.logout();
+        setIsAuthenticated(false);
+        setCurrentUser(null);
+        
+        // Limpiar formulario
+        setFormData({
+            nombre: '',
+            email: '',
+            telefono: '',
+            asunto: '',
+            asuntoPersonalizado: '',
+            mensaje: ''
+        });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         limpiarErrores();
+
+        // Verificar autenticación PRIMERO
+        if (!isAuthenticated) {
+            setShowLogin(true);
+            mostrarError('auth', 'Debes iniciar sesión para enviar un mensaje');
+            return;
+        }
+
         let valido = true;
 
         // Validaciones
@@ -138,6 +205,89 @@ export default function ContactForm({ opcionesAsunto }) {
                             </Link>
                         </div>
                         <div className="form-card">
+                            {/* Sección de autenticación */}
+                            {!isAuthenticated ? (
+                                <div className="auth-section mb-4">
+                                    <div className="alert alert-warning" style={{ 
+                                        backgroundColor: '#fff3cd',
+                                        borderColor: '#ffc107',
+                                        color: '#856404'
+                                    }}>
+                                        <i className="fas fa-lock me-2"></i>
+                                        <strong>¡Debes iniciar sesión para enviar un mensaje!</strong>
+                                        <p className="mb-2 mt-2">Para garantizar la seguridad y poder responderte correctamente, necesitas una cuenta.</p>
+                                        <div className="d-flex gap-2">
+                                            <button 
+                                                type="button" 
+                                                className="btn btn-warning btn-sm"
+                                                onClick={() => setShowLogin(true)}
+                                            >
+                                                <i className="fas fa-sign-in-alt me-1"></i>
+                                                Iniciar Sesión
+                                            </button>
+                                            <Link 
+                                                to="/register" 
+                                                className="btn btn-outline-warning btn-sm"
+                                            >
+                                                <i className="fas fa-user-plus me-1"></i>
+                                                Crear Cuenta
+                                            </Link>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Modal de login */}
+                                    {showLogin && (
+                                        <div className="modal-overlay" onClick={() => setShowLogin(false)}>
+                                            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                                                <div className="modal-header">
+                                                    <h5>Iniciar Sesión</h5>
+                                                    <button 
+                                                        type="button" 
+                                                        className="btn-close"
+                                                        onClick={() => setShowLogin(false)}
+                                                    ></button>
+                                                </div>
+                                                <UserLogin 
+                                                    onLoginSuccess={handleLoginSuccess}
+                                                    embedded={true}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <div className="auth-section mb-4">
+                                    <div className="alert alert-success" style={{ 
+                                        backgroundColor: '#d1edff',
+                                        borderColor: '#0d6efd',
+                                        color: '#084298'
+                                    }}>
+                                        <i className="fas fa-check-circle me-2"></i>
+                                        <strong>¡Bienvenido, {currentUser?.nombre}!</strong>
+                                        <p className="mb-2 mt-2">Ya puedes enviar tu mensaje. Tu información de contacto se llenará automáticamente.</p>
+                                        <button 
+                                            type="button" 
+                                            className="btn btn-outline-primary btn-sm"
+                                            onClick={handleLogout}
+                                        >
+                                            <i className="fas fa-sign-out-alt me-1"></i>
+                                            Cerrar Sesión
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+
+                            {errors.auth && (
+                                <div className="alert alert-danger" style={{ 
+                                    backgroundColor: '#f8d7da',
+                                    borderColor: '#dc3545',
+                                    color: '#721c24'
+                                }}>
+                                    <i className="fas fa-exclamation-triangle me-2"></i>
+                                    {errors.auth}
+                                </div>
+                            )}
+
                             {exito && (
                                 <div className="alert alert-success" style={{ 
                                     backgroundColor: 'var(--mint-light)',
@@ -149,7 +299,7 @@ export default function ContactForm({ opcionesAsunto }) {
                                 </div>
                             )}
 
-                            <form onSubmit={handleSubmit} className="contact-form">
+                            <form onSubmit={handleSubmit} className={`contact-form ${!isAuthenticated ? 'disabled' : ''}`}>
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="form-group">
@@ -165,6 +315,8 @@ export default function ContactForm({ opcionesAsunto }) {
                                                 onChange={handleInputChange}
                                                 className="form-control"
                                                 placeholder="Tu nombre completo"
+                                                disabled={!isAuthenticated}
+                                                readOnly={isAuthenticated && currentUser}
                                             />
                                             {errors.nombre && <div className="invalid-feedback">{errors.nombre}</div>}
                                         </div>
@@ -184,6 +336,8 @@ export default function ContactForm({ opcionesAsunto }) {
                                                 onChange={handleInputChange}
                                                 className="form-control"
                                                 placeholder="tu@email.com"
+                                                disabled={!isAuthenticated}
+                                                readOnly={isAuthenticated && currentUser}
                                             />
                                             {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                                         </div>
@@ -205,6 +359,7 @@ export default function ContactForm({ opcionesAsunto }) {
                                                 onChange={handleInputChange}
                                                 className="form-control"
                                                 placeholder="+56 9 1234 5678"
+                                                disabled={!isAuthenticated}
                                             />
                                             {errors.telefono && <div className="invalid-feedback">{errors.telefono}</div>}
                                         </div>
@@ -222,6 +377,7 @@ export default function ContactForm({ opcionesAsunto }) {
                                                 value={formData.asunto}
                                                 onChange={handleInputChange}
                                                 className="form-control"
+                                                disabled={!isAuthenticated}
                                             >
                                                 <option value="">Selecciona un asunto</option>
                                                 {opcionesAsuntoFinal.map((opcion, index) => (
@@ -251,6 +407,7 @@ export default function ContactForm({ opcionesAsunto }) {
                                                     onChange={handleInputChange}
                                                     className="form-control"
                                                     placeholder="Escribe el motivo de tu consulta"
+                                                    disabled={!isAuthenticated}
                                                 />
                                             </div>
                                         </div>
@@ -270,6 +427,7 @@ export default function ContactForm({ opcionesAsunto }) {
                                         className="form-control"
                                         rows="5"
                                         placeholder="Escribe aquí tu mensaje..."
+                                        disabled={!isAuthenticated}
                                     ></textarea>
                                     <div className="char-counter">
                                         {formData.mensaje.length}/500 caracteres
@@ -278,9 +436,13 @@ export default function ContactForm({ opcionesAsunto }) {
                                 </div>
 
                                 <div className="form-actions">
-                                    <button type="submit" className="btn btn-primary btn-send">
+                                    <button 
+                                        type="submit" 
+                                        className="btn btn-primary btn-send"
+                                        disabled={!isAuthenticated}
+                                    >
                                         <i className="fas fa-paper-plane"></i>
-                                        Enviar Mensaje
+                                        {isAuthenticated ? 'Enviar Mensaje' : 'Inicia sesión para enviar'}
                                     </button>
                                 </div>
                             </form>

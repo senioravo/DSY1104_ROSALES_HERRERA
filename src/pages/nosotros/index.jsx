@@ -1,5 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
-import { HeroSection, MissionSection, ValuesSection, TimelineSection } from '../../components/root/NosotrosComponents';
+import NosotrosHero from '../../components/nosotros-components/NosotrosHero';
+import { MissionSection, ValuesSection, TimelineSection } from '../../components/root/NosotrosComponents';
 import './nosotros.css';
 
 export default function Nosotros() {
@@ -16,7 +17,7 @@ export default function Nosotros() {
     
     return (
         <main className="nosotros-page">
-            <HeroSection heroData={hero} />
+            <NosotrosHero />
             <MissionSection 
                 misionData={mision} 
                 estadisticas={estadisticas}

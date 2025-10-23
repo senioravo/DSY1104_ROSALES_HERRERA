@@ -1,13 +1,12 @@
-/* Hero con react bootstrap */
+/* Hero para Nosotros basado en el Hero del Home */
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import './Hero.css';
-import heroBg from '../../../assets/hero-bg.png';
+import '../home-components/Hero/Hero.css';
+import heroBg from '../../assets/hero-bg.png';
 
-export default function Hero() {
+export default function NosotrosHero() {
     return (
         <section className="hero-section">
             <div 
@@ -24,16 +23,8 @@ export default function Hero() {
                     <Row className="h-100 align-items-center">
                         <Col xs={11} sm={10} md={9} lg={8} xl={6} className="px-3 px-sm-4 px-lg-5">
                             <div className="hero-content">
-                                <h1 className="hero-title mb-3">Mil Sabores</h1>
-                                <h4 className="hero-subtitle mb-4">El dulce sabor de la tradición</h4>
-                                <Button 
-                                    variant="outline-light" 
-                                    size="lg" 
-                                    className="hero-cta"
-                                    href="/productos"
-                                >
-                                    Descubre nuestros sabores
-                                </Button>
+                                <h1 className="hero-title mb-3">Nuestra Historia</h1>
+                                <h4 className="hero-subtitle">30 años endulzando momentos especiales</h4>
                             </div>
                         </Col>
                     </Row>
