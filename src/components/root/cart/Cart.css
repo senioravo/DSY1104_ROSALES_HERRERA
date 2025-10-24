@@ -3,7 +3,7 @@
     position: fixed !important;
     /* Posición dinámica que se ajusta con el navbar */
     top: var(--cart-button-top, 90px) !important;
-    right: 20px !important;
+    right: 28px !important;
     background-color: var(--strawberry-emphasis) !important;
     color: white !important;
     border: 2px solid var(--lemon-light) !important;

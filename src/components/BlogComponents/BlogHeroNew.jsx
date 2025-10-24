@@ -15,7 +15,8 @@ export default function BlogHeroNew() {
                     backgroundImage: `url(${BlogHeroBg})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat'
+                    backgroundRepeat: 'no-repeat',
+                    boxShadow: 'inset 0 0 15px rgba(60, 69, 0, 0.3)'
                 }}
             />
             <div className="hero-overlay">
