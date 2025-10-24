@@ -25,7 +25,7 @@ export default function BlogCard({ post, onClick }) {
           style={{ 
             top: '1rem',
             left: '1rem',
-            backgroundColor: 'var(--strawberry)',
+            backgroundColor: 'var(--mint-dark) !important',
             color: 'white',
             padding: '0.5rem 1rem',
             fontSize: '0.9rem',

@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
-import NosotrosHero from '../../components/nosotros-components/NosotrosHero';
-import { MissionSection, ValuesSection, TimelineSection } from '../../components/root/NosotrosComponents';
+import NosotrosHero from '../../components/NosotrosComponents/NosotrosHero';
+import { MissionSection, ValuesSection, TimelineSection } from '../../components/NosotrosComponents';
 import './nosotros.css';
 
 export default function Nosotros() {

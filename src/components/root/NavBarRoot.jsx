@@ -11,41 +11,43 @@ export default function NavBarRoot() {
     const [isVisible, setIsVisible] = useState(true);
     const [isNearFooter, setIsNearFooter] = useState(false);
 
+    // Inicializar variables CSS al montar el componente
+    useEffect(() => {
+        const root = document.documentElement;
+        // Valores iniciales cuando el navbar es visible
+        root.style.setProperty('--sidebar-top', '110px');
+        root.style.setProperty('--sidebar-bottom', '20px');
+        root.style.setProperty('--cart-button-top', '90px');
+    }, []);
+
     // Efecto para actualizar variables CSS cuando cambia la visibilidad del navbar o proximidad al footer
     useEffect(() => {
         const root = document.documentElement;
         
-        // Calcular altura y posición del sidebar basado en navbar y footer
-        let sidebarTop, sidebarMaxHeight, cartButtonTop;
+        // Calcular posición del sidebar y carrito basado en visibilidad del navbar
+        let sidebarTop, sidebarBottom, cartButtonTop;
         
         if (isVisible) {
             // Navbar visible - sidebar comienza debajo del navbar
             sidebarTop = '110px';
             cartButtonTop = '90px';
-            if (isNearFooter) {
-                // Cerca del footer: reducir altura para no taparlo
-                sidebarMaxHeight = 'calc(100vh - 130px - var(--footer-overlap, 0px))';
-            } else {
-                // Altura normal: desde 110px hasta el final - 20px margen
-                sidebarMaxHeight = 'calc(100vh - 130px)';
-            }
         } else {
-            // Navbar oculto - sidebar se expande hacia arriba ocupando el espacio del navbar
-            sidebarTop = '20px'; // Se mueve hacia arriba (de 110px a 20px)
+            // Navbar oculto - sidebar se expande hacia arriba
+            sidebarTop = '20px';
             cartButtonTop = '20px';
-            if (isNearFooter) {
-                // Cerca del footer: altura expandida menos overlap
-                // Desde 20px hasta el final con margen
-                sidebarMaxHeight = 'calc(100vh - 40px - var(--footer-overlap, 0px))';
-            } else {
-                // Navbar oculto: ocupa desde 20px hasta el final
-                // Gana los 90px del navbar (110px - 20px = 90px hacia arriba)
-                sidebarMaxHeight = 'calc(100vh - 40px)';
-            }
+        }
+
+        // Controlar el borde inferior según proximidad al footer
+        if (isNearFooter) {
+            // Cerca del footer - aumentar margen inferior para no taparlo
+            sidebarBottom = 'var(--footer-distance, 20px)';
+        } else {
+            // Lejos del footer - margen normal
+            sidebarBottom = '20px';
         }
         
         root.style.setProperty('--sidebar-top', sidebarTop);
-        root.style.setProperty('--sidebar-max-height', sidebarMaxHeight);
+        root.style.setProperty('--sidebar-bottom', sidebarBottom);
         root.style.setProperty('--cart-button-top', cartButtonTop);
     }, [isVisible, isNearFooter]);
 
@@ -56,29 +58,30 @@ export default function NavBarRoot() {
             const currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
             
             // Detectar proximidad al footer
-            const documentHeight = document.documentElement.scrollHeight;
-            const windowHeight = window.innerHeight;
-            const scrollBottom = currentScrollY + windowHeight;
-            
-            // Altura del footer + margen deseado
-            const footerMargin = 20; // Margen entre sidebar y footer
             const footerElement = document.getElementById('footerRoot');
-            const footerHeight = footerElement ? footerElement.offsetHeight : 100;
-            const totalFooterSpace = footerHeight + footerMargin;
             
-            const distanceToBottom = documentHeight - scrollBottom;
-            
-            // Solo activar isNearFooter cuando REALMENTE estamos cerca del footer
-            // Esto evita cambios constantes de altura durante el scroll normal
-            if (distanceToBottom <= 50) {
-                // Muy cerca del footer - calcular overlap exacto
-                const overlap = Math.max(0, totalFooterSpace - distanceToBottom);
-                document.documentElement.style.setProperty('--footer-overlap', `${overlap}px`);
-                setIsNearFooter(true);
-            } else {
-                // Lejos del footer - altura normal
-                document.documentElement.style.setProperty('--footer-overlap', '0px');
-                setIsNearFooter(false);
+            if (footerElement) {
+                const footerRect = footerElement.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                // Posición del top del footer respecto a la ventana
+                const footerTop = footerRect.top;
+                
+                // Margen mínimo que queremos mantener entre el sidebar y el footer
+                const minMargin = 20;
+                
+                // Si el footer está entrando en la pantalla
+                if (footerTop < windowHeight) {
+                    setIsNearFooter(true);
+                    // El bottom del sidebar debe ser: windowHeight - footerTop + minMargin
+                    // Esto hace que el sidebar se detenga justo antes del footer
+                    const footerDistance = windowHeight - footerTop + minMargin;
+                    document.documentElement.style.setProperty('--footer-distance', `${footerDistance}px`);
+                } else {
+                    // Footer fuera de la pantalla - margen normal
+                    setIsNearFooter(false);
+                    document.documentElement.style.setProperty('--footer-distance', '20px');
+                }
             }
 
             // Lógica del navbar (scroll up/down)

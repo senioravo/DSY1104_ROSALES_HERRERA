@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import ArticleHeader from '../../components/root/BlogComponents/ArticleHeader';
-import ArticleImage from '../../components/root/BlogComponents/ArticleImage';
-import BackButton from '../../components/root/BlogComponents/BackButton';
+import ArticleHeader from '../../components/BlogComponents/ArticleHeader';
+import ArticleImage from '../../components/BlogComponents/ArticleImage';
+import BackButton from '../../components/BlogComponents/BackButton';
 import './articulo.css';
 
 // Base de datos completa de artículos (la misma que en index.jsx)

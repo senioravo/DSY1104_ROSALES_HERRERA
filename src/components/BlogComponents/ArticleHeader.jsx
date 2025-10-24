@@ -1,6 +1,6 @@
 import { Badge } from 'react-bootstrap';
 
-export default function ArticleHeader({ categoria, titulo, fecha, categoriaColor = '#F4A5C4' }) {
+export default function ArticleHeader({ categoria, titulo, fecha, categoriaColor = 'var(--mint-dark)' }) {
   return (
     <>
       <Badge 

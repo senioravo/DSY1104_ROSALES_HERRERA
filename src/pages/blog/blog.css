@@ -4,7 +4,9 @@
     color: var(--strawberry);
 }
 
+
 /* Efectos hover para tarjetas de Bootstrap */
+
 .blog-card-bootstrap {
     transition: all 0.3s ease;
     background-color: var(--vanilla-lighter);
@@ -12,8 +14,8 @@
 
 .blog-card-bootstrap:hover {
     transform: translateY(-10px);
-    box-shadow: 0 12px 24px rgba(229, 173, 168, 0.3) !important;
-    border-color: var(--strawberry) !important;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3) !important;
+    border-color: var(--mint) !important;
 }
 
 .blog-card-bootstrap img {
@@ -24,19 +26,23 @@
     transform: scale(1.05);
 }
 
+
 /* Botones personalizados */
+
 .btn-outline-primary {
-    border-color: var(--strawberry);
-    color: var(--strawberry-dark);
+    border-color: var(--mint) !important;
+    color: var(--mint-darker) !important;
 }
 
 .btn-outline-primary:hover {
-    background-color: var(--strawberry-light) !important;
-    border-color: var(--strawberry-darker) !important;
+    background-color: var(--mint-darker) !important;
+    border-color: none !important;
     color: white !important;
 }
 
+
 /* Hero Section */
+
 .hero-section {
     background: linear-gradient(135deg, var(--strawberry-lighter) 0%, var(--vanilla-light) 100%);
     padding: 4rem 2rem;
@@ -97,4 +103,3 @@
     background-image: radial-gradient(var(--strawberry) 1px, transparent 1px);
     background-size: 20px 20px;
 }
-

@@ -1,188 +1,193 @@
-// Loaders para React Router - Solo Blog
+// Loaders para React Router
 // Archivo: src/loaders/index.js
 // 
-// Este archivo contiene únicamente los loaders necesarios para el Blog.
-// Las páginas Nosotros y Contacto son estáticas y no requieren loaders.
+// Este archivo exporta todos los loaders necesarios para las rutas
+
+// Exportar loaders individuales
+export { homeLoader }
+from './homeLoader.jsx';
+export { contactoLoader }
+from './contactoLoader.jsx';
+export { nosotrosLoader }
+from './nosotrosLoader.jsx';
 
 // Simulamos delay de red para demostrar la funcionalidad de loaders
 const simulateNetworkDelay = (ms = 500) => {
-  return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms));
 };
 
 // ============================================================================
 // LOADER PARA LA PÁGINA DEL BLOG (Lista de artículos)
 // ============================================================================
 
-export const blogLoader = async () => {
-  await simulateNetworkDelay(300);
-  
-  // Todos los artículos del blog
-  const articles = [
-    {
-      id: 1,
-      slug: "decoracion-frutas-frescas",
-      titulo: "Decoración con Frutas Frescas",
-      descripcion: "Las frutas frescas son una de las mejores formas de decorar pasteles.",
-      categoria: "Decoración",
-      fecha: "2025-08-27",
-      autor: "Ana Martínez",
-      imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
-      tiempoLectura: "6 min"
-    },
-    {
-      id: 2,
-      slug: "pie-limon-clasico",
-      titulo: "Receta: Pie de Limón Clásico",
-      descripcion: "Una receta tradicional que nunca pasa de moda.",
-      categoria: "Recetas",
-      fecha: "2025-08-21",
-      autor: "Carlos Rodríguez",
-      imagen: "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=800",
-      tiempoLectura: "8 min"
-    },
-    {
-      id: 3,
-      slug: "historia-queque-marmoleado",
-      titulo: "Historia del Queque Marmoleado",
-      descripcion: "Un clásico de la repostería con raíces europeas.",
-      categoria: "Historia",
-      fecha: "2025-08-14",
-      autor: "María González",
-      imagen: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=800",
-      tiempoLectura: "5 min"
-    },
-    {
-      id: 4,
-      slug: "merengue-perfecto",
-      titulo: "Secretos del Merengue Perfecto",
-      descripcion: "El merengue es una de las preparaciones más técnicas.",
-      categoria: "Técnicas",
-      fecha: "2025-08-10",
-      autor: "Carlos Rodríguez",
-      imagen: "https://images.unsplash.com/photo-1557925923-cd4648e211a0?w=800",
-      tiempoLectura: "7 min"
-    },
-    {
-      id: 5,
-      slug: "torta-chocolate-humeda",
-      titulo: "Torta de Chocolate Húmeda",
-      descripcion: "La receta definitiva para una torta que se derrite en la boca.",
-      categoria: "Recetas",
-      fecha: "2025-08-05",
-      autor: "Ana Martínez",
-      imagen: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800",
-      tiempoLectura: "6 min"
-    },
-    {
-      id: 6,
-      slug: "buttercream-tecnicas",
-      titulo: "Buttercream: Técnicas de Decoración",
-      descripcion: "La crema más versátil para decorar pasteles.",
-      categoria: "Decoración",
-      fecha: "2025-08-01",
-      autor: "Carlos Rodríguez",
-      imagen: "https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=800",
-      tiempoLectura: "9 min"
-    },
-    {
-      id: 7,
-      slug: "cupcakes-fantasmas-halloween",
-      titulo: "Cupcakes de Fantasmas Espeluznantes",
-      descripcion: "Perfectos para Halloween, adorables y deliciosos.",
-      categoria: "Halloween",
-      fecha: "2025-10-15",
-      autor: "Ana Martínez",
-      imagen: "https://images.unsplash.com/photo-1599785209796-786432b228bc?w=800",
-      tiempoLectura: "8 min"
-    },
-    {
-      id: 8,
-      slug: "galletas-calabaza-halloween",
-      titulo: "Galletas de Calabaza Especiadas",
-      descripcion: "Suaves, especiadas y con el sabor perfecto del otoño.",
-      categoria: "Halloween",
-      fecha: "2025-10-14",
-      autor: "María González",
-      imagen: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800",
-      tiempoLectura: "7 min"
-    },
-    {
-      id: 9,
-      slug: "torta-cementerio-halloween",
-      titulo: "Torta Cementerio de Chocolate",
-      descripcion: "Una torta espeluznante perfecta para Halloween.",
-      categoria: "Halloween",
-      fecha: "2025-10-13",
-      autor: "Carlos Rodríguez",
-      imagen: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=800",
-      tiempoLectura: "12 min"
-    },
-    {
-      id: 10,
-      slug: "secretos-torta-chocolate-perfecta",
-      titulo: "Los Secretos de la Torta de Chocolate Perfecta",
-      descripcion: "Descubre los trucos para crear la torta más deliciosa.",
-      categoria: "Consejos",
-      fecha: "2025-10-15",
-      autor: "Carlos Rodríguez",
-      imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
-      tiempoLectura: "5 min"
-    },
-    {
-      id: 11,
-      slug: "historia-pasteleria-chilena",
-      titulo: "La Historia de la Pastelería Chilena",
-      descripcion: "Un viaje por la evolución de los postres en Chile.",
-      categoria: "Historia",
-      fecha: "2025-10-10",
-      autor: "María González",
-      imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
-      tiempoLectura: "8 min"
-    },
-    {
-      id: 12,
-      slug: "consejos-conservar-postres",
-      titulo: "Consejos para Conservar tus Postres Favoritos",
-      descripcion: "Tips profesionales para mantener la frescura y sabor.",
-      categoria: "Consejos",
-      fecha: "2025-10-08",
-      autor: "Ana Martínez",
-      imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
-      tiempoLectura: "4 min"
-    }
-  ];
+export const blogLoader = async() => {
+    await simulateNetworkDelay(300);
 
-  // Categorías únicas
-  const categories = ['Todas', ...new Set(articles.map(a => a.categoria))];
+    // Todos los artículos del blog
+    const articles = [{
+            id: 1,
+            slug: "decoracion-frutas-frescas",
+            titulo: "Decoración con Frutas Frescas",
+            descripcion: "Las frutas frescas son una de las mejores formas de decorar pasteles.",
+            categoria: "Decoración",
+            fecha: "2025-08-27",
+            autor: "Ana Martínez",
+            imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
+            tiempoLectura: "6 min"
+        },
+        {
+            id: 2,
+            slug: "pie-limon-clasico",
+            titulo: "Receta: Pie de Limón Clásico",
+            descripcion: "Una receta tradicional que nunca pasa de moda.",
+            categoria: "Recetas",
+            fecha: "2025-08-21",
+            autor: "Carlos Rodríguez",
+            imagen: "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=800",
+            tiempoLectura: "8 min"
+        },
+        {
+            id: 3,
+            slug: "historia-queque-marmoleado",
+            titulo: "Historia del Queque Marmoleado",
+            descripcion: "Un clásico de la repostería con raíces europeas.",
+            categoria: "Historia",
+            fecha: "2025-08-14",
+            autor: "María González",
+            imagen: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=800",
+            tiempoLectura: "5 min"
+        },
+        {
+            id: 4,
+            slug: "merengue-perfecto",
+            titulo: "Secretos del Merengue Perfecto",
+            descripcion: "El merengue es una de las preparaciones más técnicas.",
+            categoria: "Técnicas",
+            fecha: "2025-08-10",
+            autor: "Carlos Rodríguez",
+            imagen: "https://images.unsplash.com/photo-1557925923-cd4648e211a0?w=800",
+            tiempoLectura: "7 min"
+        },
+        {
+            id: 5,
+            slug: "torta-chocolate-humeda",
+            titulo: "Torta de Chocolate Húmeda",
+            descripcion: "La receta definitiva para una torta que se derrite en la boca.",
+            categoria: "Recetas",
+            fecha: "2025-08-05",
+            autor: "Ana Martínez",
+            imagen: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800",
+            tiempoLectura: "6 min"
+        },
+        {
+            id: 6,
+            slug: "buttercream-tecnicas",
+            titulo: "Buttercream: Técnicas de Decoración",
+            descripcion: "La crema más versátil para decorar pasteles.",
+            categoria: "Decoración",
+            fecha: "2025-08-01",
+            autor: "Carlos Rodríguez",
+            imagen: "https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=800",
+            tiempoLectura: "9 min"
+        },
+        {
+            id: 7,
+            slug: "cupcakes-fantasmas-halloween",
+            titulo: "Cupcakes de Fantasmas Espeluznantes",
+            descripcion: "Perfectos para Halloween, adorables y deliciosos.",
+            categoria: "Halloween",
+            fecha: "2025-10-15",
+            autor: "Ana Martínez",
+            imagen: "https://images.unsplash.com/photo-1599785209796-786432b228bc?w=800",
+            tiempoLectura: "8 min"
+        },
+        {
+            id: 8,
+            slug: "galletas-calabaza-halloween",
+            titulo: "Galletas de Calabaza Especiadas",
+            descripcion: "Suaves, especiadas y con el sabor perfecto del otoño.",
+            categoria: "Halloween",
+            fecha: "2025-10-14",
+            autor: "María González",
+            imagen: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800",
+            tiempoLectura: "7 min"
+        },
+        {
+            id: 9,
+            slug: "torta-cementerio-halloween",
+            titulo: "Torta Cementerio de Chocolate",
+            descripcion: "Una torta espeluznante perfecta para Halloween.",
+            categoria: "Halloween",
+            fecha: "2025-10-13",
+            autor: "Carlos Rodríguez",
+            imagen: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=800",
+            tiempoLectura: "12 min"
+        },
+        {
+            id: 10,
+            slug: "secretos-torta-chocolate-perfecta",
+            titulo: "Los Secretos de la Torta de Chocolate Perfecta",
+            descripcion: "Descubre los trucos para crear la torta más deliciosa.",
+            categoria: "Consejos",
+            fecha: "2025-10-15",
+            autor: "Carlos Rodríguez",
+            imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
+            tiempoLectura: "5 min"
+        },
+        {
+            id: 11,
+            slug: "historia-pasteleria-chilena",
+            titulo: "La Historia de la Pastelería Chilena",
+            descripcion: "Un viaje por la evolución de los postres en Chile.",
+            categoria: "Historia",
+            fecha: "2025-10-10",
+            autor: "María González",
+            imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
+            tiempoLectura: "8 min"
+        },
+        {
+            id: 12,
+            slug: "consejos-conservar-postres",
+            titulo: "Consejos para Conservar tus Postres Favoritos",
+            descripcion: "Tips profesionales para mantener la frescura y sabor.",
+            categoria: "Consejos",
+            fecha: "2025-10-08",
+            autor: "Ana Martínez",
+            imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
+            tiempoLectura: "4 min"
+        }
+    ];
 
-  return {
-    articles,
-    categories
-  };
+    // Categorías únicas
+    const categories = ['Todas', ...new Set(articles.map(a => a.categoria))];
+
+    return {
+        articles,
+        categories
+    };
 };
 
 // ============================================================================
 // LOADER PARA ARTÍCULO INDIVIDUAL DEL BLOG
 // ============================================================================
 
-export const articuloLoader = async ({ params }) => {
-  await simulateNetworkDelay(300);
-  
-  const { slug } = params;
+export const articuloLoader = async({ params }) => {
+    await simulateNetworkDelay(300);
 
-  // Base de datos completa de artículos con contenido
-  const articles = [
-    {
-      id: 1,
-      slug: "decoracion-frutas-frescas",
-      titulo: "Decoración con Frutas Frescas",
-      descripcion: "Las frutas frescas son una de las mejores formas de decorar pasteles.",
-      categoria: "Decoración",
-      fecha: "2025-08-27",
-      autor: "Ana Martínez",
-      imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
-      tiempoLectura: "6 min",
-      contenido: `
+    const { slug } = params;
+
+    // Base de datos completa de artículos con contenido
+    const articles = [{
+            id: 1,
+            slug: "decoracion-frutas-frescas",
+            titulo: "Decoración con Frutas Frescas",
+            descripcion: "Las frutas frescas son una de las mejores formas de decorar pasteles.",
+            categoria: "Decoración",
+            fecha: "2025-08-27",
+            autor: "Ana Martínez",
+            imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
+            tiempoLectura: "6 min",
+            contenido: `
 Las frutas frescas son una de las mejores formas de decorar pasteles, aportando color, sabor y una presentación profesional.
 
 ## Selección de frutas
@@ -199,18 +204,18 @@ Elige siempre frutas de temporada y en su punto óptimo de maduración. Las fres
 
 Aplica un glaseado neutro para mantener las frutas frescas y brillantes por más tiempo.
       `
-    },
-    {
-      id: 2,
-      slug: "pie-limon-clasico",
-      titulo: "Receta: Pie de Limón Clásico",
-      descripcion: "Una receta tradicional que nunca pasa de moda.",
-      categoria: "Recetas",
-      fecha: "2025-08-21",
-      autor: "Carlos Rodríguez",
-      imagen: "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=800",
-      tiempoLectura: "8 min",
-      contenido: `
+        },
+        {
+            id: 2,
+            slug: "pie-limon-clasico",
+            titulo: "Receta: Pie de Limón Clásico",
+            descripcion: "Una receta tradicional que nunca pasa de moda.",
+            categoria: "Recetas",
+            fecha: "2025-08-21",
+            autor: "Carlos Rodríguez",
+            imagen: "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=800",
+            tiempoLectura: "8 min",
+            contenido: `
 Una receta tradicional que nunca pasa de moda. Este pie de limón combina la acidez perfecta del limón con un merengue suave.
 
 ## Ingredientes para la base
@@ -231,18 +236,18 @@ Una receta tradicional que nunca pasa de moda. Este pie de limón combina la aci
 4. Hornear a 180°C por 15 minutos
 5. Cubrir con merengue y gratinar
       `
-    },
-    {
-      id: 3,
-      slug: "historia-queque-marmoleado",
-      titulo: "Historia del Queque Marmoleado",
-      descripcion: "Un clásico de la repostería con raíces europeas.",
-      categoria: "Historia",
-      fecha: "2025-08-14",
-      autor: "María González",
-      imagen: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=800",
-      tiempoLectura: "5 min",
-      contenido: `
+        },
+        {
+            id: 3,
+            slug: "historia-queque-marmoleado",
+            titulo: "Historia del Queque Marmoleado",
+            descripcion: "Un clásico de la repostería con raíces europeas.",
+            categoria: "Historia",
+            fecha: "2025-08-14",
+            autor: "María González",
+            imagen: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=800",
+            tiempoLectura: "5 min",
+            contenido: `
 El queque marmoleado es un clásico de la repostería que tiene sus raíces en Europa, especialmente en Austria y Alemania.
 
 ## Orígenes europeos
@@ -261,18 +266,18 @@ El secreto está en alternar las masas de vainilla y chocolate, creando ondas na
 
 En Chile, el queque marmoleado se convirtió en un clásico de las once familiares y celebraciones íntimas.
       `
-    },
-    {
-      id: 4,
-      slug: "merengue-perfecto",
-      titulo: "Secretos del Merengue Perfecto",
-      descripcion: "El merengue es una de las preparaciones más técnicas.",
-      categoria: "Técnicas",
-      fecha: "2025-08-10",
-      autor: "Carlos Rodríguez",
-      imagen: "https://images.unsplash.com/photo-1557925923-cd4648e211a0?w=800",
-      tiempoLectura: "7 min",
-      contenido: `
+        },
+        {
+            id: 4,
+            slug: "merengue-perfecto",
+            titulo: "Secretos del Merengue Perfecto",
+            descripcion: "El merengue es una de las preparaciones más técnicas.",
+            categoria: "Técnicas",
+            fecha: "2025-08-10",
+            autor: "Carlos Rodríguez",
+            imagen: "https://images.unsplash.com/photo-1557925923-cd4648e211a0?w=800",
+            tiempoLectura: "7 min",
+            contenido: `
 El merengue es una de las preparaciones más técnicas de la repostería. Aquí te revelamos todos los secretos.
 
 ## Tipos de merengue
@@ -294,18 +299,18 @@ El merengue es una de las preparaciones más técnicas de la repostería. Aquí 
 - **Granuloso**: Azúcar mal incorporada
 - **Aguado**: Humedad en el ambiente
       `
-    },
-    {
-      id: 5,
-      slug: "torta-chocolate-humeda",
-      titulo: "Torta de Chocolate Húmeda",
-      descripcion: "La receta definitiva para una torta que se derrite en la boca.",
-      categoria: "Recetas",
-      fecha: "2025-08-05",
-      autor: "Ana Martínez",
-      imagen: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800",
-      tiempoLectura: "6 min",
-      contenido: `
+        },
+        {
+            id: 5,
+            slug: "torta-chocolate-humeda",
+            titulo: "Torta de Chocolate Húmeda",
+            descripcion: "La receta definitiva para una torta que se derrite en la boca.",
+            categoria: "Recetas",
+            fecha: "2025-08-05",
+            autor: "Ana Martínez",
+            imagen: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800",
+            tiempoLectura: "6 min",
+            contenido: `
 La receta definitiva para una torta de chocolate que se derrite en la boca. Un clásico que nunca falla.
 
 ## Ingredientes secretos
@@ -331,18 +336,18 @@ La receta definitiva para una torta de chocolate que se derrite en la boca. Un c
 
 Deja enfriar completamente antes de desmoldar. La torta mejora al día siguiente.
       `
-    },
-    {
-      id: 6,
-      slug: "buttercream-tecnicas",
-      titulo: "Buttercream: Técnicas de Decoración",
-      descripcion: "La crema más versátil para decorar pasteles.",
-      categoria: "Decoración",
-      fecha: "2025-08-01",
-      autor: "Carlos Rodríguez",
-      imagen: "https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=800",
-      tiempoLectura: "9 min",
-      contenido: `
+        },
+        {
+            id: 6,
+            slug: "buttercream-tecnicas",
+            titulo: "Buttercream: Técnicas de Decoración",
+            descripcion: "La crema más versátil para decorar pasteles.",
+            categoria: "Decoración",
+            fecha: "2025-08-01",
+            autor: "Carlos Rodríguez",
+            imagen: "https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=800",
+            tiempoLectura: "9 min",
+            contenido: `
 El buttercream es la crema más versátil para decorar. Aprende las técnicas fundamentales para lograr decoraciones profesionales.
 
 ## Tipos de buttercream
@@ -376,18 +381,18 @@ El buttercream es la crema más versátil para decorar. Aprende las técnicas fu
 - Practica primero en un plato antes que en la torta
 - Mantén las mangas siempre limpias
       `
-    },
-    {
-      id: 7,
-      slug: "cupcakes-fantasmas-halloween",
-      titulo: "Cupcakes de Fantasmas Espeluznantes",
-      descripcion: "Perfectos para Halloween, adorables y deliciosos.",
-      categoria: "Halloween",
-      fecha: "2025-10-15",
-      autor: "Ana Martínez",
-      imagen: "https://images.unsplash.com/photo-1599785209796-786432b228bc?w=800",
-      tiempoLectura: "8 min",
-      contenido: `
+        },
+        {
+            id: 7,
+            slug: "cupcakes-fantasmas-halloween",
+            titulo: "Cupcakes de Fantasmas Espeluznantes",
+            descripcion: "Perfectos para Halloween, adorables y deliciosos.",
+            categoria: "Halloween",
+            fecha: "2025-10-15",
+            autor: "Ana Martínez",
+            imagen: "https://images.unsplash.com/photo-1599785209796-786432b228bc?w=800",
+            tiempoLectura: "8 min",
+            contenido: `
 Perfectos para Halloween, estos cupcakes de vainilla decorados como fantasmas son adorables y deliciosos.
 
 ## Base de cupcakes de vainilla
@@ -421,18 +426,18 @@ Perfectos para Halloween, estos cupcakes de vainilla decorados como fantasmas so
 - Usa coco rallado teñido de gris para efecto "polvoriento"
 - Sirve en bases negras o naranjas para más dramatismo
       `
-    },
-    {
-      id: 8,
-      slug: "galletas-calabaza-halloween",
-      titulo: "Galletas de Calabaza Especiadas",
-      descripcion: "Suaves, especiadas y con el sabor perfecto del otoño.",
-      categoria: "Halloween",
-      fecha: "2025-10-14",
-      autor: "María González",
-      imagen: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800",
-      tiempoLectura: "7 min",
-      contenido: `
+        },
+        {
+            id: 8,
+            slug: "galletas-calabaza-halloween",
+            titulo: "Galletas de Calabaza Especiadas",
+            descripcion: "Suaves, especiadas y con el sabor perfecto del otoño.",
+            categoria: "Halloween",
+            fecha: "2025-10-14",
+            autor: "María González",
+            imagen: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800",
+            tiempoLectura: "7 min",
+            contenido: `
 Suaves, especiadas y con el sabor perfecto del otoño. Estas galletas son ideales para Halloween y fiestas temáticas.
 
 ## Ingredientes especiales
@@ -472,18 +477,18 @@ Suaves, especiadas y con el sabor perfecto del otoño. Estas galletas son ideale
 - Formas de calabaza con cortadores especiales
 - Empolvado con canela para acabado rústico
       `
-    },
-    {
-      id: 9,
-      slug: "torta-cementerio-halloween",
-      titulo: "Torta Cementerio de Chocolate",
-      descripcion: "Una torta espeluznante perfecta para Halloween.",
-      categoria: "Halloween",
-      fecha: "2025-10-13",
-      autor: "Carlos Rodríguez",
-      imagen: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=800",
-      tiempoLectura: "12 min",
-      contenido: `
+        },
+        {
+            id: 9,
+            slug: "torta-cementerio-halloween",
+            titulo: "Torta Cementerio de Chocolate",
+            descripcion: "Una torta espeluznante perfecta para Halloween.",
+            categoria: "Halloween",
+            fecha: "2025-10-13",
+            autor: "Carlos Rodríguez",
+            imagen: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=800",
+            tiempoLectura: "12 min",
+            contenido: `
 Una torta espeluznante perfecta para Halloween. Chocolate húmedo decorado como un terrorífico cementerio.
 
 ## Base: Torta de chocolate oscura
@@ -535,18 +540,18 @@ Una torta espeluznante perfecta para Halloween. Chocolate húmedo decorado como 
 - Niebla seca para efecto especial
 - Servir con cucharas en forma de pala
       `
-    },
-    {
-      id: 10,
-      slug: "secretos-torta-chocolate-perfecta",
-      titulo: "Los Secretos de la Torta de Chocolate Perfecta",
-      descripcion: "Descubre los trucos para crear la torta más deliciosa.",
-      categoria: "Consejos",
-      fecha: "2025-10-15",
-      autor: "Carlos Rodríguez",
-      imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
-      tiempoLectura: "5 min",
-      contenido: `
+        },
+        {
+            id: 10,
+            slug: "secretos-torta-chocolate-perfecta",
+            titulo: "Los Secretos de la Torta de Chocolate Perfecta",
+            descripcion: "Descubre los trucos para crear la torta más deliciosa.",
+            categoria: "Consejos",
+            fecha: "2025-10-15",
+            autor: "Carlos Rodríguez",
+            imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
+            tiempoLectura: "5 min",
+            contenido: `
 En Mil Sabores hemos perfeccionado nuestra receta de torta de chocolate durante más de 30 años. Aquí te compartimos algunos de nuestros secretos mejor guardados.
 
 ## Ingredientes de calidad
@@ -565,18 +570,18 @@ El batido de la mantequilla con el azúcar debe durar exactamente 5 minutos para
 
 Nuestro ingrediente secreto es una cucharadita de café instantáneo que intensifica el sabor del chocolate sin aportar sabor a café.
       `
-    },
-    {
-      id: 11,
-      slug: "historia-pasteleria-chilena",
-      titulo: "La Historia de la Pastelería Chilena",
-      descripcion: "Un viaje por la evolución de los postres en Chile.",
-      categoria: "Historia",
-      fecha: "2025-10-10",
-      autor: "María González",
-      imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
-      tiempoLectura: "8 min",
-      contenido: `
+        },
+        {
+            id: 11,
+            slug: "historia-pasteleria-chilena",
+            titulo: "La Historia de la Pastelería Chilena",
+            descripcion: "Un viaje por la evolución de los postres en Chile.",
+            categoria: "Historia",
+            fecha: "2025-10-10",
+            autor: "María González",
+            imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
+            tiempoLectura: "8 min",
+            contenido: `
 La pastelería en Chile tiene una rica historia que combina tradiciones indígenas, españolas y europeas, creando una identidad única en el mundo de los postres.
 
 ## Los orígenes
@@ -598,18 +603,18 @@ Durante el siglo XIX, la inmigración alemana, francesa e italiana enriqueció n
 
 Hoy en día, los pasteleros chilenos combinan tradición con innovación, creando postres únicos que representan nuestra identidad culinaria.
       `
-    },
-    {
-      id: 12,
-      slug: "consejos-conservar-postres",
-      titulo: "Consejos para Conservar tus Postres Favoritos",
-      descripcion: "Tips profesionales para mantener la frescura y sabor.",
-      categoria: "Consejos",
-      fecha: "2025-10-08",
-      autor: "Ana Martínez",
-      imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
-      tiempoLectura: "4 min",
-      contenido: `
+        },
+        {
+            id: 12,
+            slug: "consejos-conservar-postres",
+            titulo: "Consejos para Conservar tus Postres Favoritos",
+            descripcion: "Tips profesionales para mantener la frescura y sabor.",
+            categoria: "Consejos",
+            fecha: "2025-10-08",
+            autor: "Ana Martínez",
+            imagen: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800",
+            tiempoLectura: "4 min",
+            contenido: `
 La conservación adecuada es clave para disfrutar al máximo de nuestros postres caseros. Aquí te compartimos los mejores tips profesionales.
 
 ## Tipos de conservación según el postre
@@ -664,19 +669,19 @@ La conservación adecuada es clave para disfrutar al máximo de nuestros postres
 
 Muchos postres mejoran al segundo día, cuando los sabores se integran mejor. ¡No siempre lo más fresco es lo más sabroso!
       `
+        }
+    ];
+
+    // Buscar el artículo por slug
+    const article = articles.find(a => a.slug === slug);
+
+    // Si no se encuentra, lanzar error 404
+    if (!article) {
+        throw new Response("Artículo no encontrado", { status: 404 });
     }
-  ];
 
-  // Buscar el artículo por slug
-  const article = articles.find(a => a.slug === slug);
-
-  // Si no se encuentra, lanzar error 404
-  if (!article) {
-    throw new Response("Artículo no encontrado", { status: 404 });
-  }
-
-  return { 
-    article: article,
-    post: article  // Alias para compatibilidad con el hook
-  };
+    return {
+        article: article,
+        post: article // Alias para compatibilidad con el hook
+    };
 };

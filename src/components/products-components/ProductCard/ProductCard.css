@@ -1,4 +1,5 @@
 .product-card-item {
+    background-color: var(--lemon-light);
     height: 100%;
     min-height: 550px;
     /* Altura mínima fija para estandarizar todos los cards */
@@ -25,11 +26,12 @@
 }
 
 .product-card-image {
+    background-color: var(--lemon-lighter);
     width: 100%;
     height: 250px;
     object-fit: contain;
     transition: transform 0.3s ease;
-    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.15);
     border-radius: 15px;
 }
 
@@ -231,7 +233,7 @@
 .add-to-cart-btn-inline:hover {
     border: 2px solid var(--lemon-light) !important;
     background-color: var(--strawberry-emphasis) !important;
-    color: var(--lemon-light) !important;
+    color: var(--chocolate) !important;
     /* Color del icono al hacer hover */
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(255, 255, 255, 1);
@@ -245,7 +247,7 @@
 /* Botón de sin stock (mantener estilo original) */
 
 .add-to-cart-btn {
-    background-color: var(--strawberry) !important;
+    background-color: var(--strawberry-light) !important;
     border: 1px solid var(--lemon-light) !important;
     padding: 0.75rem;
     border-radius: 8px;
@@ -267,8 +269,20 @@
     cursor: not-allowed;
 }
 
-.add-to-cart-btn-inline btn btn-primary {
+.add-to-cart-btn-inline.btn.btn-primary {
+    color: var(--chocolate);
+    background-color: var(--lemon-light) !important;
+    border: 1px solid var(--chocolate-dark) !important;
+    width: 40px;
+    height: 40px;
     padding: 0;
     border: none;
-    box-shadow: 10px 4px 8px rgba(255, 255, 255, 1);
+    box-shadow: 0px 2px 8px rgba(255, 255, 255, 1);
+}
+
+.add-to-cart-btn-inline.btn.btn-primary:hover {
+    background-color: var(--strawberry-emphasis) !important;
+    color: var(--lemon-light) !important;
+    border: 1px solid var(--chocolate-dark) !important;
+    box-shadow: 0px 0px px rgb(255, 255, 255);
 }

@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import '../home-components/Hero/Hero.css';
-import heroBg from '../../assets/hero-bg.png';
+import heroBg from '../../assets/contactBg.png';
 
 export default function ContactoHeroNew() {
     return (

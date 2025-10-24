@@ -1,8 +1,8 @@
 ﻿import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { validarEmail, validarTelefono, validarNombre, validarAsunto, validarMensaje } from './FormValidation';
-import { authService } from '../../../services/authService';
-import UserLogin from '../../root/user/UserLogin';
+import { authService } from '../../services/authService';
+import UserLogin from '../root/user/UserLogin';
 import './ContactForm.css';
 
 export default function ContactForm({ opcionesAsunto }) {

@@ -1,6 +1,6 @@
 ﻿import { useLoaderData } from 'react-router-dom';
-import ContactoHeroNew from '../../components/contacto-components/ContactoHeroNew';
-import { ContactForm, ContactInfo } from '../../components/root/ContactoComponents';
+import ContactoHeroNew from '../../components/ContactoComponents/ContactoHeroNew';
+import { ContactForm, ContactInfo } from '../../components/ContactoComponents';
 import './contacto.css';
 
 export default function Contacto() {

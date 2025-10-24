@@ -9,17 +9,16 @@ import Articulo from './pages/blog/articulo'
 import Contacto from './pages/contacto/index'
 import MensajesContacto from './pages/mensajes-contacto/index'
 import Register from './pages/register/index'
+import Checkout from './pages/checkout/index'
 
 // Solo importar los loaders que realmente necesitamos
 import {
+  homeLoader,
   blogLoader,
   articuloLoader,
   contactoLoader,
-  nosotrosLoader,
-  homeLoader
+  nosotrosLoader
 } from "./loaders";
-
-import { homeLoader } from './loaders/homeLoader.jsx'
 
 // Importar componente de error
 import ErrorBoundary from "./components/common/ErrorBoundary";

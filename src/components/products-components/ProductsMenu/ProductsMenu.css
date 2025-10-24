@@ -7,17 +7,19 @@
     position: fixed;
     /* Posición dinámica - se mueve hacia arriba cuando navbar se oculta */
     top: var(--sidebar-top, 110px);
+    /* Margen inferior dinámico - se ajusta cuando está cerca del footer */
+    bottom: var(--sidebar-bottom, 20px);
     left: calc(2rem + 1rem);
     /* padding del container + padding de la columna */
     width: calc(25% - 4rem);
     /* 25% es 1/4 del ancho, menos los paddings */
     max-width: 350px;
-    /* Altura dinámica que se ajusta cuando el navbar desaparece */
-    max-height: var(--sidebar-max-height, calc(100vh - 130px));
+    /* Altura automática - se calcula entre top y bottom */
+    height: auto;
     overflow-y: auto;
     z-index: 100;
-    /* Transición suave para top y max-height */
-    transition: top 0.3s ease, max-height 0.3s ease;
+    /* Transición suave solo para top, bottom es instantáneo para seguir el scroll */
+    transition: top 0.3s ease;
 }
 
 .menu-section {

@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import BlogHeroNew from '../../components/blog-components/BlogHeroNew';
-import { BlogGrid, CategoryFilter } from '../../components/root/BlogComponents';
+import BlogHeroNew from '../../components/BlogComponents/BlogHeroNew';
+import { BlogGrid, CategoryFilter } from '../../components/BlogComponents';
 import { useBlogData } from '../../hooks/useLoaderData';
 import './blog.css';
 
