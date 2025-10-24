@@ -57,7 +57,7 @@ export default function ProductCard({ product }) {
                     </Badge>
                 )}
                 {product.personalizable && (
-                    <Badge bg="info" className="customizable-badge">
+                    <Badge className="customizable-badge">
                         Personalizable
                     </Badge>
                 )}

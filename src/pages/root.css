@@ -43,8 +43,8 @@
     --mint-light: #e4e3be;
     --mint-lighter: #F2F1DE;
     --mint-dark: #C9C89C;
-    --mint-darker: #BAB986;
-    --mint-emphasis: #ABAA70;
+    --mint-darker: #a7a564;
+    --mint-emphasis: #a8a753;
     /* === COLORES FUNCIONALES BOOTSTRAP === */
     /* Principales */
     --bs-primary: var(--strawberry);

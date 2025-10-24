@@ -7,6 +7,7 @@ import PersonalizaTuTorta from './pages/personaliza-tu-torta/index'
 import Blog from './pages/blog/index'
 import Contacto from './pages/contacto/index'
 import Register from './pages/register/index'
+import Checkout from './pages/checkout/index'
 import { homeLoader } from './loaders/homeLoader.jsx'
 
 export const router = createBrowserRouter([
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
             {
                 path: 'register',
                 Component: Register
+            },
+            {
+                path: 'checkout',
+                Component: Checkout
             }
         ]
     }
