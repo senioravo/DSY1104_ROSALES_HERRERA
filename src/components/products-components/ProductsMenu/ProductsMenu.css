@@ -5,7 +5,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border: 2px solid var(--mint-light);
     position: fixed;
-    /* Ajuste dinámico basado en visibilidad del navbar */
+    /* Posición dinámica - se mueve hacia arriba cuando navbar se oculta */
     top: var(--sidebar-top, 110px);
     left: calc(2rem + 1rem);
     /* padding del container + padding de la columna */
@@ -16,8 +16,8 @@
     max-height: var(--sidebar-max-height, calc(100vh - 130px));
     overflow-y: auto;
     z-index: 100;
-    /* Transición suave para top, instantánea para max-height (evitar cubrir footer) */
-    transition: top 0.3s ease, max-height 0.05s ease;
+    /* Transición suave para top y max-height */
+    transition: top 0.3s ease, max-height 0.3s ease;
 }
 
 .menu-section {

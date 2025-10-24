@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Offcanvas, Button, ListGroup, Badge } from 'react-bootstrap';
 import { Cart3, Trash, Plus, Dash } from 'react-bootstrap-icons';
 import { cartService } from '../../../services/cartService';
 import './Cart.css';
 
 export default function CarritoLateral() {
+  const navigate = useNavigate();
   const [mostrar, setMostrar] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [userLoginVisible, setUserLoginVisible] = useState(false);
+  const [buttonVisible, setButtonVisible] = useState(true);
 
-  const handleCerrar = () => setMostrar(false);
+  const handleCerrar = () => {
+    setMostrar(false);
+    // Ocultar el botón inmediatamente cuando se cierra el cart
+    setButtonVisible(false);
+    // Mostrar el botón después de 0.5 segundos con transición
+    setTimeout(() => {
+      setButtonVisible(true);
+    }, 500);
+  };
+  
   const handleMostrar = () => setMostrar(true);
 
   // Cargar carrito al montar y cuando se actualice
@@ -85,6 +97,7 @@ export default function CarritoLateral() {
           onClick={handleMostrar} 
           id="cart-button"
           variant="primary"
+          className={`cart-button-transition ${buttonVisible ? 'cart-button-visible' : 'cart-button-hidden'}`}
         >
           <Cart3 size={20}/>
           {itemCount > 0 && (
@@ -98,7 +111,7 @@ export default function CarritoLateral() {
       {/* 🛒 Ventana lateral del carrito */}
       <Offcanvas show={mostrar} onHide={handleCerrar} placement="end" className="cart-offcanvas">
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Tu Carrito</Offcanvas.Title>
+          <Offcanvas.Title className='offcanvas-title'>Tu Carrito</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           {cartItems.length === 0 ? (
@@ -163,6 +176,10 @@ export default function CarritoLateral() {
                   variant="success" 
                   className="w-100 mb-2 checkout-btn"
                   size="lg"
+                  onClick={() => {
+                    handleCerrar();
+                    navigate('/checkout');
+                  }}
                 >
                   Finalizar compra
                 </Button>

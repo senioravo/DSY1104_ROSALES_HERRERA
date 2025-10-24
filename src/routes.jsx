@@ -15,7 +15,8 @@ import {
   blogLoader,
   articuloLoader,
   contactoLoader,
-  nosotrosLoader
+  nosotrosLoader,
+  homeLoader
 } from "./loaders";
 
 import { homeLoader } from './loaders/homeLoader.jsx'
@@ -74,6 +75,10 @@ export const router = createBrowserRouter([
             {
                 path: 'register',
                 Component: Register
+            },
+            {
+                path: 'checkout',
+                Component: Checkout
             }
         ]
     }

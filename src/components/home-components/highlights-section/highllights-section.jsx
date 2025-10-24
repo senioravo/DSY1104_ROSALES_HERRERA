@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import './highlights-section.css';
 import { PRODUCTS_PS } from '../../../data/productos';
+import { cartService } from '../../../services/cartService';
 
 export default function HighlightsSection() {
     // Seleccionar productos destacados (TC001, TC002, PI001)
@@ -35,15 +36,22 @@ export default function HighlightsSection() {
     };
 
     const handleAddToCart = (product) => {
-        // Lógica del carrito se implementará más adelante
-        console.log(`Agregando ${quantities[product.code]} unidad(es) de ${product.nombre} al carrito`);
-        console.log('Producto:', {
-            code: product.code,
-            nombre: product.nombre,
-            precio: product.precioCLP,
-            cantidad: quantities[product.code],
-            total: product.precioCLP * quantities[product.code]
-        });
+        try {
+            // Agregar producto al carrito usando el servicio
+            cartService.addToCart(product, quantities[product.code]);
+            
+            // Mensaje de confirmación opcional
+            console.log(`✅ Agregado al carrito: ${quantities[product.code]} unidad(es) de ${product.nombre}`);
+            
+            // Resetear la cantidad a 1 después de agregar
+            setQuantities(prev => ({
+                ...prev,
+                [product.code]: 1
+            }));
+            
+        } catch (error) {
+            console.error('Error al agregar producto al carrito:', error);
+        }
     };
 
     // Función helper para cargar imágenes dinámicamente
