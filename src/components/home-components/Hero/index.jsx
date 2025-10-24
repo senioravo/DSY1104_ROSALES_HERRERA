@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import './Hero.css';
 import heroBg from '../../../assets/hero-bg.png';
+import { Link } from 'react-router';
 
 export default function Hero() {
     return (
@@ -26,14 +27,9 @@ export default function Hero() {
                             <div className="hero-content">
                                 <h1 className="hero-title mb-3">Mil Sabores</h1>
                                 <h4 className="hero-subtitle mb-4">El dulce sabor de la tradición</h4>
-                                <Button 
-                                    variant="outline-light" 
-                                    size="lg" 
-                                    className="hero-cta"
-                                    href="/productos"
-                                >
+                                <Link to="/productos" className="btn btn-outline-light btn-lg hero-cta">
                                     Descubre nuestros sabores
-                                </Button>
+                                </Link>
                             </div>
                         </Col>
                     </Row>
