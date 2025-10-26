@@ -36,6 +36,8 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 #custom-cake-button:hover {
@@ -43,4 +45,5 @@
     color: var(--strawberry-emphasis);
     transform: scale(1.05);
     transition: transform 0.3s ease;
+    text-decoration: none;
 }
