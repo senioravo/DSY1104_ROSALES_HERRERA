@@ -201,7 +201,7 @@
 }
 
 #navBarRoot.navbar {
-    background-color: var(--mint-lighter) !important;
+    background-color: var(--lemon-lighter) !important;
     width: 100% !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -258,10 +258,13 @@
 }
 
 #navBarRoot .navbar-brand:hover {
-    color: var(--strawberry-darker) !important;
+    color: var(--lemon-lighter) !important;
     text-shadow: 0px 0px 6px var(--strawberry-emphasis) !important;
-    /* transicion */
-    transition: color 0.3s ease, text-shadow 0.3s ease;
+    background-color: rgb(232, 86, 113) !important;
+    border-radius: 12px !important;
+    padding-inline: 12px !important;
+    /* transiciones */
+    transition: all 0.5s ease !important;
 }
 
 #navBarRoot .nav-link {
@@ -280,7 +283,7 @@
 /* Estilos para Link personalizados en el navbar */
 
 #navBarRoot .navbar-nav>a {
-    background-color: var(--mint-dark);
+    background-color: var(--mint-light) !important;
     color: var(--chocolate-emphasis) !important;
     text-decoration: none !important;
     padding: 0.5rem 1rem !important;

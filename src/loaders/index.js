@@ -1,18 +1,16 @@
-// Loaders para React Router
-// Archivo: src/loaders/index.js
-// 
-// Este archivo exporta todos los loaders necesarios para las rutas
-
-// Exportar loaders individuales
 export { homeLoader }
 from './homeLoader.jsx';
 export { contactoLoader }
 from './contactoLoader.jsx';
 export { nosotrosLoader }
 from './nosotrosLoader.jsx';
+export { productsLoader }
+from './productsLoader.jsx';
+export { personalizeLoader }
+from './personalizeLoader.jsx';
 
 // Simulamos delay de red para demostrar la funcionalidad de loaders
-const simulateNetworkDelay = (ms = 500) => {
+const simulateNetworkDelay = (ms = 1000) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 };
 
