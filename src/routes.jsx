@@ -10,6 +10,11 @@ import Contacto from './pages/contacto/index'
 import MensajesContacto from './pages/mensajes-contacto/index'
 import Register from './pages/register/index'
 import Checkout from './pages/checkout/index'
+import TestIndex from './pages/test-index/index'
+import TestProductos from './pages/test-productos/index'
+import TestUsuarios from './pages/test-usuarios/index'
+import TestCarrito from './pages/test-carrito/index'
+import TestVentas from './pages/test-ventas/index'
 
 // Solo importar los loaders que realmente necesitamos
 import {
@@ -78,6 +83,26 @@ export const router = createBrowserRouter([
             {
                 path: 'checkout',
                 Component: Checkout
+            },
+            {
+                path: 'test-api',
+                Component: TestIndex
+            },
+            {
+                path: 'test-productos',
+                Component: TestProductos
+            },
+            {
+                path: 'test-usuarios',
+                Component: TestUsuarios
+            },
+            {
+                path: 'test-carrito',
+                Component: TestCarrito
+            },
+            {
+                path: 'test-ventas',
+                Component: TestVentas
             }
         ]
     }

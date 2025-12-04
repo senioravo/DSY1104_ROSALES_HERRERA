@@ -44,7 +44,7 @@ export default function Register() {
     }
 
     try {
-      const result = authService.register(
+      const result = await authService.register(
         formData.email,
         formData.password,
         formData.nombre
@@ -60,7 +60,8 @@ export default function Register() {
         setError(result.message);
       }
     } catch (err) {
-      setError('Error al registrar usuario');
+      console.error('Error en registro:', err);
+      setError('Error al registrar usuario. Por favor, intenta nuevamente.');
     } finally {
       setLoading(false);
     }

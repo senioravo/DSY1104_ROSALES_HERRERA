@@ -5,50 +5,50 @@
 export const CATEGORIES_PS = [{
         id: "TC",
         nombre: "Tortas Cuadradas",
-        descripcion: "Tortas de forma cuadrada en varios tamaños.",
-        imagen: "PG.png"
+        descripcion: "Tortas de forma cuadrada en varios tamaños, perfectas para celebraciones familiares.",
+        imagen: "TC.png"
     },
     {
         id: "TT",
         nombre: "Tortas Circulares",
-        descripcion: "Tortas redondas para toda ocasión.",
-        imagen: "PI.png"
+        descripcion: "Tortas redondas clásicas para toda ocasión, desde cumpleaños hasta bodas.",
+        imagen: "TT.png"
     },
     {
         id: "PI",
         nombre: "Postres Individuales",
-        descripcion: "Porciones individuales para llevar o compartir.",
+        descripcion: "Porciones individuales para llevar o compartir, perfectas para el café.",
         imagen: "PI.png"
     },
     {
         id: "PSA",
         nombre: "Productos Sin Azúcar",
-        descripcion: "Opciones endulzadas naturalmente o sin azúcar añadida.",
+        descripcion: "Opciones endulzadas naturalmente o sin azúcar añadida, para cuidar tu salud.",
         imagen: "PSA.png"
     },
     {
         id: "PT",
         nombre: "Pastelería Tradicional",
-        descripcion: "Clásicos de la pastelería que nunca fallan.",
-        imagen: "PG.png"
+        descripcion: "Clásicos de la pastelería chilena que nunca fallan.",
+        imagen: "PT.png"
     },
     {
         id: "PG",
         nombre: "Productos Sin Gluten",
-        descripcion: "Preparaciones libres de gluten.",
+        descripcion: "Preparaciones libres de gluten, sin sacrificar el sabor.",
         imagen: "PG.png"
     },
     {
         id: "PV",
-        nombre: "Productos Vegana",
-        descripcion: "Opciones 100% libres de productos animales.",
-        imagen: "PG.png"
+        nombre: "Productos Veganos",
+        descripcion: "Opciones 100% libres de productos animales, deliciosas y conscientes.",
+        imagen: "PV.png"
     },
     {
         id: "TE",
         nombre: "Tortas Especiales",
-        descripcion: "Decoraciones y temáticas especiales para celebrar.",
-        imagen: "PG.png"
+        descripcion: "Decoraciones y temáticas especiales para celebrar momentos únicos.",
+        imagen: "TE.png"
     }
 ];
 

@@ -1,0 +1,67 @@
+.test-index-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding-bottom: 50px;
+}
+
+.test-index-header {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.test-index-header .bi {
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+}
+
+.test-card {
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-width: 2px;
+    background: white;
+}
+
+.test-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.test-icon {
+    text-align: center;
+}
+
+.features {
+    min-height: 100px;
+}
+
+.info-card {
+    background: #f8f9fa;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.info-card ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.info-card li {
+    padding: 5px 0;
+}
+
+.service-info {
+    padding: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+}
+
+.service-info strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #ffc107;
+}
+
+.service-info code {
+    background: rgba(255,255,255,0.2);
+    padding: 2px 8px;
+    border-radius: 4px;
+}

@@ -1,90 +1,54 @@
 /**
  * Servicio de autenticación para Mil Sabores
- * Maneja registro, login, logout y sesión de usuarios usando localStorage
+ * Maneja registro, login, logout y sesión de usuarios usando API REST
  */
 
-const USERS_KEY = 'mil_sabores_users';
+import API_CONFIG from '../config/api.config';
+
 const SESSION_KEY = 'mil_sabores_session';
-
-/**
- * Obtiene todos los usuarios registrados
- */
-const getUsers = () => {
-    try {
-        const users = localStorage.getItem(USERS_KEY);
-        return users ? JSON.parse(users) : [];
-    } catch (error) {
-        console.error('Error al obtener usuarios:', error);
-        return [];
-    }
-};
-
-/**
- * Guarda los usuarios en localStorage
- */
-const saveUsers = (users) => {
-    try {
-        localStorage.setItem(USERS_KEY, JSON.stringify(users));
-    } catch (error) {
-        console.error('Error al guardar usuarios:', error);
-    }
-};
+const API_URL = API_CONFIG.USUARIO_SERVICE;
 
 /**
  * Registra un nuevo usuario
  * @param {string} email - Email del usuario
  * @param {string} password - Contraseña del usuario
  * @param {string} nombre - Nombre del usuario
- * @returns {Object} - { success: boolean, message: string, user?: Object }
+ * @returns {Promise<Object>} - { success: boolean, message: string, user?: Object }
  */
-const register = (email, password, nombre) => {
+const register = async (email, password, nombre) => {
     try {
-        // Validaciones básicas
-        if (!email || !password || !nombre) {
-            return { success: false, message: 'Todos los campos son obligatorios' };
+        const response = await fetch(`${API_URL}/usuarios/register`, {
+            method: 'POST',
+            headers: API_CONFIG.HEADERS,
+            body: JSON.stringify({
+                nombre: nombre.trim(),
+                email: email.toLowerCase().trim(),
+                password
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            // Manejar errores de validación
+            if (data.errors) {
+                const errorMessages = Object.values(data.errors).join(', ');
+                return { success: false, message: errorMessages };
+            }
+            return { success: false, message: data.message || 'Error al registrar usuario' };
         }
 
-        // Validar formato de email
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            return { success: false, message: 'Email inválido' };
+        // Guardar sesión en localStorage si el registro fue exitoso
+        if (data.success && data.user) {
+            localStorage.setItem(SESSION_KEY, JSON.stringify(data.user));
+            // Disparar evento de actualización de sesión
+            window.dispatchEvent(new Event('sessionUpdated'));
         }
 
-        // Validar longitud de contraseña
-        if (password.length < 6) {
-            return { success: false, message: 'La contraseña debe tener al menos 6 caracteres' };
-        }
-
-        const users = getUsers();
-
-        // Verificar si el email ya existe
-        if (users.some(user => user.email === email)) {
-            return { success: false, message: 'El email ya está registrado' };
-        }
-
-        // Crear nuevo usuario
-        const newUser = {
-            id: Date.now().toString(),
-            email: email.toLowerCase().trim(),
-            password, // En producción debería estar hasheada
-            nombre: nombre.trim(),
-            fechaRegistro: new Date().toISOString()
-        };
-
-        users.push(newUser);
-        saveUsers(users);
-
-        // No devolver la contraseña
-        const { password: _, ...userWithoutPassword } = newUser;
-
-        return {
-            success: true,
-            message: 'Usuario registrado exitosamente',
-            user: userWithoutPassword
-        };
+        return data;
     } catch (error) {
         console.error('Error en registro:', error);
-        return { success: false, message: 'Error al registrar usuario' };
+        return { success: false, message: 'Error de conexión con el servidor' };
     }
 };
 
@@ -92,44 +56,40 @@ const register = (email, password, nombre) => {
  * Inicia sesión de un usuario
  * @param {string} email - Email del usuario
  * @param {string} password - Contraseña del usuario
- * @returns {Object} - { success: boolean, message: string, user?: Object }
+ * @returns {Promise<Object>} - { success: boolean, message: string, user?: Object }
  */
-const login = (email, password) => {
+const login = async (email, password) => {
     try {
-        if (!email || !password) {
-            return { success: false, message: 'Email y contraseña son obligatorios' };
+        const response = await fetch(`${API_URL}/usuarios/login`, {
+            method: 'POST',
+            headers: API_CONFIG.HEADERS,
+            body: JSON.stringify({
+                email: email.toLowerCase().trim(),
+                password
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            if (data.errors) {
+                const errorMessages = Object.values(data.errors).join(', ');
+                return { success: false, message: errorMessages };
+            }
+            return { success: false, message: data.message || 'Error al iniciar sesión' };
         }
 
-        const users = getUsers();
-        const user = users.find(
-            u => u.email === email.toLowerCase().trim() && u.password === password
-        );
-
-        if (!user) {
-            return { success: false, message: 'Email o contraseña incorrectos' };
+        // Guardar sesión en localStorage
+        if (data.success && data.user) {
+            localStorage.setItem(SESSION_KEY, JSON.stringify(data.user));
+            // Disparar evento de actualización de sesión
+            window.dispatchEvent(new Event('sessionUpdated'));
         }
 
-        // Crear sesión
-        const session = {
-            id: user.id,
-            email: user.email,
-            nombre: user.nombre,
-            loginTime: new Date().toISOString()
-        };
-
-        localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-
-        // Disparar evento de actualización de sesión
-        window.dispatchEvent(new Event('sessionUpdated'));
-
-        return {
-            success: true,
-            message: 'Inicio de sesión exitoso',
-            user: session
-        };
+        return data;
     } catch (error) {
         console.error('Error en login:', error);
-        return { success: false, message: 'Error al iniciar sesión' };
+        return { success: false, message: 'Error de conexión con el servidor' };
     }
 };
 

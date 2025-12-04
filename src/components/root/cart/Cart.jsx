@@ -44,35 +44,35 @@ export default function CarritoLateral() {
     };
   }, []);
 
-  const loadCart = () => {
-    const cart = cartService.getCart();
-    setCartItems(cart);
+  const loadCart = async () => {
+    const cart = await cartService.getCart();
+    setCartItems(cart || []);
   };
 
-  const handleIncrement = (productCode) => {
-    const item = cartItems.find(i => i.code === productCode);
-    if (item && item.quantity < item.stock) {
-      cartService.updateQuantity(productCode, item.quantity + 1);
+  const handleIncrement = async (itemId) => {
+    const item = cartItems.find(i => i.id === itemId);
+    if (item && item.cantidad < item.stockDisponible) {
+      await cartService.updateQuantity(item.id, item.cantidad + 1);
       loadCart();
     }
   };
 
-  const handleDecrement = (productCode) => {
-    const item = cartItems.find(i => i.code === productCode);
-    if (item && item.quantity > 1) {
-      cartService.updateQuantity(productCode, item.quantity - 1);
+  const handleDecrement = async (itemId) => {
+    const item = cartItems.find(i => i.id === itemId);
+    if (item && item.cantidad > 1) {
+      await cartService.updateQuantity(item.id, item.cantidad - 1);
       loadCart();
     }
   };
 
-  const handleRemove = (productCode) => {
-    cartService.removeFromCart(productCode);
+  const handleRemove = async (itemId) => {
+    await cartService.removeFromCart(itemId);
     loadCart();
   };
 
-  const handleClearCart = () => {
+  const handleClearCart = async () => {
     if (window.confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
-      cartService.clearCart();
+      await cartService.clearCart();
       loadCart();
     }
   };
@@ -86,8 +86,19 @@ export default function CarritoLateral() {
     }
   };
 
-  const total = cartService.getCartTotal();
-  const itemCount = cartService.getCartItemCount();
+  const [total, setTotal] = useState(0);
+  const [itemCount, setItemCount] = useState(0);
+
+  // Actualizar total y conteo cuando cambien los items
+  useEffect(() => {
+    const updateTotals = async () => {
+      const totalAmount = await cartService.getCartTotal();
+      const count = await cartService.getCartItemCount();
+      setTotal(totalAmount);
+      setItemCount(count);
+    };
+    updateTotals();
+  }, [cartItems]);
 
   return (
     <>
@@ -123,36 +134,36 @@ export default function CarritoLateral() {
             <>
               <ListGroup variant="flush" className="cart-items-list">
                 {cartItems.map((item) => (
-                  <ListGroup.Item key={item.code} className="cart-item">
+                  <ListGroup.Item key={item.id} className="cart-item">
                     <div className="cart-item-content">
                       <img 
-                        src={getProductImage(item.imagen)} 
-                        alt={item.nombre}
+                        src={getProductImage(item.productoImagen)} 
+                        alt={item.productoNombre}
                         className="cart-item-image"
                       />
                       <div className="cart-item-details">
-                        <h6 className="cart-item-name">{item.nombre}</h6>
-                        <p className="cart-item-price">${item.precioCLP.toLocaleString('es-CL')}</p>
+                        <h6 className="cart-item-name">{item.productoNombre}</h6>
+                        <p className="cart-item-price">${item.precioCLP?.toLocaleString('es-CL')}</p>
                         
                         <div className="cart-item-controls">
                           <button 
                             className="cart-qty-btn"
-                            onClick={() => handleDecrement(item.code)}
-                            disabled={item.quantity <= 1}
+                            onClick={() => handleDecrement(item.id)}
+                            disabled={item.cantidad <= 1}
                           >
                             <Dash />
                           </button>
-                          <span className="cart-qty">{item.quantity}</span>
+                          <span className="cart-qty">{item.cantidad}</span>
                           <button 
                             className="cart-qty-btn"
-                            onClick={() => handleIncrement(item.code)}
-                            disabled={item.quantity >= item.stock}
+                            onClick={() => handleIncrement(item.id)}
+                            disabled={item.cantidad >= item.stockDisponible}
                           >
                             <Plus />
                           </button>
                           <button 
                             className="cart-remove-btn"
-                            onClick={() => handleRemove(item.code)}
+                            onClick={() => handleRemove(item.id)}
                           >
                             <Trash />
                           </button>
@@ -160,7 +171,7 @@ export default function CarritoLateral() {
                       </div>
                     </div>
                     <div className="cart-item-subtotal">
-                      ${(item.precioCLP * item.quantity).toLocaleString('es-CL')}
+                      ${(item.precioCLP * item.cantidad).toLocaleString('es-CL')}
                     </div>
                   </ListGroup.Item>
                 ))}

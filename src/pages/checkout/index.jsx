@@ -36,23 +36,26 @@ export default function Checkout() {
 
     // Cargar datos del carrito y sesión
     useEffect(() => {
-        const cart = cartService.getCart();
-        if (cart.length === 0) {
-            navigate('/productos');
-            return;
-        }
-        setCartItems(cart);
+        const loadCheckoutData = async () => {
+            const cart = await cartService.getCart();
+            if (!cart || cart.length === 0) {
+                navigate('/productos');
+                return;
+            }
+            setCartItems(cart);
 
-        // Cargar datos de sesión si existen
-        const sessionData = localStorage.getItem('mil_sabores_session');
-        if (sessionData) {
-            const userData = JSON.parse(sessionData);
-            setFormData(prev => ({
-                ...prev,
-                fullName: userData.nombre || '',
-                email: userData.email || ''
-            }));
-        }
+            // Cargar datos de sesión si existen
+            const sessionData = localStorage.getItem('mil_sabores_session');
+            if (sessionData) {
+                const userData = JSON.parse(sessionData);
+                setFormData(prev => ({
+                    ...prev,
+                    fullName: userData.nombre || '',
+                    email: userData.email || ''
+                }));
+            }
+        };
+        loadCheckoutData();
     }, [navigate]);
 
     // Validación de campos
@@ -139,8 +142,10 @@ export default function Checkout() {
         setLoading(true);
 
         // Simular procesamiento de pago
-        setTimeout(() => {
+        setTimeout(async () => {
             try {
+                const total = await cartService.getCartTotal();
+                
                 const orderData = {
                     customer: {
                         fullName: formData.fullName,
@@ -152,15 +157,15 @@ export default function Checkout() {
                     deliveryType: formData.deliveryType,
                     paymentMethod: formData.paymentMethod,
                     items: cartItems,
-                    total: cartService.getCartTotal()
+                    total: total
                 };
 
-                // Guardar orden
-                const savedOrder = orderService.saveOrder(orderData);
+                // Guardar orden (enviar al backend)
+                const savedOrder = await orderService.saveOrder(orderData);
                 console.log('Orden guardada:', savedOrder);
 
                 // Limpiar carrito
-                cartService.clearCart();
+                await cartService.clearCart();
 
                 setLoading(false);
                 setShowSuccessModal(true);
@@ -177,7 +182,8 @@ export default function Checkout() {
         navigate('/');
     };
 
-    const total = cartService.getCartTotal();
+    // Calcular total desde los items del carrito
+    const total = cartItems.reduce((sum, item) => sum + (item.precioCLP * item.cantidad), 0);
 
     return (
         <div className="checkout-page">
@@ -430,13 +436,13 @@ export default function Checkout() {
                             <h2 className="card-title">Resumen del Pedido</h2>
                             <div className="summary-items">
                                 {cartItems.map((item) => (
-                                    <div key={item.code} className="summary-item">
+                                    <div key={item.id} className="summary-item">
                                         <div className="item-info">
-                                            <div className="item-name">{item.nombre}</div>
-                                            <div className="item-quantity">Cantidad: {item.quantity}</div>
+                                            <div className="item-name">{item.productoNombre}</div>
+                                            <div className="item-quantity">Cantidad: {item.cantidad}</div>
                                         </div>
                                         <div className="item-price">
-                                            ${(item.precioCLP * item.quantity).toLocaleString('es-CL')}
+                                            ${(item.precioCLP * item.cantidad).toLocaleString('es-CL')}
                                         </div>
                                     </div>
                                 ))}

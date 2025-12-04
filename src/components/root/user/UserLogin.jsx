@@ -79,7 +79,7 @@ export default function UserLogin() {
     setLoading(true);
 
     try {
-      const result = authService.login(email, password);
+      const result = await authService.login(email, password);
       
       if (result.success) {
         setUser(result.user);
@@ -90,7 +90,8 @@ export default function UserLogin() {
         setError(result.message);
       }
     } catch (err) {
-      setError('Error al iniciar sesión');
+      console.error('Error en login:', err);
+      setError('Error al iniciar sesión. Por favor, intenta nuevamente.');
     } finally {
       setLoading(false);
     }
