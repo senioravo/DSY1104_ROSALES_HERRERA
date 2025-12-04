@@ -9,10 +9,8 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const { path } = req.query;
-  const fullPath = Array.isArray(path) ? path.join('/') : (path || '');
-  
-  const targetUrl = `http://100.30.4.167:8083/api/carritos${fullPath ? '/' + fullPath : ''}`;
+  const pathSegments = req.url.split('/api/carritos')[1] || '';
+  const targetUrl = `http://100.30.4.167:8083/api/carritos${pathSegments}`;
   
   try {
     const headers = {
@@ -28,12 +26,21 @@ export default async function handler(req, res) {
       headers,
     };
 
-    if (req.method !== 'GET' && req.method !== 'HEAD' && req.body) {
+    if (req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'OPTIONS') {
       options.body = JSON.stringify(req.body);
     }
 
     const response = await fetch(targetUrl, options);
-    const data = await response.json();
+    
+    const contentType = response.headers.get('content-type');
+    let data;
+    
+    if (contentType && contentType.includes('application/json')) {
+      data = await response.json();
+    } else {
+      const text = await response.text();
+      data = { message: text };
+    }
     
     return res.status(response.status).json(data);
   } catch (error) {
