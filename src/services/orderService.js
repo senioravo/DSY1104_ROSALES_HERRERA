@@ -3,7 +3,7 @@
 
 import API_CONFIG from '../config/api.config';
 
-const API_URL = 'http://localhost:8084/api'; // Puerto 8084 para ventas-service
+const API_URL = API_CONFIG.VENTAS_SERVICE; // Usa la configuración de entorno (Vercel o local)
 const ORDERS_KEY = 'mil_sabores_orders';
 
 /**
