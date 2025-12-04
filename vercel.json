@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/usuarios/:path*",
+      "destination": "http://100.30.4.167:8081/api/usuarios/:path*"
+    },
+    {
+      "source": "/api/productos/:path*",
+      "destination": "http://100.30.4.167:8082/api/productos/:path*"
+    },
+    {
+      "source": "/api/carritos/:path*",
+      "destination": "http://100.30.4.167:8083/api/carritos/:path*"
+    },
+    {
+      "source": "/api/ventas/:path*",
+      "destination": "http://100.30.4.167:8084/api/ventas/:path*"
+    }
+  ]
+}

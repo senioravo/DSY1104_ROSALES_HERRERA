@@ -1,15 +1,17 @@
 // Configuración de las URLs de los microservicios del backend
 // Ajustar según el entorno (desarrollo, producción)
 
-// IP Elástica de AWS EC2: 100.30.4.167
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://100.30.4.167';
+// En producción (Vercel), usa rutas relativas para que Vercel haga de proxy
+// En desarrollo local, usa la IP directa de EC2
+const isProduction = import.meta.env.PROD;
+const API_BASE_URL = isProduction ? '' : 'http://100.30.4.167';
 
 const API_CONFIG = {
     // URLs base de los microservicios
-    USUARIO_SERVICE: `${API_BASE_URL}:8081/api`,
-    PRODUCTO_SERVICE: `${API_BASE_URL}:8082/api`,
-    CARRITO_SERVICE: `${API_BASE_URL}:8083/api`,
-    VENTAS_SERVICE: `${API_BASE_URL}:8084/api`,
+    USUARIO_SERVICE: isProduction ? '/api' : `${API_BASE_URL}:8081/api`,
+    PRODUCTO_SERVICE: isProduction ? '/api' : `${API_BASE_URL}:8082/api`,
+    CARRITO_SERVICE: isProduction ? '/api' : `${API_BASE_URL}:8083/api`,
+    VENTAS_SERVICE: isProduction ? '/api' : `${API_BASE_URL}:8084/api`,
     
     // Configuración de headers
     HEADERS: {
