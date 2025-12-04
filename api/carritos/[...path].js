@@ -9,8 +9,8 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const pathSegments = req.url.split('/api/carritos')[1] || '';
-  const targetUrl = `http://100.30.4.167:8083/api/carritos${pathSegments}`;
+  const fullPath = req.url.replace(/^\/api\/carritos/, '');
+  const targetUrl = `http://100.30.4.167:8083/api/carritos${fullPath}`;
   
   try {
     const headers = {
@@ -26,22 +26,29 @@ export default async function handler(req, res) {
       headers,
     };
 
-    if (req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'OPTIONS') {
+    if (req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'OPTIONS' && req.body) {
       options.body = JSON.stringify(req.body);
     }
+
+    console.log('Carrito proxy:', req.method, targetUrl);
 
     const response = await fetch(targetUrl, options);
     
     const contentType = response.headers.get('content-type');
-    let data;
     
     if (contentType && contentType.includes('application/json')) {
-      data = await response.json();
+      const data = await response.json();
+      return res.status(response.status).json(data);
+    } else if (response.status === 204) {
+      return res.status(204).end();
     } else {
       const text = await response.text();
-      data = { message: text };
+      // Si es un número simple (como el total o cantidad), parsearlo
+      if (!isNaN(text) && text.trim() !== '') {
+        return res.status(response.status).json(parseInt(text));
+      }
+      return res.status(response.status).json({ message: text });
     }
-    
     return res.status(response.status).json(data);
   } catch (error) {
     console.error('Proxy error:', error);

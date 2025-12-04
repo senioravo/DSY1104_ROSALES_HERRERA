@@ -9,16 +9,14 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  // Construir la URL completa del backend
-  const pathSegments = req.url.split('/api/usuarios')[1] || '';
-  const targetUrl = `http://100.30.4.167:8081/api/usuarios${pathSegments}`;
+  const fullPath = req.url.replace(/^\/api\/usuarios/, '');
+  const targetUrl = `http://100.30.4.167:8081/api/usuarios${fullPath}`;
   
   try {
     const headers = {
       'Content-Type': 'application/json',
     };
     
-    // Pasar Authorization header si existe
     if (req.headers.authorization) {
       headers.Authorization = req.headers.authorization;
     }
@@ -28,27 +26,25 @@ export default async function handler(req, res) {
       headers,
     };
 
-    // Agregar body si no es GET/HEAD/OPTIONS
-    if (req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'OPTIONS') {
-      // El body ya viene parseado por Vercel
+    if (req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'OPTIONS' && req.body) {
       options.body = JSON.stringify(req.body);
     }
 
-    console.log('Proxying to:', targetUrl, 'Method:', req.method);
+    console.log('Usuario proxy:', req.method, targetUrl);
 
     const response = await fetch(targetUrl, options);
     
-    // Verificar si la respuesta es JSON
     const contentType = response.headers.get('content-type');
-    let data;
     
     if (contentType && contentType.includes('application/json')) {
-      data = await response.json();
+      const data = await response.json();
+      return res.status(response.status).json(data);
+    } else if (response.status === 204) {
+      return res.status(204).end();
     } else {
       const text = await response.text();
-      data = { message: text };
+      return res.status(response.status).json({ message: text });
     }
-    
     return res.status(response.status).json(data);
   } catch (error) {
     console.error('Proxy error:', error);
