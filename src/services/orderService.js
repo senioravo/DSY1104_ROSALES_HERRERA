@@ -163,36 +163,6 @@ export const orderService = {
         form.submit();
     },
 
-    // Método existente: guardar localmente (se mantiene como respaldo)
-    saveOrderLocally: (orderData) => {
-        try {
-            const orders = orderService.getOrdersLocally();
-
-            // Crear orden con ID único y timestamp
-            const newOrder = {
-                id: `ORD-${Date.now()}`,
-                ...orderData,
-                createdAt: new Date().toISOString(),
-                status: 'pending'
-            };
-
-            orders.push(newOrder);
-            localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
-
-            return venta;
-        } catch (error) {
-            console.error('Error al guardar orden en backend:', error);
-            
-            // Si falla el backend, guardar localmente
-            console.warn('Guardando orden localmente como fallback');
-            return orderService.saveOrderLocally({
-                ...orderData,
-                backendSync: false,
-                error: error.message
-            });
-        }
-    },
-
     // Guardar orden localmente (backup)
     saveOrderLocally: (orderData) => {
         try {
