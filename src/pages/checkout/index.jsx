@@ -141,40 +141,47 @@ export default function Checkout() {
 
         setLoading(true);
 
-        // Simular procesamiento de pago
-        setTimeout(async () => {
-            try {
-                const total = await cartService.getCartTotal();
-                
-                const orderData = {
-                    customer: {
-                        fullName: formData.fullName,
-                        phone: formData.phone,
-                        email: formData.email,
-                        address: formData.address
-                    },
-                    note: formData.note,
-                    deliveryType: formData.deliveryType,
-                    paymentMethod: formData.paymentMethod,
-                    items: cartItems,
-                    total: total
-                };
+        try {
+            const total = await cartService.getCartTotal();
+            
+            const orderData = {
+                customer: {
+                    fullName: formData.fullName,
+                    phone: formData.phone,
+                    email: formData.email,
+                    address: formData.address
+                },
+                note: formData.note,
+                deliveryType: formData.deliveryType,
+                paymentMethod: formData.paymentMethod,
+                items: cartItems,
+                total: total
+            };
 
-                // Guardar orden (enviar al backend)
-                const savedOrder = await orderService.saveOrder(orderData);
-                console.log('Orden guardada:', savedOrder);
+            // Guardar orden y procesar pago con Transbank
+            const result = await orderService.saveOrder(orderData);
+            console.log('Resultado procesamiento:', result);
 
-                // Limpiar carrito
+            // Si se debe redirigir a Webpay
+            if (result.redirectToWebpay && result.token && result.url) {
+                console.log('Redirigiendo a Webpay...');
+                // Redirigir a Webpay usando el método del servicio
+                orderService.redirectToWebpay(result.token, result.url);
+                // El usuario será redirigido a Transbank, no continuar ejecución
+            } else if (result.success) {
+                // Si es una orden guardada localmente (sin Transbank)
                 await cartService.clearCart();
-
                 setLoading(false);
                 setShowSuccessModal(true);
-            } catch (error) {
-                console.error('Error al procesar orden:', error);
-                setLoading(false);
-                alert('Error al procesar la orden. Por favor intente nuevamente.');
+            } else {
+                throw new Error(result.mensaje || 'Error al procesar la orden');
             }
-        }, 2000); // 2 segundos de simulación
+            
+        } catch (error) {
+            console.error('Error al procesar orden:', error);
+            setLoading(false);
+            alert('Error al procesar la orden: ' + error.message + '\nPor favor intente nuevamente.');
+        }
     };
 
     const handleCloseModal = () => {

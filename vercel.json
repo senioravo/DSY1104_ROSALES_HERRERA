@@ -3,6 +3,7 @@
     { "source": "/api/usuarios/:path*", "destination": "/api/usuarios/proxy" },
     { "source": "/api/productos/:path*", "destination": "/api/productos/proxy" },
     { "source": "/api/carritos/:path*", "destination": "/api/carritos/proxy" },
+    { "source": "/api/ventas/transbank/return", "destination": "/api/ventas/transbank-return" },
     { "source": "/api/ventas/:path*", "destination": "/api/ventas/proxy" }
   ]
 }

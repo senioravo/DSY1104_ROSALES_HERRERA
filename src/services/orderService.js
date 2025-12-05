@@ -24,7 +24,7 @@ const getCurrentUserId = () => {
 };
 
 export const orderService = {
-    // Guardar una nueva orden (envía al backend de ventas)
+    // Guardar una nueva orden y procesar pago con Transbank
     saveOrder: async (orderData) => {
         try {
             const usuarioId = getCurrentUserId();
@@ -63,39 +63,121 @@ export const orderService = {
             console.log('Enviando venta al backend:', ventaData);
             console.log('URL:', `${API_URL}/ventas`);
 
-            // Enviar al backend con timeout
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 segundos timeout
-
-            const response = await fetch(`${API_URL}/ventas`, {
+            // 1. Crear venta en backend
+            const ventaResponse = await fetch(`${API_URL}/ventas`, {
                 method: 'POST',
                 headers: {
                     ...API_CONFIG.HEADERS,
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify(ventaData),
-                signal: controller.signal
+                body: JSON.stringify(ventaData)
             });
 
-            clearTimeout(timeoutId);
-            console.log('Response status:', response.status);
-            console.log('Response ok:', response.ok);
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('Error response:', errorText);
-                throw new Error(`Error ${response.status}: ${errorText}`);
+            if (!ventaResponse.ok) {
+                const errorText = await ventaResponse.text();
+                console.error('Error al crear venta:', errorText);
+                throw new Error(`Error ${ventaResponse.status}: ${errorText}`);
             }
 
-            const venta = await response.json();
+            const venta = await ventaResponse.json();
             console.log('Venta creada exitosamente:', venta);
 
-            // También guardar localmente como respaldo
-            orderService.saveOrderLocally({
+            // 2. Iniciar pago con Transbank
+            return await orderService.procesarPagoTransbank(venta.id, orderData);
+            
+        } catch (error) {
+            console.error('Error al guardar orden:', error);
+            // Fallback: guardar orden localmente
+            console.warn('Guardando orden localmente como fallback');
+            return orderService.saveOrderLocally({
                 ...orderData,
-                ventaId: venta.id,
-                backendSync: true
+                backendSync: false,
+                error: error.message
             });
+        }
+    },
+
+    // Procesar pago con Transbank (API real)
+    procesarPagoTransbank: async (ventaId, orderData) => {
+        try {
+            console.log('Procesando pago Transbank para venta:', ventaId);
+            
+            const response = await fetch(`${API_URL}/ventas/${ventaId}/pagar`, {
+                method: 'POST',
+                headers: API_CONFIG.HEADERS
+            });
+            
+            if (!response.ok) {
+                throw new Error('Error al procesar pago con Transbank');
+            }
+            
+            const transbankResponse = await response.json();
+            console.log('Respuesta Transbank:', transbankResponse);
+            
+            if (transbankResponse.exitoso && transbankResponse.url && transbankResponse.token) {
+                // Guardar datos localmente antes de redirigir
+                orderService.saveOrderLocally({
+                    ...orderData,
+                    ventaId: ventaId,
+                    transbankToken: transbankResponse.token,
+                    backendSync: true
+                });
+                
+                // Retornar datos para redirección a Webpay
+                return {
+                    success: true,
+                    ventaId: ventaId,
+                    redirectToWebpay: true,
+                    token: transbankResponse.token,
+                    url: transbankResponse.url,
+                    mensaje: transbankResponse.mensaje
+                };
+            } else {
+                throw new Error(transbankResponse.mensaje || 'Error al iniciar pago');
+            }
+            
+        } catch (error) {
+            console.error('Error en procesarPagoTransbank:', error);
+            throw error;
+        }
+    },
+
+    // Redirigir a Webpay con el token
+    redirectToWebpay: (token, url) => {
+        console.log('Redirigiendo a Webpay:', { token, url });
+        
+        // Crear formulario HTML para POST a Webpay
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = url;
+        
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'token_ws';
+        input.value = token;
+        
+        form.appendChild(input);
+        document.body.appendChild(form);
+        
+        // Enviar formulario (redirige a Webpay)
+        form.submit();
+    },
+
+    // Método existente: guardar localmente (se mantiene como respaldo)
+    saveOrderLocally: (orderData) => {
+        try {
+            const orders = orderService.getOrdersLocally();
+
+            // Crear orden con ID único y timestamp
+            const newOrder = {
+                id: `ORD-${Date.now()}`,
+                ...orderData,
+                createdAt: new Date().toISOString(),
+                status: 'pending'
+            };
+
+            orders.push(newOrder);
+            localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
 
             return venta;
         } catch (error) {

@@ -10,6 +10,7 @@ import Contacto from './pages/contacto/index'
 import MensajesContacto from './pages/mensajes-contacto/index'
 import Register from './pages/register/index'
 import Checkout from './pages/checkout/index'
+import CheckoutResult from './pages/checkout/Result'
 import TestIndex from './pages/test-index/index'
 import TestProductos from './pages/test-productos/index'
 import TestUsuarios from './pages/test-usuarios/index'
@@ -83,6 +84,10 @@ export const router = createBrowserRouter([
             {
                 path: 'checkout',
                 Component: Checkout
+            },
+            {
+                path: 'checkout/result',
+                Component: CheckoutResult
             },
             {
                 path: 'test-api',
