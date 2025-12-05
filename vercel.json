@@ -5,6 +5,6 @@
     { "source": "/api/carritos/:path*", "destination": "/api/carritos/proxy" },
     { "source": "/api/ventas/transbank/return", "destination": "/api/ventas/transbank-return" },
     { "source": "/api/ventas/:path*", "destination": "/api/ventas/proxy" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
