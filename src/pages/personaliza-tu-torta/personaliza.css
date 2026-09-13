@@ -1,0 +1,292 @@
+.personalize-page {
+    min-height: calc(100vh - 200px);
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--lemon-lighter) 0%, var(--vanilla-lighter) 100%);
+}
+
+.personalize-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.personalize-title {
+    color: var(--chocolate-dark);
+    font-weight: 800;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.personalize-subtitle {
+    color: var(--chocolate-light);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.personalize-card {
+    border: 2px solid var(--mint-light);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    overflow: hidden;
+}
+
+.personalize-card .card-body {
+    padding: 2.5rem;
+}
+
+
+/* Secciones del formulario */
+
+.form-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--mint-lighter);
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+}
+
+.section-title {
+    color: var(--strawberry-emphasis);
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.section-title::before {
+    content: '';
+    width: 4px;
+    height: 24px;
+    background-color: var(--strawberry-emphasis);
+    margin-right: 0.75rem;
+    border-radius: 2px;
+}
+
+
+/* Form labels y controles */
+
+.personalize-page .form-label {
+    color: var(--chocolate-dark);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.personalize-page .form-control,
+.personalize-page .form-select {
+    border: 2px solid var(--mint-light);
+    border-bottom: 2px solid var(--mint-light);
+    border-radius: 8px;
+    padding: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.personalize-page .form-control:focus,
+.personalize-page .form-select:focus {
+    border-color: var(--strawberry-emphasis);
+    box-shadow: none !important;
+    outline: var(--strawberry-emphasis) !important;
+}
+
+
+/* Personalización del Select Dropdown */
+
+.personalize-page .form-select {
+    background-color: white;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23E2546E' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+}
+
+.personalize-page .form-select:focus {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23C13753' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+}
+
+
+/* Estilos para las opciones del dropdown (limitado por el navegador) */
+
+.personalize-page .form-select option {
+    background-color: white;
+    color: var(--chocolate-dark);
+    padding: 0.5rem 0.75rem;
+}
+
+.personalize-page .form-select option:hover,
+.personalize-page .form-select option:focus {
+    background-color: var(--strawberry-lighter);
+    color: var(--strawberry-emphasis);
+}
+
+.personalize-page .form-select option:checked {
+    background-color: var(--strawberry-emphasis);
+    color: white;
+}
+
+.personalize-page .form-control.text-muted {
+    background-color: var(--lemon-lighter);
+    cursor: not-allowed;
+}
+
+
+/* Input Groups */
+
+.personalize-page .input-group-text {
+    background-color: var(--mint-light);
+    border: 2px solid var(--mint-light);
+    color: var(--chocolate-dark);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.personalize-page .input-group .form-control {
+    border-left: none;
+    box-shadow: none !important;
+}
+
+.personalize-page .input-group .form-control:focus {
+    border-top: 2px solid var(--strawberry-emphasis);
+    border-bottom: 2px solid var(--strawberry-emphasis);
+    border-right: 2px solid var(--strawberry-emphasis);
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.personalize-page .input-group:focus-within .input-group-text {
+    background-color: var(--strawberry-lighter);
+    border-color: var(--strawberry-emphasis);
+    color: var(--strawberry-emphasis);
+}
+
+.personalize-page .input-group:focus-within .form-control {
+    border-right-color: var(--strawberry-emphasis);
+    border-top-color: var(--strawberry-emphasis);
+    border-bottom-color: var(--strawberry-emphasis);
+}
+
+
+/* Checkboxes */
+
+.checkboxes-section {
+    background-color: var(--lemon-lighter);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--mint-light);
+}
+
+.personalize-page .form-check-input {
+    border: 2px solid var(--mint-dark);
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.personalize-page .form-check-input:checked {
+    background-color: var(--strawberry-emphasis);
+    border-color: var(--strawberry-emphasis);
+}
+
+.personalize-page .form-check-label {
+    color: var(--chocolate-dark);
+    font-weight: 500;
+    margin-left: 0.5rem;
+}
+
+
+/* Textarea */
+
+.personalize-page textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.personalize-page textarea.form-control:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+
+/* Botón de envío */
+
+.submit-btn {
+    background-color: var(--strawberry-emphasis) !important;
+    border: none !important;
+    padding: 0.875rem 3rem !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    border-radius: 50px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 12px rgba(226, 84, 110, 0.3) !important;
+}
+
+.submit-btn:hover:not(:disabled) {
+    background-color: var(--strawberry-darker) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(226, 84, 110, 0.4) !important;
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* Alert de éxito */
+
+.success-alert {
+    background-color: var(--mint-lighter);
+    border-color: var(--mint-dark);
+    color: var(--chocolate-dark);
+    padding: 3rem;
+    border-radius: 16px;
+    text-align: center;
+    margin: 2rem auto;
+    max-width: 600px;
+}
+
+.success-alert svg {
+    color: var(--mint-darker);
+}
+
+.success-alert h4 {
+    color: var(--chocolate-dark);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+
+/* Form validation */
+
+.personalize-page .form-control.is-invalid,
+.personalize-page .form-select.is-invalid {
+    border-color: var(--strawberry-emphasis);
+}
+
+.personalize-page .invalid-feedback {
+    color: var(--strawberry-emphasis);
+    font-weight: 500;
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    .personalize-page {
+        padding: 2rem 0;
+    }
+    .personalize-title {
+        font-size: 2rem;
+    }
+    .personalize-card .card-body {
+        padding: 1.5rem;
+    }
+    .section-title {
+        font-size: 1.1rem;
+    }
+    .submit-btn {
+        padding: 0.75rem 2rem !important;
+        font-size: 1rem !important;
+    }
+}

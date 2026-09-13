@@ -1,0 +1,134 @@
+.register-page {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    padding: 3rem 0;
+}
+
+.register-card {
+    border: 2px solid var(--mint-light);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    background-color: var(--lemon-lighter);
+    overflow: hidden;
+}
+
+.register-card .card-body {
+    padding: 2.5rem;
+}
+
+.register-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.register-icon {
+    color: var(--chocolate);
+    margin-bottom: 1rem;
+}
+
+.register-title {
+    color: var(--chocolate-dark);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.register-subtitle {
+    color: var(--chocolate-light);
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.register-page .form-label {
+    color: var(--chocolate-dark);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.register-page .form-control {
+    border: 2px solid var(--mint-light);
+    border-radius: 8px;
+    padding: 0.75rem;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.register-page .form-control:focus {
+    border-color: var(--strawberry-emphasis);
+    box-shadow: 0 0 0 0.2rem rgba(226, 84, 110, 0.25);
+    background-color: white;
+}
+
+.register-submit-btn {
+    background-color: var(--strawberry-emphasis) !important;
+    border: none !important;
+    padding: 0.875rem !important;
+    font-weight: 600 !important;
+    margin-top: 0.5rem !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+}
+
+.register-submit-btn:hover:not(:disabled) {
+    background-color: var(--strawberry-darker) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.register-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.login-link-container {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--mint-light);
+}
+
+.login-link {
+    color: var(--strawberry-emphasis);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.login-link:hover {
+    color: var(--strawberry-darker);
+    text-decoration: underline;
+}
+
+.register-page .alert {
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+
+/* Alert de éxito */
+
+.register-page .alert-success {
+    background-color: var(--mint-lighter);
+    border-color: var(--mint-dark);
+    color: var(--chocolate-dark);
+    padding: 2rem;
+}
+
+.register-page .alert-success svg {
+    color: var(--mint-darker);
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    .register-page {
+        padding: 2rem 0;
+    }
+    .register-card .card-body {
+        padding: 1.5rem;
+    }
+    .register-icon {
+        font-size: 60px;
+    }
+}

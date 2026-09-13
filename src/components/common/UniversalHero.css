@@ -1,0 +1,117 @@
+.universal-hero-section {
+    position: relative;
+    width: 100%;
+    max-width: 100vw;
+    height: 75vh;
+    overflow: hidden;
+    margin-top: 0;
+    padding-top: 0;
+    box-sizing: border-box;
+}
+
+.universal-hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    background-color: var(--chocolate-dark, #5B4A32);
+}
+
+.universal-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+}
+
+.universal-hero-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.universal-hero-title {
+    font-size: 5rem;
+    font-weight: bold;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    color: var(--vanilla-lighter, #F8F6F2);
+    margin-bottom: 1rem;
+    font-family: var(--font-head, "Pacifico", cursive);
+}
+
+.universal-hero-subtitle {
+    font-size: 2rem;
+    font-weight: 300;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    color: var(--vanilla-lighter, #F8F6F2);
+    margin-bottom: 2rem;
+    font-family: var(--font-ui, "Lato", sans-serif);
+}
+
+.universal-hero-cta {
+    font-size: 1.1rem;
+    padding: 0.875rem 2rem;
+    border: 2px solid var(--strawberry-light, #fcc1cb);
+    color: var(--strawberry-emphasis, #8B1538);
+    background: var(--lemon-light, #fffacd);
+    backdrop-filter: blur(15px);
+    transition: all 0.3s ease;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.universal-hero-cta:hover {
+    background: var(--strawberry-light, #fcc1cb);
+    color: var(--chocolate-emphasis, #2D2518);
+    border-color: var(--strawberry-light, #fcc1cb);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(255, 255, 255, 0.6);
+    text-shadow: none;
+    text-decoration: none;
+}
+
+.universal-hero-cta:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 159, 183, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .universal-hero-title {
+        font-size: 3.5rem;
+    }
+    
+    .universal-hero-subtitle {
+        font-size: 1.5rem;
+    }
+    
+    .universal-hero-section {
+        height: 60vh;
+    }
+}
+
+@media (max-width: 576px) {
+    .universal-hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .universal-hero-subtitle {
+        font-size: 1.25rem;
+    }
+    
+    .universal-hero-content {
+        padding: 1rem;
+    }
+}

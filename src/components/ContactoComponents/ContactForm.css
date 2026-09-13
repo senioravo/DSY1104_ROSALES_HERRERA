@@ -1,0 +1,118 @@
+/* Estilos para la sección de autenticación en ContactForm */
+
+.auth-section {
+    margin-bottom: 1.5rem;
+}
+
+/* Modal overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    backdrop-filter: blur(5px);
+}
+
+/* Modal content */
+.modal-content {
+    background: white;
+    border-radius: 10px;
+    padding: 0;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+/* Modal header */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+    background: var(--chocolate, #8B4513);
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-header h5 {
+    margin: 0;
+    font-weight: 500;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.btn-close:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-close::before {
+    content: '×';
+    font-size: 24px;
+    line-height: 1;
+}
+
+/* Animación del modal */
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Estilos responsive */
+@media (max-width: 576px) {
+    .modal-content {
+        width: 95%;
+        margin: 1rem;
+    }
+    
+    .auth-section .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .auth-section .d-flex {
+        flex-direction: column;
+    }
+}
+
+/* Deshabilitar campos cuando no está autenticado */
+.contact-form.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.contact-form.disabled input,
+.contact-form.disabled textarea,
+.contact-form.disabled select {
+    background-color: #f8f9fa;
+    cursor: not-allowed;
+}

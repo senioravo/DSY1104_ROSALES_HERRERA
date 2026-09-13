@@ -1,0 +1,89 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #EFE8D8;
+    /* Color lemon de la paleta Mil Sabores */
+}
+
+#root {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #EFE8D8;
+    /* Asegurar fondo consistente */
+}
+
+:root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    /* Modo claro fijo */
+    color-scheme: light;
+    color: #725C3F;
+    /* Color chocolate para texto */
+    background-color: #EFE8D8;
+    /* Color lemon */
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    font-weight: 500;
+    color: #cf8a8f;
+    /* Color strawberry-dark */
+    text-decoration: inherit;
+}
+
+a:hover {
+    color: #e2546e;
+    /* Color strawberry-emphasis */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    background-color: #EFE8D8;
+}
+
+h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+    color: #725C3F;
+    /* Color chocolate */
+}
+
+button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #E5ADA8;
+    /* Color strawberry */
+    color: white;
+    cursor: pointer;
+    transition: border-color 0.25s, background-color 0.25s;
+}
+
+button:hover {
+    background-color: #e2546e;
+    /* Color strawberry-emphasis */
+    border-color: #cf8a8f;
+}
+
+button:focus,
+button:focus-visible {
+    outline: 2px solid #e2546e;
+    outline-offset: 2px;
+}

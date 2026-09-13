@@ -1,0 +1,36 @@
+.test-productos-page {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    padding-bottom: 50px;
+}
+
+.test-productos-page h1 {
+    color: #333;
+    font-weight: bold;
+}
+
+.test-productos-page .card {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: none;
+}
+
+.test-productos-page .card-header {
+    font-weight: 600;
+}
+
+.test-productos-page pre {
+    max-height: 400px;
+    overflow-y: auto;
+    font-size: 0.85rem;
+}
+
+.test-productos-page .table {
+    font-size: 0.9rem;
+}
+
+.test-productos-page .table code {
+    background-color: #e9ecef;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85rem;
+}
