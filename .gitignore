@@ -7,16 +7,16 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+node_modules/
+dist/
+dist-ssr/
 *.local
 .env
 .env.*
 !.env.example
-coverage
-.vite
-.vercel
+coverage/
+.vite/
+.vercel/
 
 # Editor directories and files
 .vscode/*
