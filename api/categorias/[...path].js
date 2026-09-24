@@ -7,13 +7,13 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-  // Manejar preflight
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
-  const fullPath = req.url.replace(/^\/api\/carritos/, '');
-  const targetUrl = `${BACKEND_URL}/api/carritos${fullPath}`;
+  // Capturar todo después de /api/categorias/
+  const fullPath = req.url.replace(/^\/api\/productos/, '');
+  const targetUrl = `${BACKEND_URL}/api/categorias${fullPath}`;
   
   try {
     const headers = {
@@ -33,7 +33,7 @@ export default async function handler(req, res) {
       options.body = JSON.stringify(req.body);
     }
 
-    console.log('Carrito proxy:', req.method, targetUrl);
+    console.log('Categoria proxy:', req.method, targetUrl);
 
     const response = await fetch(targetUrl, options);
     
@@ -46,15 +46,10 @@ export default async function handler(req, res) {
       return res.status(204).end();
     } else {
       const text = await response.text();
-      // Si es un número simple (como el total o cantidad), parsearlo
-      if (!isNaN(text) && text.trim() !== '') {
-        return res.status(response.status).json(parseInt(text));
-      }
       return res.status(response.status).json({ message: text });
     }
-    return res.status(response.status).json(data);
   } catch (error) {
-    console.error('Proxy error:', error);
+    console.error('Categoria proxy error:', error);
     return res.status(500).json({ error: 'Proxy error', message: error.message });
   }
 }

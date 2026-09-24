@@ -2,6 +2,7 @@
 // Servicio para manejar las órdenes de compra con API REST
 
 import API_CONFIG from '../config/api.config';
+import { authService } from './authService';
 
 const API_URL = API_CONFIG.VENTAS_SERVICE; // Usa la configuración de entorno (Vercel o local)
 const ORDERS_KEY = 'mil_sabores_orders';
@@ -10,17 +11,7 @@ const ORDERS_KEY = 'mil_sabores_orders';
  * Obtiene el ID del usuario actual desde la sesión
  */
 const getCurrentUserId = () => {
-    try {
-        const session = localStorage.getItem('mil_sabores_session');
-        if (session) {
-            const user = JSON.parse(session);
-            return user.id;
-        }
-        return null;
-    } catch (error) {
-        console.error('Error al obtener usuario:', error);
-        return null;
-    }
+    return authService.getCurrentUser()?.id ?? null;
 };
 
 export const orderService = {
@@ -67,7 +58,7 @@ export const orderService = {
             const ventaResponse = await fetch(`${API_URL}/ventas`, {
                 method: 'POST',
                 headers: {
-                    ...API_CONFIG.HEADERS,
+                    ...authService.getAuthHeaders(),
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify(ventaData)
@@ -104,7 +95,7 @@ export const orderService = {
             
             const response = await fetch(`${API_URL}/ventas/${ventaId}/pagar`, {
                 method: 'POST',
-                headers: API_CONFIG.HEADERS
+                headers: authService.getAuthHeaders()
             });
             
             if (!response.ok) {
@@ -208,7 +199,7 @@ export const orderService = {
             }
 
             const response = await fetch(`${API_URL}/ventas/usuario/${usuarioId}`, {
-                headers: API_CONFIG.HEADERS
+                headers: authService.getAuthHeaders()
             });
 
             if (!response.ok) {
@@ -228,7 +219,7 @@ export const orderService = {
     getOrderById: async (orderId) => {
         try {
             const response = await fetch(`${API_URL}/ventas/${orderId}`, {
-                headers: API_CONFIG.HEADERS
+                headers: authService.getAuthHeaders()
             });
 
             if (!response.ok) {
@@ -250,7 +241,7 @@ export const orderService = {
         try {
             const response = await fetch(`${API_URL}/ventas/${orderId}/estado?estado=${status}`, {
                 method: 'PATCH',
-                headers: API_CONFIG.HEADERS
+                headers: authService.getAuthHeaders()
             });
 
             if (!response.ok) {

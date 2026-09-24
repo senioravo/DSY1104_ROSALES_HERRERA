@@ -1,3 +1,6 @@
+// API Gateway en Render (sobrescribible con la variable BACKEND_URL en Vercel)
+const BACKEND_URL = process.env.BACKEND_URL || 'https://milsabores-api-gateway.onrender.com';
+
 export default async function handler(req, res) {
   // Habilitar CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -10,7 +13,7 @@ export default async function handler(req, res) {
   }
 
   const fullPath = req.url.replace(/^\/api\/usuarios/, '');
-  const targetUrl = `http://100.30.4.167:8081/api/usuarios${fullPath}`;
+  const targetUrl = `${BACKEND_URL}/api/usuarios${fullPath}`;
   
   try {
     const headers = {

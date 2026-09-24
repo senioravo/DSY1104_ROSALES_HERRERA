@@ -1,3 +1,6 @@
+// API Gateway en Render (sobrescribible con la variable BACKEND_URL en Vercel)
+const BACKEND_URL = process.env.BACKEND_URL || 'https://milsabores-api-gateway.onrender.com';
+
 export default async function handler(req, res) {
   // Habilitar CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -17,8 +20,8 @@ export default async function handler(req, res) {
     return res.redirect(307, 'https://dsy-1104-rosales-herrera.vercel.app/checkout/error');
   }
 
-  // URL del backend en EC2
-  const targetUrl = `http://100.30.4.167:8084/api/ventas/transbank/return?token_ws=${token_ws}`;
+  // Backend: API Gateway en Render
+  const targetUrl = `${BACKEND_URL}/api/ventas/transbank/return?token_ws=${token_ws}`;
   
   try {
     console.log('Transbank return proxy - Token:', token_ws);
@@ -29,7 +32,9 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      // Sin seguir la redirección: se necesita leer el Location del backend
+      redirect: 'manual'
     });
     
     console.log('Backend response status:', response.status);

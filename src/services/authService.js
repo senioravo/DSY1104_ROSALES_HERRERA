@@ -9,6 +9,26 @@ const SESSION_KEY = 'mil_sabores_session';
 const API_URL = API_CONFIG.USUARIO_SERVICE;
 
 /**
+ * Guarda el usuario junto con su JWT; el API Gateway exige el token
+ * en todas las rutas que no son login, registro, productos o categorías.
+ */
+const saveSession = (data) => {
+    localStorage.setItem(SESSION_KEY, JSON.stringify({ ...data.user, token: data.token }));
+};
+
+/**
+ * Indica si el JWT ya venció, leyendo el claim "exp" del payload
+ */
+const isTokenExpired = (token) => {
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+        return !payload.exp || payload.exp * 1000 <= Date.now();
+    } catch {
+        return true;
+    }
+};
+
+/**
  * Registra un nuevo usuario
  * @param {string} email - Email del usuario
  * @param {string} password - Contraseña del usuario
@@ -40,7 +60,7 @@ const register = async (email, password, nombre) => {
 
         // Guardar sesión en localStorage si el registro fue exitoso
         if (data.success && data.user) {
-            localStorage.setItem(SESSION_KEY, JSON.stringify(data.user));
+            saveSession(data);
             // Disparar evento de actualización de sesión
             window.dispatchEvent(new Event('sessionUpdated'));
         }
@@ -81,7 +101,7 @@ const login = async (email, password) => {
 
         // Guardar sesión en localStorage
         if (data.success && data.user) {
-            localStorage.setItem(SESSION_KEY, JSON.stringify(data.user));
+            saveSession(data);
             // Disparar evento de actualización de sesión
             window.dispatchEvent(new Event('sessionUpdated'));
         }
@@ -114,7 +134,14 @@ const logout = () => {
 const getSession = () => {
     try {
         const session = localStorage.getItem(SESSION_KEY);
-        return session ? JSON.parse(session) : null;
+        if (!session) return null;
+        const user = JSON.parse(session);
+        // Sesiones antiguas (sin token) o con el token vencido obligan a iniciar sesión de nuevo
+        if (!user.token || isTokenExpired(user.token)) {
+            localStorage.removeItem(SESSION_KEY);
+            return null;
+        }
+        return user;
     } catch (error) {
         console.error('Error al obtener sesión:', error);
         return null;
@@ -137,11 +164,30 @@ const getCurrentUser = () => {
     return getSession();
 };
 
+/**
+ * Obtiene el JWT de la sesión actual
+ * @returns {string|null}
+ */
+const getToken = () => {
+    return getSession()?.token || null;
+};
+
+/**
+ * Headers JSON con el Bearer token si hay sesión activa
+ * @returns {Object}
+ */
+const getAuthHeaders = () => {
+    const token = getToken();
+    return token ? API_CONFIG.getAuthHeaders(token) : API_CONFIG.HEADERS;
+};
+
 export const authService = {
     register,
     login,
     logout,
     getSession,
     isAuthenticated,
-    getCurrentUser
+    getCurrentUser,
+    getToken,
+    getAuthHeaders
 };

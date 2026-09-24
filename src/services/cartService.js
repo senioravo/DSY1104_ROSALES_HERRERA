@@ -2,6 +2,7 @@
 // Servicio para manejar el carrito de compras con API REST
 
 import API_CONFIG from '../config/api.config';
+import { authService } from './authService';
 
 const API_URL = API_CONFIG.CARRITO_SERVICE;
 
@@ -9,17 +10,7 @@ const API_URL = API_CONFIG.CARRITO_SERVICE;
  * Obtiene el ID del usuario actual desde la sesión
  */
 const getCurrentUserId = () => {
-    try {
-        const session = localStorage.getItem('mil_sabores_session');
-        if (session) {
-            const user = JSON.parse(session);
-            return user.id;
-        }
-        return null;
-    } catch (error) {
-        console.error('Error al obtener usuario:', error);
-        return null;
-    }
+    return authService.getCurrentUser()?.id ?? null;
 };
 
 export const cartService = {
@@ -33,7 +24,7 @@ export const cartService = {
             }
 
             const response = await fetch(`${API_URL}/carritos/usuario/${usuarioId}`, {
-                headers: API_CONFIG.HEADERS
+                headers: authService.getAuthHeaders()
             });
 
             if (!response.ok) {
@@ -58,7 +49,7 @@ export const cartService = {
 
             const response = await fetch(`${API_URL}/carritos/agregar`, {
                 method: 'POST',
-                headers: API_CONFIG.HEADERS,
+                headers: authService.getAuthHeaders(),
                 body: JSON.stringify({
                     usuarioId,
                     productoCode: product.code,
@@ -90,7 +81,7 @@ export const cartService = {
         try {
             const response = await fetch(`${API_URL}/carritos/item/${itemId}?cantidad=${quantity}`, {
                 method: 'PUT',
-                headers: API_CONFIG.HEADERS
+                headers: authService.getAuthHeaders()
             });
 
             if (!response.ok) {
@@ -117,7 +108,7 @@ export const cartService = {
         try {
             const response = await fetch(`${API_URL}/carritos/item/${itemId}`, {
                 method: 'DELETE',
-                headers: API_CONFIG.HEADERS
+                headers: authService.getAuthHeaders()
             });
 
             if (!response.ok) {
@@ -142,7 +133,7 @@ export const cartService = {
 
             const response = await fetch(`${API_URL}/carritos/usuario/${usuarioId}`, {
                 method: 'DELETE',
-                headers: API_CONFIG.HEADERS
+                headers: authService.getAuthHeaders()
             });
 
             if (!response.ok) {
@@ -166,7 +157,7 @@ export const cartService = {
             }
 
             const response = await fetch(`${API_URL}/carritos/usuario/${usuarioId}/total`, {
-                headers: API_CONFIG.HEADERS
+                headers: authService.getAuthHeaders()
             });
 
             if (!response.ok) {
@@ -190,7 +181,7 @@ export const cartService = {
             }
 
             const response = await fetch(`${API_URL}/carritos/usuario/${usuarioId}/cantidad`, {
-                headers: API_CONFIG.HEADERS
+                headers: authService.getAuthHeaders()
             });
 
             if (!response.ok) {
