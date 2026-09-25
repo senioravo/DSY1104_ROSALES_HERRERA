@@ -191,28 +191,40 @@
     padding: 0 !important;
     overflow: hidden !important;
     z-index: 1030 !important;
-    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease !important;
+    /* Capa propia en GPU: mostrar/ocultar solo anima transform (compuesto, sin layout ni repaint) */
+    will-change: transform;
+    contain: layout paint;
+    transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s !important;
 }
 
 #navBarRoot.navbar-visible,
 #navBarRoot.navbar.navbar-visible {
-    transform: translateY(0) !important;
-    opacity: 1 !important;
+    transform: translate3d(0, 0, 0) !important;
     visibility: visible !important;
 }
 
 #navBarRoot.navbar-hidden,
 #navBarRoot.navbar.navbar-hidden {
-    transform: translateY(-120%) !important;
-    opacity: 0 !important;
+    /* Sube su propia altura + top + sombra: queda fuera de pantalla sin animar opacity
+       (animar opacity sobre backdrop-filter obliga a recalcular el blur en cada frame) */
+    transform: translate3d(0, calc(-100% - 40px), 0) !important;
     pointer-events: none !important;
-    /* Removido visibility: hidden para permitir que la animación se vea */
+    /* visibility se aplica al terminar la animación: saca el navbar del foco con Tab */
+    visibility: hidden !important;
+    transition: transform 0.18s cubic-bezier(0.4, 0, 1, 1), visibility 0s linear 0.18s !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #navBarRoot,
+    #navBarRoot.navbar-hidden {
+        transition: none !important;
+    }
 }
 
 #navBarRoot.navbar {
     background-color: var(--glass-bg) !important;
-    backdrop-filter: blur(18px) saturate(170%) !important;
-    -webkit-backdrop-filter: blur(18px) saturate(170%) !important;
+    backdrop-filter: blur(14px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
     border: 1px solid var(--glass-border) !important;
     border-radius: 18px !important;
     /* Brillo superior sutil + sombra cálida */
@@ -345,6 +357,11 @@
     #navBarRoot .navbar-collapse {
         grid-column: 1 / -1;
         justify-self: stretch !important;
+    }
+
+    /* Bootstrap anima height (0.35s); bajo backdrop-filter cada frame re-desenfoca, así que se acorta */
+    #navBarRoot .navbar-collapse.collapsing {
+        transition: height 0.2s ease-out !important;
     }
 
     #navBarRoot .navbar-nav {
