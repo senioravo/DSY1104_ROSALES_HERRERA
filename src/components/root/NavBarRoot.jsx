@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -129,12 +129,12 @@ export default function NavBarRoot() {
                     {/* Columna Centro - Navegación */}
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mx-auto">
-                            <Link to="/" className="custom-nav-link">Home</Link>
-                            <Link to="/nosotros" className="custom-nav-link">Nosotros</Link>
-                            <Link to="/productos" className="custom-nav-link">Productos</Link>
-                            <Link to="/personaliza-tu-torta" className="custom-nav-link">Personaliza tu torta</Link>
-                            <Link to="/blog" className="custom-nav-link">Blog</Link>
-                            <Link to="/contacto" className="custom-nav-link">Contacto</Link>
+                            <NavLink to="/" end className="custom-nav-link">Home</NavLink>
+                            <NavLink to="/nosotros" className="custom-nav-link">Nosotros</NavLink>
+                            <NavLink to="/productos" className="custom-nav-link">Productos</NavLink>
+                            <NavLink to="/personaliza-tu-torta" className="custom-nav-link">Personaliza tu torta</NavLink>
+                            <NavLink to="/blog" className="custom-nav-link">Blog</NavLink>
+                            <NavLink to="/contacto" className="custom-nav-link">Contacto</NavLink>
                         </Nav>
                     </Navbar.Collapse>
                     
