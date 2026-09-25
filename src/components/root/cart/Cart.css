@@ -1,10 +1,8 @@
 #cart-button {
     margin-top: 5px !important;
     position: fixed !important;
-    /* Posición dinámica que se ajusta con el navbar. Se desplaza con translate
-       (compuesto en GPU) en vez de animar top, que recalcula layout en cada frame */
-    top: 90px !important;
-    translate: 0 calc(var(--cart-button-top, 90px) - 90px);
+    /* Posición dinámica que se ajusta con el navbar */
+    top: var(--cart-button-top, 90px) !important;
     right: 28px !important;
     background-color: var(--strawberry-emphasis) !important;
     color: white !important;
@@ -13,7 +11,7 @@
     border-radius: 50px !important;
     font-weight: 600 !important;
     cursor: pointer !important;
-    transition: translate 0.3s ease, background-color 0.3s ease, transform 0.3s ease !important;
+    transition: top 0.3s ease, background-color 0.3s ease, transform 0.3s ease !important;
     z-index: 9999 !important;
     /* Z-index muy alto para estar por encima de todo */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;

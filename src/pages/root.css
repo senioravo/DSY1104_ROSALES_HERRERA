@@ -169,18 +169,7 @@
     }
 }
 
-/* === NAVBAR FROSTED GLASS === */
-
 #navBarRoot {
-    /* Tokens del vidrio, derivados de la paleta Mil Sabores */
-    --glass-bg: rgba(250, 247, 240, 0.62);             /* lemon-lighter translúcido */
-    --glass-bg-fallback: rgba(250, 247, 240, 0.96);
-    --glass-border: rgba(255, 255, 255, 0.55);
-    --glass-shadow: 0 8px 32px rgba(68, 56, 37, 0.18), 0 1px 3px rgba(68, 56, 37, 0.12);
-    --glass-link: var(--chocolate-darker);
-    --glass-link-hover-bg: rgba(229, 173, 168, 0.28);  /* strawberry suave */
-    --glass-link-active-bg: rgba(226, 84, 110, 0.14);  /* strawberry-emphasis suave */
-
     position: fixed !important;
     top: 20px !important;
     left: 10px !important;
@@ -189,11 +178,11 @@
     max-width: calc(100% - 35px) !important;
     margin: 0 !important;
     padding: 0 !important;
+    border-radius: 10px !important;
     overflow: hidden !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
     z-index: 1030 !important;
-    /* Capa propia en GPU: la animación no repinta el resto de la página */
-    will-change: transform, opacity;
-    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease !important;
+    transition: transform 0.3s ease, opacity 0.3s ease !important;
 }
 
 #navBarRoot.navbar-visible,
@@ -212,23 +201,15 @@
 }
 
 #navBarRoot.navbar {
-    background-color: var(--glass-bg) !important;
-    backdrop-filter: blur(18px) saturate(170%) !important;
-    -webkit-backdrop-filter: blur(18px) saturate(170%) !important;
-    border: 1px solid var(--glass-border) !important;
-    border-radius: 18px !important;
-    /* Brillo superior sutil + sombra cálida */
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), var(--glass-shadow) !important;
+    background-color: var(--lemon-lighter) !important;
     width: 100% !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
-}
-
-/* Navegadores sin backdrop-filter: fondo casi opaco para mantener legibilidad */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    #navBarRoot.navbar {
-        background-color: var(--glass-bg-fallback) !important;
-    }
+    border-radius: 15px !important;
+    /* Mejora la legibilidad cuando el contenido pasa por debajo */
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    /* Mint con transparencia */
 }
 
 #navBarRoot .container {
@@ -239,6 +220,7 @@
     grid-template-columns: 1fr auto 1fr !important;
     align-items: center !important;
     gap: 0.5rem !important;
+    border-radius: 10px !important;
 }
 
 
@@ -253,111 +235,125 @@
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    gap: 0.15rem;
     margin: 0 !important;
 }
 
 
-/* Toggler en móvil */
+/* Espacio para el toggler en móvil */
 
 #navBarRoot .navbar-toggler {
     justify-self: end !important;
-    border: 1px solid rgba(114, 92, 63, 0.35) !important;
-    border-radius: 10px !important;
-    background-color: rgba(255, 255, 255, 0.35) !important;
-    padding: 0.3rem 0.55rem !important;
-}
-
-#navBarRoot .navbar-toggler:focus {
-    box-shadow: 0 0 0 3px rgba(226, 84, 110, 0.3) !important;
+    border-color: var(--caramel) !important;
 }
 
 #navBarRoot .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2891, 74, 50, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28208, 167, 123, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
-
-/* Marca */
-
 #navBarRoot .navbar-brand {
-    padding: 0.2rem 12px !important;
+    padding-left: 10px !important;
     color: var(--strawberry-emphasis) !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.01em;
+    font-weight: bold !important;
     justify-self: start !important;
-    border-radius: 12px !important;
-    transition: background-color 0.3s ease, color 0.3s ease !important;
 }
 
 #navBarRoot .navbar-brand:hover {
+    color: var(--lemon-lighter) !important;
+    text-shadow: 0px 0px 6px var(--strawberry-emphasis) !important;
+    background-color: rgb(232, 86, 113) !important;
+    border-radius: 12px !important;
+    padding-inline: 12px !important;
+    /* transiciones */
+    transition: all 0.5s ease !important;
+}
+
+#navBarRoot .nav-link {
+    color: var(--vanilla) !important;
+    /* Color vanilla para los enlaces */
+    transition: color 0.3s ease;
+}
+
+#navBarRoot .nav-link:hover {
     color: var(--strawberry-emphasis) !important;
-    background-color: var(--glass-link-hover-bg) !important;
+    background-color: var(--mint) !important;
+    /* Fondo mint con texto strawberry énfasis */
 }
 
 
-/* Enlaces de navegación: pastillas translúcidas */
+/* Estilos para Link personalizados en el navbar */
+
+#navBarRoot .navbar-nav>a {
+    background-color: var(--mint-light) !important;
+    color: var(--chocolate-emphasis) !important;
+    text-decoration: none !important;
+    padding: 0.5rem 1rem !important;
+    margin-right: 0.5rem !important;
+    /*border-radius: 0.375rem !important;
+    border: 2px solid var(--mint-light) !important;*/
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+}
+
+#navBarRoot .navbar-nav>a:hover {
+    color: var(--lemon-lighter) !important;
+    /*border: 2px solid var(--strawberry-light) !important;*/
+    background-color: var(--strawberry-emphasis) !important;
+}
+
+#navBarRoot .navbar-nav>a:focus {
+    color: var(--strawberry-emphasis) !important;
+    background-color: var(--mint-light) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px var(--mint-dark) !important;
+}
+
+#navBarRoot .navbar-nav>a.active {
+    color: var(--strawberry-emphasis) !important;
+    background-color: var(--mint-dark) !important;
+}
+
+
+/* Estilos específicos para la clase custom-nav-link */
 
 #navBarRoot .custom-nav-link {
-    color: var(--glass-link) !important;
-    background-color: transparent !important;
+    color: var(--mint) !important;
     text-decoration: none !important;
-    padding: 0.4rem 0.8rem !important;
-    margin: 0 !important;
-    border-radius: 999px !important;
-    border: 1px solid transparent !important;
-    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease !important;
+    padding: 0.4rem 0.6rem !important;
+    margin: 0 0.1rem !important;
+    border-radius: 0.25rem !important;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
+    /*border: 0px solid var(--mint-darker) !important;*/
+    transition: all 0.3s ease !important;
     display: inline-block !important;
-    font-weight: 500 !important;
+    font-weight: 400 !important;
     line-height: 1.3 !important;
-    font-size: 0.875rem !important;
+    font-size: 0.85rem !important;
     vertical-align: middle !important;
     white-space: nowrap !important;
 }
 
 #navBarRoot .custom-nav-link:hover {
     color: var(--strawberry-emphasis) !important;
-    background-color: var(--glass-link-hover-bg) !important;
-    border-color: rgba(255, 255, 255, 0.6) !important;
+    background-color: var(--mint) !important;
+    /*border: 2px solid var(--mint-light) !important; */
+    box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.7) !important;
+    text-decoration: none !important;
 }
 
 #navBarRoot .custom-nav-link:focus {
-    outline: none !important;
-}
-
-#navBarRoot .custom-nav-link:focus-visible {
-    box-shadow: 0 0 0 3px rgba(226, 84, 110, 0.35) !important;
-}
-
-/* Página actual (NavLink agrega .active) */
-#navBarRoot .custom-nav-link.active {
     color: var(--strawberry-emphasis) !important;
-    background-color: var(--glass-link-active-bg) !important;
-    border-color: rgba(226, 84, 110, 0.25) !important;
-    font-weight: 600 !important;
+    background-color: var(--mint-light) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px var(--mint-dark) !important;
+    text-decoration: none !important;
 }
 
 #navBarRoot .custom-nav-link:active {
-    background-color: rgba(229, 173, 168, 0.4) !important;
-}
-
-
-/* Menú colapsado en móvil */
-
-@media (max-width: 991.98px) {
-    #navBarRoot .navbar-collapse {
-        grid-column: 1 / -1;
-        justify-self: stretch !important;
-    }
-
-    #navBarRoot .navbar-nav {
-        align-items: stretch !important;
-        padding: 0.5rem 0 0.25rem;
-    }
-
-    #navBarRoot .custom-nav-link {
-        text-align: center;
-        padding: 0.6rem 1rem !important;
-    }
+    color: var(--strawberry-emphasis) !important;
+    background-color: var(--mint-dark) !important;
+    box-shadow: 0 0 0 2px var(--strawberry-darker) !important;
 }
 
 .main-content {
@@ -431,47 +427,38 @@
 }
 
 
-/* Botón de usuario (vidrio) */
+/* Botón de usuario */
 
 .user-btn {
     justify-self: end !important;
     /* Alinea el botón al final de la tercera columna */
     margin-right: 10px !important;
-    border: 1.5px solid rgba(114, 92, 63, 0.45) !important;
-    background-color: rgba(255, 255, 255, 0.4) !important;
-    color: var(--chocolate-dark) !important;
-    border-radius: 14px !important;
-    width: 44px !important;
-    height: 44px !important;
+    border: 2px solid var(--chocolate) !important;
+    background-color: transparent !important;
+    color: var(--chocolate) !important;
+    border-radius: 33% !important;
+    width: 45px !important;
+    height: 45px !important;
     padding: 0 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
-    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease !important;
+    transition: all 0.3s ease !important;
 }
 
 .user-btn:hover {
     background-color: var(--strawberry-emphasis) !important;
-    border-color: var(--strawberry-emphasis) !important;
     color: var(--lemon-lighter) !important;
-    box-shadow: 0 4px 12px rgba(226, 84, 110, 0.35) !important;
-    transform: translateY(-1px) !important;
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.3) !important;
+    transform: scale(1.05) !important;
 }
 
-.user-btn:active {
-    background-color: var(--strawberry-darker) !important;
-    border-color: var(--strawberry-darker) !important;
-    color: var(--lemon-lighter) !important;
-    transform: translateY(0) !important;
-}
-
+.user-btn:active,
 .user-btn:focus {
-    outline: none !important;
-}
-
-.user-btn:focus-visible {
-    box-shadow: 0 0 0 3px rgba(226, 84, 110, 0.35) !important;
+    background-color: var(--chocolate-dark) !important;
+    color: var(--lemon-lighter) !important;
+    border-color: var(--chocolate-emphasis) !important;
+    box-shadow: 0 0 0 3px var(--chocolate-light) !important;
 }
 
 .hero-content {
