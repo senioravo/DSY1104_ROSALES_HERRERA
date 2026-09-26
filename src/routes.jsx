@@ -28,6 +28,23 @@ import {
 
 // Importar componente de error
 import ErrorBoundary from "./components/common/ErrorBoundary";
+import { withMsalGuard } from "./components/auth/withMsalGuard";
+import { CLIENTE_ACCESS, ADMIN_ACCESS, SUPERVISOR_ACCESS } from "./config/appRoles";
+import AdminPanel from './pages/admin/index';
+import SupervisorPanel from './pages/supervisor/index';
+
+const ProtectedCheckout = withMsalGuard(Checkout, { roles: CLIENTE_ACCESS });
+const ProtectedCheckoutResult = withMsalGuard(CheckoutResult, { roles: CLIENTE_ACCESS });
+const ProtectedPersonaliza = withMsalGuard(PersonalizaTuTorta, { roles: CLIENTE_ACCESS });
+const ProtectedMensajes = withMsalGuard(MensajesContacto);
+
+const ProtectedAdminPanel = withMsalGuard(AdminPanel, { roles: ADMIN_ACCESS });
+const ProtectedSupervisorPanel = withMsalGuard(SupervisorPanel, { roles: SUPERVISOR_ACCESS });
+const ProtectedTestIndex = withMsalGuard(TestIndex, { roles: ADMIN_ACCESS });
+const ProtectedTestProductos = withMsalGuard(TestProductos, { roles: ADMIN_ACCESS });
+const ProtectedTestUsuarios = withMsalGuard(TestUsuarios, { roles: ADMIN_ACCESS });
+const ProtectedTestCarrito = withMsalGuard(TestCarrito, { roles: ADMIN_ACCESS });
+const ProtectedTestVentas = withMsalGuard(TestVentas, { roles: SUPERVISOR_ACCESS });
 
 export const router = createBrowserRouter([
     {
@@ -53,8 +70,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'personaliza-tu-torta',
-                Component: PersonalizaTuTorta
-                // Sin loader - página simple
+                Component: ProtectedPersonaliza
             },
             {
                 path: 'blog',
@@ -74,8 +90,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'mensajes-contacto',
-                Component: MensajesContacto
-                // Página para ver mensajes guardados en localStorage
+                Component: ProtectedMensajes
             },
             {
                 path: 'register',
@@ -83,31 +98,39 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'checkout',
-                Component: Checkout
+                Component: ProtectedCheckout
             },
             {
                 path: 'checkout/result',
-                Component: CheckoutResult
+                Component: ProtectedCheckoutResult
+            },
+            {
+                path: 'admin',
+                Component: ProtectedAdminPanel
+            },
+            {
+                path: 'supervisor',
+                Component: ProtectedSupervisorPanel
             },
             {
                 path: 'test-api',
-                Component: TestIndex
+                Component: ProtectedTestIndex
             },
             {
                 path: 'test-productos',
-                Component: TestProductos
+                Component: ProtectedTestProductos
             },
             {
                 path: 'test-usuarios',
-                Component: TestUsuarios
+                Component: ProtectedTestUsuarios
             },
             {
                 path: 'test-carrito',
-                Component: TestCarrito
+                Component: ProtectedTestCarrito
             },
             {
                 path: 'test-ventas',
-                Component: TestVentas
+                Component: ProtectedTestVentas
             }
         ]
     }

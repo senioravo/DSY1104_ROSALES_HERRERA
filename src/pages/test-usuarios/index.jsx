@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Form, Alert, Badge, Table } from 'react-bootstrap';
 import { authService } from '../../services/authService';
 import API_CONFIG from '../../config/api.config';
+import { msalApiFetch } from '../../services/msalApiFetch';
 import './TestUsuarios.css';
 
 const API_URL = API_CONFIG.USUARIO_SERVICE;
@@ -48,9 +49,7 @@ export default function TestUsuarios() {
         clearMessages();
         setLoading(true);
         try {
-            const response = await fetch(`${API_URL}/usuarios`, {
-                headers: API_CONFIG.HEADERS
-            });
+            const response = await msalApiFetch(`${API_URL}/usuarios`);
 
             if (!response.ok) throw new Error('Error al obtener usuarios');
 
@@ -74,9 +73,7 @@ export default function TestUsuarios() {
         clearMessages();
         setLoading(true);
         try {
-            const response = await fetch(`${API_URL}/usuarios/${userId}`, {
-                headers: API_CONFIG.HEADERS
-            });
+            const response = await msalApiFetch(`${API_URL}/usuarios/${userId}`);
 
             if (!response.ok) throw new Error('Usuario no encontrado');
 
@@ -166,10 +163,9 @@ export default function TestUsuarios() {
                 body.password = updateForm.password;
             }
 
-            const response = await fetch(`${API_URL}/usuarios/${updateForm.id}`, {
+            const response = await msalApiFetch(`${API_URL}/usuarios/${updateForm.id}`, {
                 method: 'PUT',
-                headers: API_CONFIG.HEADERS,
-                body: JSON.stringify(body)
+                body: JSON.stringify(body),
             });
 
             if (!response.ok) {
@@ -203,10 +199,9 @@ export default function TestUsuarios() {
             if (updateForm.email) body.email = updateForm.email;
             if (updateForm.password) body.password = updateForm.password;
 
-            const response = await fetch(`${API_URL}/usuarios/${updateForm.id}`, {
+            const response = await msalApiFetch(`${API_URL}/usuarios/${updateForm.id}`, {
                 method: 'PATCH',
-                headers: API_CONFIG.HEADERS,
-                body: JSON.stringify(body)
+                body: JSON.stringify(body),
             });
 
             if (!response.ok) {
@@ -231,9 +226,8 @@ export default function TestUsuarios() {
         clearMessages();
         setLoading(true);
         try {
-            const response = await fetch(`${API_URL}/usuarios/${id}`, {
+            const response = await msalApiFetch(`${API_URL}/usuarios/${id}`, {
                 method: 'DELETE',
-                headers: API_CONFIG.HEADERS
             });
 
             if (!response.ok) throw new Error('Error al eliminar usuario');

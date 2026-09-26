@@ -4,6 +4,7 @@
  */
 
 import API_CONFIG from '../config/api.config';
+import { acquireApiAccessToken } from './msalApiFetch';
 
 const SESSION_KEY = 'mil_sabores_session';
 const API_URL = API_CONFIG.USUARIO_SERVICE;
@@ -173,12 +174,24 @@ const getToken = () => {
 };
 
 /**
- * Headers JSON con el Bearer token si hay sesión activa
+ * Headers JSON con Bearer (JWT legacy en localStorage).
  * @returns {Object}
  */
 const getAuthHeaders = () => {
     const token = getToken();
     return token ? API_CONFIG.getAuthHeaders(token) : API_CONFIG.HEADERS;
+};
+
+/**
+ * Headers para API: prioriza access_token Entra (paso 7 / MsalInterceptor).
+ * @returns {Promise<Object>}
+ */
+const getAuthHeadersAsync = async () => {
+    const msalToken = await acquireApiAccessToken();
+    if (msalToken) {
+        return API_CONFIG.getAuthHeaders(msalToken);
+    }
+    return getAuthHeaders();
 };
 
 export const authService = {
@@ -189,5 +202,6 @@ export const authService = {
     isAuthenticated,
     getCurrentUser,
     getToken,
-    getAuthHeaders
+    getAuthHeaders,
+    getAuthHeadersAsync,
 };

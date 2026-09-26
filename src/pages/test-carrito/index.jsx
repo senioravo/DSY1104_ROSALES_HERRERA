@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Button, Form, Alert, Badge, Table } from 're
 import { cartService } from '../../services/cartService';
 import { authService } from '../../services/authService';
 import API_CONFIG from '../../config/api.config';
+import { msalApiFetch } from '../../services/msalApiFetch';
 import './TestCarrito.css';
 
 const API_URL = API_CONFIG.CARRITO_SERVICE;
@@ -81,9 +82,7 @@ export default function TestCarrito() {
         clearMessages();
         setLoading(true);
         try {
-            const response = await fetch(`${API_URL}/carrito/usuario/${userIdForQuery}`, {
-                headers: API_CONFIG.HEADERS
-            });
+            const response = await msalApiFetch(`${API_URL}/carrito/usuario/${userIdForQuery}`);
 
             if (!response.ok) throw new Error('Error al obtener carrito');
 

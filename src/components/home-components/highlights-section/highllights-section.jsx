@@ -35,22 +35,16 @@ export default function HighlightsSection() {
         }));
     };
 
-    const handleAddToCart = (product) => {
+    const handleAddToCart = async (product) => {
         try {
-            // Agregar producto al carrito usando el servicio
-            cartService.addToCart(product, quantities[product.code]);
-            
-            // Mensaje de confirmación opcional
-            console.log(`✅ Agregado al carrito: ${quantities[product.code]} unidad(es) de ${product.nombre}`);
-            
-            // Resetear la cantidad a 1 después de agregar
-            setQuantities(prev => ({
+            await cartService.addToCart(product, quantities[product.code]);
+            setQuantities((prev) => ({
                 ...prev,
-                [product.code]: 1
+                [product.code]: 1,
             }));
-            
         } catch (error) {
             console.error('Error al agregar producto al carrito:', error);
+            window.alert(error.message || 'No se pudo agregar al carrito.');
         }
     };
 
