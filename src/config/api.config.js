@@ -1,30 +1,44 @@
 // Configuración de las URLs de los microservicios del backend
 // Ajustar según el entorno (desarrollo, producción)
 
-// En producción (Vercel), usa rutas relativas para que Vercel haga de proxy
-// En desarrollo local, usa la IP directa de EC2
 const isProduction = import.meta.env.PROD;
-const API_BASE_URL = isProduction ? '' : 'http://100.30.4.167';
+
+/** API Gateway (EP1): un solo origen; Bearer Entra vía msalApiFetch */
+const gatewayUrl =
+    import.meta.env.VITE_API_GATEWAY_URL?.replace(/\/$/, '') ||
+    (!isProduction ? 'http://localhost:8080/api' : null);
+
+function resolveServiceUrl(envUrl, legacyPort) {
+    if (gatewayUrl) {
+        return gatewayUrl;
+    }
+    if (envUrl) {
+        return String(envUrl).replace(/\/$/, '');
+    }
+    if (isProduction) {
+        return '/api';
+    }
+    return `http://localhost:${legacyPort}/api`;
+}
 
 const API_CONFIG = {
-    // URLs base de los microservicios
-    USUARIO_SERVICE: isProduction ? '/api' : `${API_BASE_URL}:8081/api`,
-    PRODUCTO_SERVICE: isProduction ? '/api' : `${API_BASE_URL}:8082/api`,
-    CARRITO_SERVICE: isProduction ? '/api' : `${API_BASE_URL}:8083/api`,
-    VENTAS_SERVICE: isProduction ? '/api' : `${API_BASE_URL}:8084/api`,
-    
-    // Configuración de headers
+    GATEWAY_URL: gatewayUrl || null,
+
+    USUARIO_SERVICE: resolveServiceUrl(import.meta.env.VITE_USUARIO_API_URL, 8081),
+    PRODUCTO_SERVICE: resolveServiceUrl(import.meta.env.VITE_PRODUCTO_API_URL, 8082),
+    CARRITO_SERVICE: resolveServiceUrl(import.meta.env.VITE_CARRITO_API_URL, 8083),
+    VENTAS_SERVICE: resolveServiceUrl(import.meta.env.VITE_VENTAS_API_URL, 8084),
+
     HEADERS: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
     },
-    
-    // Headers con autenticación
+
     getAuthHeaders: (token) => ({
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${token}`,
-    })
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+    }),
 };
 
 export default API_CONFIG;

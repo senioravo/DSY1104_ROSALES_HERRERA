@@ -3,13 +3,16 @@ import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import CarritoLateral from './cart/Cart.jsx';
 import UserLogin from './user/UserLogin.jsx';
+import { showAdminNav, showSupervisorNav, useEntraAppRoles } from '../../hooks/useEntraAppRoles';
 
 export default function NavBarRoot() {
     const [isVisible, setIsVisible] = useState(true);
     const [isNearFooter, setIsNearFooter] = useState(false);
+    const entraRoles = useEntraAppRoles();
+    const showAdmin = showAdminNav(entraRoles);
+    const showSupervisor = showSupervisorNav(entraRoles);
 
     // Inicializar variables CSS al montar el componente
     useEffect(() => {
@@ -135,6 +138,12 @@ export default function NavBarRoot() {
                             <Link to="/personaliza-tu-torta" className="custom-nav-link">Personaliza tu torta</Link>
                             <Link to="/blog" className="custom-nav-link">Blog</Link>
                             <Link to="/contacto" className="custom-nav-link">Contacto</Link>
+                            {showSupervisor && (
+                                <Link to="/supervisor" className="custom-nav-link">Supervisor</Link>
+                            )}
+                            {showAdmin && (
+                                <Link to="/admin" className="custom-nav-link">Admin</Link>
+                            )}
                         </Nav>
                     </Navbar.Collapse>
                     

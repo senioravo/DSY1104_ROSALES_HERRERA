@@ -1,8 +1,8 @@
 ﻿import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { validarEmail, validarTelefono, validarNombre, validarAsunto, validarMensaje } from './FormValidation';
-import { authService } from '../../services/authService';
-import UserLogin from '../root/user/UserLogin';
+import MicrosoftAuthButton from '../auth/MicrosoftAuthButton';
+import { useMsalAuth } from '../../hooks/useMsalAuth';
 import './ContactForm.css';
 
 export default function ContactForm({ opcionesAsunto }) {
@@ -18,30 +18,17 @@ export default function ContactForm({ opcionesAsunto }) {
     const [errors, setErrors] = useState({});
     const [exito, setExito] = useState('');
     const [mostrarAsuntoPersonalizado, setMostrarAsuntoPersonalizado] = useState(false);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [currentUser, setCurrentUser] = useState(null);
-    const [showLogin, setShowLogin] = useState(false);
+    const { sessionReady, isAuthenticated, displayName, email } = useMsalAuth();
 
-    // Verificar autenticación al cargar el componente
     useEffect(() => {
-        const checkAuth = () => {
-            const authenticated = authService.isAuthenticated();
-            const user = authService.getCurrentUser();
-            setIsAuthenticated(authenticated);
-            setCurrentUser(user);
-            
-            // Pre-llenar el formulario con datos del usuario si está autenticado
-            if (authenticated && user) {
-                setFormData(prev => ({
-                    ...prev,
-                    nombre: user.nombre || '',
-                    email: user.email || ''
-                }));
-            }
-        };
-        
-        checkAuth();
-    }, []);
+        if (isAuthenticated) {
+            setFormData((prev) => ({
+                ...prev,
+                nombre: displayName || prev.nombre,
+                email: email || prev.email,
+            }));
+        }
+    }, [isAuthenticated, displayName, email]);
 
     // 🔄 USAR OPCIONES DINÁMICAS o fallback estático
     const opcionesAsuntoFinal = opcionesAsunto && opcionesAsunto.length > 0 
@@ -85,46 +72,12 @@ export default function ContactForm({ opcionesAsunto }) {
         }
     };
 
-    // Manejar login exitoso
-    const handleLoginSuccess = (user) => {
-        setIsAuthenticated(true);
-        setCurrentUser(user);
-        setShowLogin(false);
-        setErrors(prev => ({ ...prev, auth: '' })); // Limpiar error de auth
-        
-        // Pre-llenar formulario con datos del usuario
-        setFormData(prev => ({
-            ...prev,
-            nombre: user.nombre || '',
-            email: user.email || ''
-        }));
-    };
-
-    // Manejar logout
-    const handleLogout = () => {
-        authService.logout();
-        setIsAuthenticated(false);
-        setCurrentUser(null);
-        
-        // Limpiar formulario
-        setFormData({
-            nombre: '',
-            email: '',
-            telefono: '',
-            asunto: '',
-            asuntoPersonalizado: '',
-            mensaje: ''
-        });
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         limpiarErrores();
 
-        // Verificar autenticación PRIMERO
         if (!isAuthenticated) {
-            setShowLogin(true);
-            mostrarError('auth', 'Debes iniciar sesión para enviar un mensaje');
+            mostrarError('auth', 'Debes iniciar sesión con Microsoft (Entra ID) para enviar un mensaje');
             return;
         }
 
@@ -206,7 +159,11 @@ export default function ContactForm({ opcionesAsunto }) {
                         </div>
                         <div className="form-card">
                             {/* Sección de autenticación */}
-                            {!isAuthenticated ? (
+                            {!sessionReady ? (
+                                <div className="auth-section mb-4 text-muted small">
+                                    Comprobando sesión…
+                                </div>
+                            ) : !isAuthenticated ? (
                                 <div className="auth-section mb-4">
                                     <div className="alert alert-warning" style={{ 
                                         backgroundColor: '#fff3cd',
@@ -214,46 +171,10 @@ export default function ContactForm({ opcionesAsunto }) {
                                         color: '#856404'
                                     }}>
                                         <i className="fas fa-lock me-2"></i>
-                                        <strong>¡Debes iniciar sesión para enviar un mensaje!</strong>
-                                        <p className="mb-2 mt-2">Para garantizar la seguridad y poder responderte correctamente, necesitas una cuenta.</p>
-                                        <div className="d-flex gap-2">
-                                            <button 
-                                                type="button" 
-                                                className="btn btn-warning btn-sm"
-                                                onClick={() => setShowLogin(true)}
-                                            >
-                                                <i className="fas fa-sign-in-alt me-1"></i>
-                                                Iniciar Sesión
-                                            </button>
-                                            <Link 
-                                                to="/register" 
-                                                className="btn btn-outline-warning btn-sm"
-                                            >
-                                                <i className="fas fa-user-plus me-1"></i>
-                                                Crear Cuenta
-                                            </Link>
-                                        </div>
+                                        <strong>Iniciá sesión con Microsoft para enviar un mensaje.</strong>
+                                        <p className="mb-2 mt-2">Usá la misma cuenta Entra ID que en el resto de la tienda.</p>
+                                        <MicrosoftAuthButton className="mt-2" />
                                     </div>
-                                    
-                                    {/* Modal de login */}
-                                    {showLogin && (
-                                        <div className="modal-overlay" onClick={() => setShowLogin(false)}>
-                                            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                                                <div className="modal-header">
-                                                    <h5>Iniciar Sesión</h5>
-                                                    <button 
-                                                        type="button" 
-                                                        className="btn-close"
-                                                        onClick={() => setShowLogin(false)}
-                                                    ></button>
-                                                </div>
-                                                <UserLogin 
-                                                    onLoginSuccess={handleLoginSuccess}
-                                                    embedded={true}
-                                                />
-                                            </div>
-                                        </div>
-                                    )}
                                 </div>
                             ) : (
                                 <div className="auth-section mb-4">
@@ -263,16 +184,8 @@ export default function ContactForm({ opcionesAsunto }) {
                                         color: '#084298'
                                     }}>
                                         <i className="fas fa-check-circle me-2"></i>
-                                        <strong>¡Bienvenido, {currentUser?.nombre}!</strong>
-                                        <p className="mb-2 mt-2">Ya puedes enviar tu mensaje. Tu información de contacto se llenará automáticamente.</p>
-                                        <button 
-                                            type="button" 
-                                            className="btn btn-outline-primary btn-sm"
-                                            onClick={handleLogout}
-                                        >
-                                            <i className="fas fa-sign-out-alt me-1"></i>
-                                            Cerrar Sesión
-                                        </button>
+                                        <strong>¡Bienvenido, {displayName}!</strong>
+                                        <p className="mb-0 mt-2">Tu nombre y correo se completaron desde Microsoft.</p>
                                     </div>
                                 </div>
                             )}
@@ -316,7 +229,7 @@ export default function ContactForm({ opcionesAsunto }) {
                                                 className="form-control"
                                                 placeholder="Tu nombre completo"
                                                 disabled={!isAuthenticated}
-                                                readOnly={isAuthenticated && currentUser}
+                                                readOnly={isAuthenticated}
                                             />
                                             {errors.nombre && <div className="invalid-feedback">{errors.nombre}</div>}
                                         </div>
@@ -337,7 +250,7 @@ export default function ContactForm({ opcionesAsunto }) {
                                                 className="form-control"
                                                 placeholder="tu@email.com"
                                                 disabled={!isAuthenticated}
-                                                readOnly={isAuthenticated && currentUser}
+                                                readOnly={isAuthenticated}
                                             />
                                             {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                                         </div>

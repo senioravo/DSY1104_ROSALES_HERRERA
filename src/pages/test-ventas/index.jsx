@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Form, Alert, Badge, Table } from 'react-bootstrap';
+import { useMsal } from '@azure/msal-react';
 import { ventasService } from '../../services/ventasService';
-import { authService } from '../../services/authService';
+import { getNeonProfile } from '../../services/neonProfileService';
 import './TestVentas.css';
 
 export default function TestVentas() {
@@ -18,8 +19,11 @@ export default function TestVentas() {
     const [estadoFilter, setEstadoFilter] = useState('PENDIENTE');
     const [estadoUpdate, setEstadoUpdate] = useState({
         ventaId: '',
-        estado: 'CONFIRMADA'
+        estado: 'PROCESANDO'
     });
+
+    const { accounts, instance } = useMsal();
+    const msalAccount = instance.getActiveAccount() ?? accounts[0] ?? null;
 
     // Form para crear venta
     const [createForm, setCreateForm] = useState({
@@ -41,22 +45,31 @@ export default function TestVentas() {
         ]
     });
 
-    const estados = ['PENDIENTE', 'CONFIRMADA', 'EN_PREPARACION', 'EN_CAMINO', 'ENTREGADA', 'CANCELADA'];
+    const estados = ['PENDIENTE', 'PROCESANDO', 'COMPLETADA', 'RECHAZADA', 'CANCELADA'];
     const tiposEntrega = ['DELIVERY', 'RETIRO_TIENDA'];
     const metodosPago = ['TRANSBANK', 'EFECTIVO', 'TRANSFERENCIA'];
 
     useEffect(() => {
-        loadCurrentUser();
-    }, []);
-
-    const loadCurrentUser = () => {
-        const user = authService.getCurrentUser();
-        setCurrentUser(user);
-        if (user) {
-            setCreateForm(prev => ({ ...prev, usuarioId: user.id }));
-            setUsuarioId(user.id);
+        const neon = getNeonProfile();
+        if (neon) {
+            setCurrentUser(neon);
+        } else if (msalAccount) {
+            setCurrentUser({
+                id: null,
+                nombre: msalAccount.name ?? msalAccount.username,
+                email: msalAccount.username,
+            });
         }
-    };
+        setCreateForm((prev) => ({
+            ...prev,
+            usuarioId: prev.usuarioId || (neon?.id != null ? String(neon.id) : ''),
+            nombreCliente:
+                prev.nombreCliente || neon?.nombre || msalAccount?.name || '',
+            emailCliente:
+                prev.emailCliente || neon?.email || msalAccount?.username || '',
+        }));
+        setUsuarioId((prev) => prev || (neon?.id != null ? String(neon.id) : ''));
+    }, [msalAccount?.homeAccountId]);
 
     const clearMessages = () => {
         setMessage(null);
@@ -142,14 +155,42 @@ export default function TestVentas() {
         clearMessages();
         setLoading(true);
         try {
+            if (!createForm.usuarioId) {
+                throw new Error('Indicá un Usuario ID válido (cliente registrado en Neon).');
+            }
+
+            const detalles = createForm.items.map((item) => {
+                const cantidad = parseInt(item.cantidad, 10);
+                const precioUnitario = parseInt(item.precioUnitario, 10);
+                if (!item.productoCode?.trim() || !item.productoNombre?.trim()) {
+                    throw new Error('Cada ítem necesita código y nombre de producto.');
+                }
+                if (!cantidad || cantidad < 1 || !precioUnitario || precioUnitario < 1) {
+                    throw new Error('Cantidad y precio unitario deben ser mayores a 0.');
+                }
+                const lineSubtotal = cantidad * precioUnitario;
+                return {
+                    productoCode: item.productoCode.trim(),
+                    productoNombre: item.productoNombre.trim(),
+                    productoImagen: '',
+                    cantidad,
+                    precioUnitario,
+                    subtotal: lineSubtotal,
+                };
+            });
+
+            const subtotal = detalles.reduce((sum, d) => sum + d.subtotal, 0);
+            const iva = Math.round(subtotal * 0.19);
+            const total = subtotal + iva;
+
             const ventaData = {
-                ...createForm,
-                usuarioId: parseInt(createForm.usuarioId),
-                items: createForm.items.map(item => ({
-                    ...item,
-                    cantidad: parseInt(item.cantidad),
-                    precioUnitario: parseFloat(item.precioUnitario)
-                }))
+                usuarioId: parseInt(createForm.usuarioId, 10),
+                usuarioNombre: createForm.nombreCliente.trim(),
+                usuarioEmail: createForm.emailCliente.trim(),
+                detalles,
+                subtotal,
+                iva,
+                total,
             };
 
             const data = await ventasService.crearVenta(ventaData);
@@ -369,7 +410,7 @@ export default function TestVentas() {
                             <h5 className="mb-0">🔌 Estado de Conexión</h5>
                         </Card.Header>
                         <Card.Body>
-                            <p><strong>Puerto API:</strong> <code>8084</code></p>
+                            <p><strong>Entrada API:</strong> <code>Gateway :8080/api/ventas</code> (vía BFF)</p>
                             <p><strong>Swagger UI:</strong> <a href="http://localhost:8084/swagger-ui.html" target="_blank" rel="noopener noreferrer">
                                 http://localhost:8084/swagger-ui.html
                             </a></p>

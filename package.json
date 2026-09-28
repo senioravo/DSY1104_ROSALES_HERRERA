@@ -14,12 +14,14 @@
         "test:coverage": "karma start karma.conf.cjs --coverage"
     },
     "dependencies": {
+        "@azure/msal-browser": "^5.23.0",
+        "@azure/msal-react": "^5.7.1",
         "bootstrap": "^5.3.8",
         "bootstrap-icons": "^1.13.1",
-        "react": "^19.1.1",
+        "react": "^19.3.0",
         "react-bootstrap": "^2.10.10",
         "react-bootstrap-icons": "^1.11.6",
-        "react-dom": "^19.1.1",
+        "react-dom": "19.3.0",
         "react-router": "^7.9.3",
         "react-router-dom": "^7.9.3"
     },
