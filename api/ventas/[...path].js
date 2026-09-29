@@ -1,5 +1,5 @@
-// API Gateway en Render (sobrescribible con la variable BACKEND_URL en Vercel)
-const BACKEND_URL = process.env.BACKEND_URL || 'https://milsabores-api-gateway.onrender.com';
+// API Gateway en AWS EC2 (sobrescribible con la variable BACKEND_URL en Vercel)
+const BACKEND_URL = process.env.BACKEND_URL || 'http://184.195.13.200:8080';
 
 export default async function handler(req, res) {
   // Habilitar CORS
