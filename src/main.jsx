@@ -12,10 +12,32 @@ if (!rootEl) {
   throw new Error('No se encontró #root');
 }
 
-createRoot(rootEl).render(
-  <RootErrorBoundary>
-    <MsalProvider instance={getMsalInstance()}>
-      <RouterProvider router={router} />
-    </MsalProvider>
-  </RootErrorBoundary>,
-);
+const msalInstance = getMsalInstance();
+
+function renderApp() {
+  createRoot(rootEl).render(
+    <RootErrorBoundary>
+      <MsalProvider instance={msalInstance}>
+        <RouterProvider router={router} />
+      </MsalProvider>
+    </RootErrorBoundary>,
+  );
+}
+
+// MSAL v5 lanza uninitialized_public_client_application si se leen cuentas
+// (getActiveAccount/getAllAccounts) antes de initialize(). Con sesión iniciada
+// eso rompía toda carga completa de página (F5, retorno de Webpay).
+msalInstance
+  .initialize()
+  .then(() => {
+    if (!msalInstance.getActiveAccount()) {
+      const [account] = msalInstance.getAllAccounts();
+      if (account) {
+        msalInstance.setActiveAccount(account);
+      }
+    }
+  })
+  .catch((error) => {
+    console.error('[MSAL] initialize falló:', error);
+  })
+  .finally(renderApp);
